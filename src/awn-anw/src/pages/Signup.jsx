@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
 import mainpic from "../assets/mainpic.png";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -16,7 +16,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading,setLoading] = useState(false);
-
+    const navigate = useNavigate();
 
     const signup = async(e) =>{
         e.preventDefault();
@@ -40,7 +40,9 @@ const Signup = () => {
                 email
             })
 
-            console.log("đăng kí thành công", user); 
+            console.log("đăng kí thành công", user);
+            navigate("/Signin");
+
         } catch (error) {
             console.error('something wrong', error.message);
         }
@@ -54,7 +56,7 @@ const Signup = () => {
       <Header0 />
       <div className="grid grid-cols-1 md:grid-cols-2 w-full h-screen pt-16">
         <div className="flex flex-col justify-center px-5">
-          <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl">
+          <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl" onSubmit={signup}>
             <h2 className="text-2xl text-center font-semibold py-1">Sign up</h2>
             <div className="flex flex-col py-2 w-full">
               <label htmlFor="email">Name</label>
@@ -108,9 +110,8 @@ const Signup = () => {
             </div>
             <button 
                 className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75"
-                onClick={signup}    
+                type="submit"
             >
-
               Sign up
             </button>
             <p>

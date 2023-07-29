@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
 import mainpic from "../assets/mainpic.png";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  
   return (
     <>
       <Header0 />
@@ -35,7 +36,8 @@ const Signin = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75">
+            <button className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75"
+                    type="submit">
               Sign in
             </button>
             <p>
