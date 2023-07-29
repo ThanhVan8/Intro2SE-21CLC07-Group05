@@ -4,11 +4,11 @@ import Header0 from "../components/Header/Header0";
 import mainpic from "../assets/mainpic.png";
 
 const Signup = () => {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [address, setAdress] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <>
