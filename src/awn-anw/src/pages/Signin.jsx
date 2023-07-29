@@ -11,9 +11,9 @@ const Signin = () => {
     return (
         <>
             <Header0 />
-            <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-full pt-16">
                 <div className="flex flex-col justify-center px-5">
-                    <form className="w-4/5 mx-auto px-10 py-10 flex flex-col items-center rounded-3xl shadow-xl">
+                    <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl">
                         <h2 className="text-2xl text-center font-semibold py-1">Sign in</h2>
                         <div className="flex flex-col py-2 w-full">
                             <label htmlFor="email">Email</label>
