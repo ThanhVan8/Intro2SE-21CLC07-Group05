@@ -1,7 +1,14 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import Header0 from '../components/Header/Header0'
-import mainpic from '../assets/mainpic.png'
+import Header0 from '../components/Header/Header0';
+import mainpic from '../assets/mainpic.png';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import { setDoc, doc } from "firebase/firestore";
+import { storage } from "../config/firebase";
+import { toast } from "react-toastify";
+import { firestore } from "../config/firebase";
+import { auth } from "../config/firebase";
 
 const Signup = () => {
     const [name, setName] = useState("");
@@ -9,6 +16,48 @@ const Signup = () => {
     const [address, setAdress] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading,setLoading] = useState(false)
+
+    const signup = async(e) =>{
+        e.preventDefault()
+        setLoading(true)
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+            auth, 
+            name, 
+            phone,
+            address,
+            email, 
+            password
+            );
+            
+            
+
+            const user = userCredential.user;
+
+            updateProfile(user,{
+                displayName: name,
+                displayPhone: phone,
+                displayAddress: address,
+            });
+        
+            setDoc(doc(firestore, 'users', user.uid),{
+                uid: user.uid,
+                displayName: name,
+                displayPhone: phone,
+                displayAddress: address,
+                email   
+            });
+
+
+            console.log(user); 
+        } catch (error) {
+            toast.error('something wrong')
+        }
+
+
+    }
 
     return (
         <>
