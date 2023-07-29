@@ -2,14 +2,53 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
 import mainpic from "../assets/mainpic.png";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { storage } from "../config/firebase";
+import { toast } from "react-toastify";
+import { firestore } from "../config/firebase";
+import { auth } from "../config/firebase";
 
 const Signup = () => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
-    const [address, setAdress] = useState("");
+    const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading,setLoading] = useState(false);
 
+
+    const signup = async(e) =>{
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email, 
+            password
+            );
+            
+            
+            const user = userCredential.user;
+
+            setDoc(doc(firestore, "users", user.uid), {
+                uid: user.uid,
+                displayName: name,
+                displayPhone: phone,
+                displayAddress: address,
+                email
+            })
+
+            console.log("đăng kí thành công", user); 
+        } catch (error) {
+            console.error('something wrong', error.message);
+        }
+
+        setLoading(false);
+    }
+
+    
   return (
     <>
       <Header0 />
@@ -67,7 +106,11 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75">
+            <button 
+                className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75"
+                onClick={signup}    
+            >
+
               Sign up
             </button>
             <p>
