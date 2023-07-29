@@ -1,8 +1,11 @@
 import React from 'react'
+import { Header } from './components'
 
 const App = () => {
   return (
-    <div>Buyer</div>
+    <div classname = "w-screen h-auto flex flex-col" >
+      <Header />
+    </div>
   )
 }
 
