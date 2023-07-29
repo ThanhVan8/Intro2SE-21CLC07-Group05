@@ -12,6 +12,9 @@ const App = () => {
   const [categoryList, setCategoryList] = useState([])
   const CategoryCollectionRef = collection( firestore, "Category")
 
+  const [merchantDetails, setMerchantDetails] = useState([])
+  const MerchantCollectionRef = collection (firestore, "Merchant")
+
   useEffect(() => {
     const getCategoryList = async () => {
       try{
@@ -28,6 +31,24 @@ const App = () => {
     };
 
     getCategoryList();
+  }, [])
+
+  useEffect(() => {
+    const getMerchantDetails = async () => {
+      try{
+        const data = await getDocs(MerchantCollectionRef)
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+        // setCategoryList(filteredData)
+        console.log(filteredData);
+      } catch (err){
+        console.error(err);
+      }
+    };
+
+    getMerchantDetails();
   }, [])
 
 
