@@ -6,7 +6,7 @@ import mainpic from "../assets/mainpic.png";
 const Signup = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,10 +41,10 @@ const Signup = () => {
               <label htmlFor="email">Address</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
-                type="email"
+                type="text"
                 required
                 value={address}
-                onChange={(e) => setAdress(e.target.value)}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="flex flex-col py-2 w-full">
