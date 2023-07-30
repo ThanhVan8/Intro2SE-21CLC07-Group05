@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
 import mainpic from "../assets/mainpic.png";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { storage } from "../config/firebase";
+import { toast } from "react-toastify";
+import { firestore } from "../config/firebase";
+import { auth } from "../config/firebase";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -9,13 +15,51 @@ const Signup = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const signup = async(e) =>{
+      e.preventDefault();
+      setLoading(true);
+
+      try {
+          const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email, 
+          password
+          );
+          
+          
+          const user = userCredential.user;
+
+          await setDoc(doc(firestore, "Merchants", user.uid), {
+              uid: user.uid,
+              Name: name,
+              Phone: phone,
+              Address: address,
+              email
+          });
+
+          setLoading(false);
+          toast.success('Đăng kí thành công!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+          });
+          navigate("/Signin");
+
+      } catch (error) {
+          setLoading(false);
+          toast.error('something wrong');
+      }
+
+  }
 
   return (
     <>
       <Header0 />
       <div className="grid grid-cols-1 md:grid-cols-2 w-full h-screen pt-16">
         <div className="flex flex-col justify-center px-5">
-          <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl">
+          <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl"onSubmit={signup}>
             <h2 className="text-2xl text-center font-semibold py-1">Sign up</h2>
             <div className="flex flex-col py-2 w-full">
               <label htmlFor="email">Name</label>

@@ -34,9 +34,9 @@ const Signup = () => {
 
             await setDoc(doc(firestore, "users", user.uid), {
                 uid: user.uid,
-                displayName: name,
-                displayPhone: phone,
-                displayAddress: address,
+                Name: name,
+                Phone: phone,
+                Address: address,
                 email
             });
 
