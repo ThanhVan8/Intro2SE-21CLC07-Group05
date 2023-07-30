@@ -8,9 +8,10 @@ import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
   return (
-    <div className="w-screen h-auto flex flex-col">
+    <div className="w-full h-auto flex flex-col">
       <Routes>
         <Route path="/" element={<ProtectedRoute><HomeTest /></ProtectedRoute>} />
+        {/* <Route path="/" element={<HomeTest />} /> */}
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />
       </Routes>
