@@ -33,22 +33,26 @@ const Signup = () => {
             
             const user = userCredential.user;
 
-            setDoc(doc(firestore, "users", user.uid), {
+            await setDoc(doc(firestore, "users", user.uid), {
                 uid: user.uid,
                 displayName: name,
                 displayPhone: phone,
                 displayAddress: address,
                 email
-            })
+            });
 
-            console.log("đăng kí thành công", user);
+            setLoading(false);
+            toast.success('Đăng kí thành công!', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+            });
             navigate("/Signin");
 
         } catch (error) {
-            console.error('something wrong', error.message);
+            setLoading(false);
+            toast.error('something wrong');
         }
 
-        setLoading(false);
     }
 
     
