@@ -14,7 +14,7 @@ const Header = () => {
                 <div className="relative flex items-center justify-center ml-auto">
                     <FaShoppingBag className="text-white text-2xl cursor-pointer"/>
 					<div className="w-4 h-4 rounded-full bg-[#F00] absolute bottom-1 -right-1 flex items-center justify-center">
-						<p className="text-white text-xs font-medium">100</p>
+						<p className="text-white text-xs font-medium">3</p>
 					</div>
                 </div>
             </div>
