@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../src/asset/logo.png';
+import logo from '../../src/assets/logo.png';
 import {Link} from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className='fixed w-screen bg-primary py-3 pr-8 pl-2 bottom-0'>
         <div className='hidden md:flex w-full h-full'>
             <Link to = {"/"} className = 'flex items-center'>
-                <img src={logo} className = 'w-16 object-cover' alt="Logo" />
+                <img src={logo} className = 'w-14 object-cover' alt="Logo" />
             </Link>
 
             {/* about us */}
