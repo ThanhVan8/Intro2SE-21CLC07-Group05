@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
+import Footer from "../components/Footer/Footer";
 import mainpic from "../assets/mainpic.png";
 
 const Signin = () => {
@@ -52,14 +53,15 @@ const Signin = () => {
           </form>
         </div>
 
-        <div className="hidden md:flex justify-end items-center">
+        <div className="hidden md:flex justify-end items-center overflow-hidden">
           <img
             src={mainpic}
             alt="mainpic"
-            className="h-3/4 object-contain fixed"
+            className="h-3/4"
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 };
