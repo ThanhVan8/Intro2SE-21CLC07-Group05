@@ -1,4 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+<<<<<<< HEAD
+import { Header } from './components'
+
+const App = () => {
+  return (
+    <div classname = "w-screen h-auto flex flex-col" >
+      <Header />
+=======
 import {Route, Routes} from 'react-router-dom'
 
 import Signin from './pages/Signin'
@@ -59,14 +67,6 @@ const App = () => {
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />
       </Routes>
-      {/* <div>
-        {categoryList.map((category) => (
-          <div>
-            <h1>{category.Name}</h1>
-          </div>
-        ))
-        }
-      </div> */}
     </div>
   )
 }
