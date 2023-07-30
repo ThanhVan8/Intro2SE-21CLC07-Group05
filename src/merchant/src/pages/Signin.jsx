@@ -5,17 +5,16 @@ import mainpic from "../assets/mainpic.png";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   
   const signIn = async(e) => {
 
     e.preventDefault();
-    setLoading(true);
 
     try{
 
@@ -29,13 +28,13 @@ const Signin = () => {
       const user = userCredential.user
 
       console.log(user);
-      setLoading(false);
-      toast.success("Đăng nhập thành công");
+      toast.success('Sign in successfully!', {
+        autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+      });
       navigate("/");
 
 
     } catch(error){
-      setLoading(false)
       toast.error(error.message);
     }
   }

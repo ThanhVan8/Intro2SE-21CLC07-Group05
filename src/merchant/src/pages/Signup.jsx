@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { storage } from "../config/firebase";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { firestore } from "../config/firebase";
 import { auth } from "../config/firebase";
 
@@ -15,13 +16,10 @@ const Signup = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
 
   const signup = async(e) =>{
       e.preventDefault();
-      setLoading(true);
-
       try {
           const userCredential = await createUserWithEmailAndPassword(
           auth,
@@ -40,7 +38,6 @@ const Signup = () => {
               email
           });
 
-          setLoading(false);
           toast.success('Đăng kí thành công!', {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000, // Thời gian tự đóng toast (milisecond)
@@ -48,7 +45,6 @@ const Signup = () => {
           navigate("/Signin");
 
       } catch (error) {
-          setLoading(false);
           toast.error('something wrong');
       }
 
