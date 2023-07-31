@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
+// import Footer from "../components/Footer/Footer";
 import mainpic from "../assets/mainpic.png";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { storage } from "../config/firebase";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { firestore } from "../config/firebase";
 import { auth } from "../config/firebase";
 
@@ -15,12 +17,10 @@ const Signup = () => {
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
 
     const signup = async(e) =>{
         e.preventDefault();
-        setLoading(true);
 
         try {
             const userCredential = await createUserWithEmailAndPassword(
@@ -29,27 +29,25 @@ const Signup = () => {
             password
             );
             
-            
             const user = userCredential.user;
 
-            setDoc(doc(firestore, "users", user.uid), {
+            await setDoc(doc(firestore, "users", user.uid), {
                 uid: user.uid,
                 displayName: name,
                 displayPhone: phone,
                 displayAddress: address,
                 email
-            })
+            });
 
-            console.log("đăng kí thành công", user);
+            toast.success('Sign up successfully!', {
+              autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+            });
             navigate("/Signin");
 
         } catch (error) {
-            console.error('something wrong', error.message);
+            toast.error(error.message);
         }
-
-        setLoading(false);
     }
-
     
   return (
     <>
@@ -126,14 +124,15 @@ const Signup = () => {
           </form>
         </div>
 
-        <div className="hidden md:flex justify-end items-center">
+        <div className="hidden md:flex justify-end items-center overflow-hidden">
           <img
             src={mainpic}
             alt="mainpic"
-            className="h-3/4 object-contain fixed"
+            className="h-3/4"
           />
         </div>
       </div>
+      {/* <Footer /> */}
     </>
   );
 };
