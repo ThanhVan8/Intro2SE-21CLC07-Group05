@@ -1,15 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 
-
-const mainContainer = () => {
+const MainContainer = () => {
   return (
-
-    <div className='grid grid-cols-2 md:grid-cols-2 gap-2'>
-        <div className='p-4 bg-black flex-1'></div>
-        <div></div>
-    </div>
+    <>
+      <div className="mt-12 w-full">asdafdafs      </div>
+    </>
   )
 }
 
-export default mainContainer;
+export default MainContainer;
