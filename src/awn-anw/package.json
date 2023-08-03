@@ -43,13 +43,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
-<<<<<<< HEAD
-    "install": "^0.13.0",
-    "postcss": "^8.4.27",
-    "tailwindcss": "^3.3.3"
-=======
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.2"
->>>>>>> 005f1007bedabe93862f18266072dac037636983
   }
 }

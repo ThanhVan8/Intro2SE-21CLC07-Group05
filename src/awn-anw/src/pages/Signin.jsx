@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
-// import Footer from "../components/Footer/Footer";
+import Footer from "../components/Footer";
 import mainpic from "../assets/mainpic.png";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
