@@ -12,7 +12,7 @@ const App = () => {
     <div className="w-screen h-auto flex flex-col">
       <Routes>
 
-        <Route path="/" element={<ProtectedRoute><HomeTest /></ProtectedRoute>} />
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} /> 
 
