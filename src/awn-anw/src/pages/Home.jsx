@@ -1,9 +1,11 @@
 import React from 'react'
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
-import MainContainer from '../components/MainContainer';
-import CreateContainer from "../components/CreateContainer";
+import {Link} from "react-router-dom";
 import mainpic from "../assets/mainpic.png";
+import salad from "../assets/salad.jpg"
+import food from "../assets/food.png"
+
 
 
 const Home = () => {
@@ -11,31 +13,73 @@ const Home = () => {
 
     <div>
         <Header />
-        <div className='mt-16'>
-          <p className='pl-5 py-5 mp'>Food for you</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 w-full h-screen gap-4">
-            {/* <div className="bg-blue-500 flex flex-col justify-center px-5 w-120px "> </div> */}
-            {/* <div className="bg-blue-500 flex flex-col justify-center px-5 w-120px"> </div> */}
-            <div className="bg-blue-500 grid grid-rows-2 grid-flow-col gap-4 justify-center px-5 ">
-              <div className='bg-red-500'></div>
-              <div className='bg-red-500'></div>
-            </div>
-            <div className="bg-blue-500 grid grid-rows-2 gap-4 justify-center px-5 "> 
+
+        {/* body */}
+        <div className='ml-4 mt-16 mb-20'>
+
+          {/* Text */}
+          <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>
+          
+          {/* devided into 3 cols */}
+          <div className="grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4">
+
+            {/* first col */}
+            <div className="grid grid-rows-2 grid-flow-col gap-4 justify-item-start px-5 ">
+              
+              <Link to = {"/"} className='w-full h-fit p-5'>
+                <img  src={salad} 
+                      alt="salad"
+                      className='w-80 h-60 object-cover' 
+                />
+                <p className='text-textColor text-base py-2 '>Salad</p>
+              </Link>
+              
+              <Link to = {"/"} className='w-full h-fit p-5'>
+                <img  src={salad} 
+                      alt="salad"
+                      className='w-80 h-60 object-cover' 
+                />
+                <p className='text-textColor text-base py-2 '>Salad</p>
+              </Link>
             </div>
 
+            {/* second col */}
 
-            <div className="bg-blue-500 hidden md:flex justify-end items-center mb-24">
+            <div className="grid grid-rows-2 grid-flow-col gap-4 justify-item-start px-5 ">
+
+              <Link to = {"/"} className=' w-full h-fit p-5'>
+                <img  src={salad} 
+                      alt="salad"
+                      className='w-80 h-60 object-cover' 
+                />
+                <p className='text-textColor text-base py-2 '>Salad</p>
+              </Link>
+
+              <Link to = {"/"} className='w-full h-fit p-5'>
+                <img  src={salad} 
+                      alt="salad"
+                      className='w-80 h-60 object-cover' 
+                />
+                <p className='text-textColor text-base py-2 '>Salad</p>
+              </Link>
+
+            </div>
+
+            {/* last col - img */}
+            <div className="hidden md:flex justify-end items-center">
               <img
                 src={mainpic}
                 alt="mainpic"
-                className="h-2/3 object-contain fixed"
+                className="h-full object-contain sticky pl-5"
               />
             </div>
+
           </div>
-        
+
         </div>
         
         <Footer />
+
     </div>
   )
 }
