@@ -5,6 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
 
+
 const Footer = () => {
   return (
     <footer className='fixed w-screen bg-primary py-3 pr-8 pl-2 bottom-0'>
