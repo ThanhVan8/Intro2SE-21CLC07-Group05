@@ -10,13 +10,14 @@ import ProtectedRoute from './routers/ProtectedRoute'
 const App = () => {
   return (
     <div className="w-screen h-auto flex flex-col">
-      <Home />
-      {/* <Routes>
+      <Routes>
 
-        {/* <Route path="/" element={<ProtectedRoute><HomeTest /></ProtectedRoute>} />
+        <Route path="/" element={<ProtectedRoute><HomeTest /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} /> 
-      </Routes> */}
+
+        <Route path="/Home" element={<Home />} /> 
+      </Routes>
     </div>
   )
 }
