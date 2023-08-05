@@ -6,7 +6,7 @@ import { FaRegMap } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { firestore } from '../config/firebase'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
 
 
 
@@ -19,10 +19,13 @@ const Home = () => {
     const getMerchantDetails = async () => {
       try{
         const data = await getDocs(MerchantCollectionRef)
+        const snapshot = await getCountFromServer(MerchantCollectionRef);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id
         }));
+        console.log('count: ', snapshot.data().count);
+        console.log(typeof(snapshot.data().count));
         console.log(filteredData);
       } catch (err){
         console.error(err);
