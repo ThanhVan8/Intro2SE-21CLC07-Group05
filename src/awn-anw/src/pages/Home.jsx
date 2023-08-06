@@ -1,16 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react';
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 import {Link} from "react-router-dom";
 import mainpic from "../assets/mainpic.png";
 import salad from "../assets/salad.jpg"
 import food from "../assets/food.png"
-
+import { firestore } from "../config/firebase"
+import { collection, getDocs } from 'firebase/firestore'
 
 
 const Home = () => {
-  return (
 
+  const [categoryList, setCategoryList] = useState([])
+  const CategoryCollectionRef = collection(firestore, "Category")
+
+  useEffect(() => {
+    const getCategoryList = async () => {
+      try{
+        const data = await getDocs(CategoryCollectionRef)
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+        // setCategoryList(filteredData)
+        console.log(filteredData);
+      } catch (err){
+        console.error(err);
+      }
+    };
+    getCategoryList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  
+  return (
     <div>
         <Header />
 

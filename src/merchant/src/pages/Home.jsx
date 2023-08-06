@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import mainpic from "../assets/mainpic.png";
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { FaRegMap } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
+import { firestore } from '../config/firebase'
+import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
+
 
 
 const Home = () => {
+
+  const [merchantDetails, setMerchantDetails] = useState([])
+  const MerchantCollectionRef = collection (firestore, "Merchant")
+
+  useEffect(() => {
+    const getMerchantDetails = async () => {
+      try{
+        const data = await getDocs(MerchantCollectionRef)
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+        console.log(filteredData);
+      } catch (err){
+        console.error(err);
+      }
+    };
+    getMerchantDetails();
+  }, [])
   return (
     <>
         <Header />
