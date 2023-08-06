@@ -23,6 +23,7 @@ const Home = () => {
           ...doc.data(),
           id: doc.id
         }));
+        // data lưu trong biến
         console.log(filteredData);
       } catch (err){
         console.error(err);
