@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Header0 from "../components/Header/Header0";
 import mainpic from "../assets/mainpic.png";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, collection, getDocs, getCountFromServer } from "firebase/firestore";
 import { storage } from "../config/firebase";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,7 @@ const Signup = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const MerchantCollectionRef = collection (firestore, "Merchant")
   const navigate = useNavigate();
 
   const signup = async(e) =>{
@@ -29,23 +30,30 @@ const Signup = () => {
           
           
           const user = userCredential.user;
+          const data = await getDocs(MerchantCollectionRef)
+          const snapshot = await getCountFromServer(MerchantCollectionRef);
+          const filteredData = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id
+          }));
 
-          await setDoc(doc(firestore, "Merchants", user.uid), {
+          await setDoc(doc(firestore, "Merchant", user.uid), {
               uid: user.uid,
               Name: name,
               Phone: phone,
               Address: address,
-              email
+              email, 
+              n_id: snapshot.data().count+1,
           });
 
-          toast.success('Đăng kí thành công!', {
+          toast.success('Sign up successfully!', {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000, // Thời gian tự đóng toast (milisecond)
           });
           navigate("/Signin");
 
       } catch (error) {
-          toast.error('something wrong');
+          toast.error(error.message);
       }
 
   }
