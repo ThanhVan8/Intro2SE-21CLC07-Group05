@@ -29,7 +29,6 @@ const Home = () => {
       }
     };
     getCategoryList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   
@@ -43,7 +42,7 @@ const Home = () => {
           {/* Text */}
           <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>
           
-          {/* devided into 3 cols */}
+          {/* divided into 3 cols */}
           <div className="grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4">
 
             {/* first col */}
