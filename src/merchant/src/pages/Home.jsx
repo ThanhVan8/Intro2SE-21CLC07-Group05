@@ -6,7 +6,7 @@ import { FaRegMap } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { firestore } from '../config/firebase'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
 
 
 

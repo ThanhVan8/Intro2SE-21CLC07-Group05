@@ -23,7 +23,6 @@ const Home = () => {
           id: doc.id
         }));
         // setCategoryList(filteredData)
-        console.log("abc");
         console.log(filteredData);
       } catch (err){
         console.error(err);
