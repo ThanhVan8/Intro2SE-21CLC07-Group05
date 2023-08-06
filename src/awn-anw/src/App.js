@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import {Route, Routes} from 'react-router-dom'
 
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import ProtectedRoute from './routers/ProtectedRoute'
+import { firestore } from "./config/firebase"
+import { collection, getDocs } from "firebase/firestore"
 
 const App = () => {
+  
   return (
     <div className="w-full h-auto flex flex-col">
       <Routes>
