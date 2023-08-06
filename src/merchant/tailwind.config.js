@@ -46,7 +46,13 @@ module.exports = {
       },
       colors: {
         primary: "#2F9B4E",
+        textHeadingColor: "#FFF",
+        textColor: "#000",
+        textHover: "#d9d9d9"
       },
+      textSize: {
+        40: "40px",
+      }
     },
   },
   plugins: [],

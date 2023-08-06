@@ -4,7 +4,7 @@ import Header0 from "../components/Header/Header0";
 // import Footer from "../components/Footer/Footer";
 import mainpic from "../assets/mainpic.png";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, collection, getDocs, getCountFromServer } from "firebase/firestore";
 import { storage } from "../config/firebase";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,10 +15,10 @@ const Signup = () => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");  
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
+    const UserCollectionRef = collection (firestore, "User")
     const signup = async(e) =>{
         e.preventDefault();
 
@@ -30,13 +30,22 @@ const Signup = () => {
             );
             
             const user = userCredential.user;
+            const data = await getDocs(UserCollectionRef)
+            const snapshot = await getCountFromServer(UserCollectionRef);
+            const filteredData = data.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id
+            }));
 
-            await setDoc(doc(firestore, "users", user.uid), {
+            await setDoc(doc(firestore, "User", user.uid), {
                 uid: user.uid,
-                displayName: name,
-                displayPhone: phone,
-                displayAddress: address,
-                email
+                Name: name,
+                Phone: phone,
+                Address: address,
+                email,
+                n_id: snapshot.data().count+1,
+                Cart_id: snapshot.data().count+1,
+                Order_history: []
             });
 
             toast.success('Sign up successfully!', {
