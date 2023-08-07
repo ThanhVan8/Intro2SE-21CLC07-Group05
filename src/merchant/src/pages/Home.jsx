@@ -6,33 +6,65 @@ import { FaRegMap } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { firestore } from '../config/firebase'
-import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+import { collection, getDocs, getCountFromServer, getDoc, getUserData, query, where } from 'firebase/firestore'
 
 
 
 const Home = () => {
 
   const [merchantDetails, setMerchantDetails] = useState([])
-  const MerchantCollectionRef = collection (firestore, "Merchant")
+  // const [OneMerchant, setOneMerchant] = useState([])
+  const MerchantCollectionRef = collection(firestore, "Merchant")
+  
+
+  const getMerchantDetails = async () => {
+    try{
+      const data = await getDocs(MerchantCollectionRef)
+      const snapshot = await getCountFromServer(MerchantCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
+      setMerchantDetails(filteredData);
+      // console.log(filteredData);
+    } catch (err){
+      console.error(err);
+    }
+  };
+
+  const display1Merchant = async() => {
+    try{
+      // const data = await getDoc(MerchantCollectionRef);
+      const auth = getAuth();
+      const merchant = auth.currentUser;
+      // console.log(merchant.uid);
+      const q = query(MerchantCollectionRef, where("uid", "==", merchant.uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        //Xuat cac thong tin theo yeu cau
+        // console.log("Name:" , doc.data().Name);
+        // console.log("Address", doc.data().Address);
+        // console.log("Phone: ", doc.data().Phone);
+        //xuat het, cac thong tin se duoc luu vao bien merchantData
+        const merchantData = doc.data();
+        console.log(merchantData);
+        // setMerchantDetails(filteredData);
+      })
+    }catch (err){
+      console.error(err);
+    }
+  };
+
 
   useEffect(() => {
-    const getMerchantDetails = async () => {
-      try{
-        const data = await getDocs(MerchantCollectionRef)
-        const snapshot = await getCountFromServer(MerchantCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-        console.log('count: ', snapshot.data().count);
-        console.log(typeof(snapshot.data().count));
-        console.log(filteredData);
-      } catch (err){
-        console.error(err);
-      }
-    };
     getMerchantDetails();
   }, [])
+
+  useEffect(() => {
+    display1Merchant();
+  }, [])
+
   return (
     <>
         <Header />
