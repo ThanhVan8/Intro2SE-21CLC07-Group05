@@ -6,7 +6,7 @@ import { FaShoppingBag } from "react-icons/fa";
 
 const Header = () => {
     return(
-        <header className="fixed z-50 w-full bg-primary p-1 px-2">
+        <header className="fixed z-50 w-full bg-primary p-1 px-2 top-0">
             <div className="flex w-full h-full">
                 <div className="flex items-center gap-2">
                     <img src={logo} alt="logo" className="w-10 h-10"/>

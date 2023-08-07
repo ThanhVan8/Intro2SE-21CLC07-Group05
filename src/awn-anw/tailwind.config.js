@@ -35,7 +35,11 @@ module.exports = {
       minWidth: {
         210: "210px",
         350: "350px",
+        400: "400px",
         620: "620px",
+      },
+      minHeight: {
+        400: "400px",
       },
       screens: {
         sm: "640px",
