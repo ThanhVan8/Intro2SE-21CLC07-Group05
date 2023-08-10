@@ -29,13 +29,16 @@ const Signin = () => {
 
       console.log(user);
       toast.success('Sign in successfully!', {
-        autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+        autoClose: 1000, // Thời gian tự đóng toast (milisecond)
       });
       navigate("/");
 
 
     } catch(error){
-      toast.error(error.message);
+      toast.error(error.message, {
+        autoClose: 1000, // Thời gian tự đóng toast (milisecond)
+      });
+      
     }
   }
 

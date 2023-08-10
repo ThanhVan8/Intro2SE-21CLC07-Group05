@@ -1,21 +1,10 @@
 import React from 'react'
 import Home from '../pages/Home'
+import ReactModal from 'react-modal';
+import { useState } from 'react';
 
 const Cart = () => {
-  return (
-    <>
-        <div className='md:none w-full h-full'>
-            <div className='opacity-50'>
-                <Home />
-            </div>
-            <div className='w-375 h-420 bg-white'>
-                hahaasdadada
-            </div>
 
-        </div>
-        
-    </>
-  )
 }
 
 export default Cart
