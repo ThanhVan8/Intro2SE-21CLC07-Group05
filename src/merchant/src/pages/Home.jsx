@@ -6,11 +6,11 @@ import { FaRegMap } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { firestore } from '../config/firebase'
-import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
-
-
+import { collection, getDocs, getCountFromServer, query, where } from 'firebase/firestore'
+import useAuth from '../custom_hooks/useAuth'
 
 const Home = () => {
+  const user = useAuth();
 
   const [merchantDetails, setMerchantDetails] = useState([])
   const MerchantCollectionRef = collection (firestore, "Merchant")
@@ -29,7 +29,7 @@ const Home = () => {
       }
     };
     getMerchantDetails();
-  }, [])
+  }, [MerchantCollectionRef, user.uid])
   return (
     <>
         <Header />
