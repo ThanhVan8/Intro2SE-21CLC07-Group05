@@ -22,14 +22,14 @@ const Home = () => {
           ...doc.data(),
           id: doc.id
         }));
-        // setCategoryList(filteredData)
-        console.log(filteredData);
+        setCategoryList(filteredData)
+        // console.log(filteredData);
       } catch (err){
         console.error(err);
       }
     };
     getCategoryList();
-  }, [])
+  }, [CategoryCollectionRef])
 
   
   return (
