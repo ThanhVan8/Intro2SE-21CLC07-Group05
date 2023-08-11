@@ -20,24 +20,25 @@ const MainContainer = () => {
           ...doc.data(),
           id: doc.id
         }));
-        // setCategoryList(filteredData)
+        setCategoryList(filteredData)
         console.log(filteredData);
       } catch (err){
         console.error(err);
       }
     };
     getCategoryList();
+    console.log(getCategoryList)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   return (
     <>
-      <div className='ml-4 mt-16 mb-20'>
+      <div className='ml-4 mt-16 mb-8'>
           {/* Text */}
           <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>       
           {/* devided into 3 cols */}
           <div className="grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4">
-            {/* first col */}
-            <div className="grid grid-rows-2 grid-flow-col gap-4 justify-item-start px-5 "> 
+            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 "> 
               <Link to = {"/"} className='w-full h-fit p-5'>
                 <img  src={salad} 
                       alt="salad"
@@ -52,9 +53,6 @@ const MainContainer = () => {
                 />
                 <p className='text-textColor text-base py-2 '>Salad</p>
               </Link>
-            </div>
-            {/* second col */}
-            <div className="grid grid-rows-2 grid-flow-col gap-4 justify-item-start px-5 ">
               <Link to = {"/"} className=' w-full h-fit p-5'>
                 <img  src={salad} 
                       alt="salad"
@@ -69,6 +67,7 @@ const MainContainer = () => {
                 />
                 <p className='text-textColor text-base py-2 '>Salad</p>
               </Link>
+
             </div>
             {/* last col - img */}
             <div className="hidden md:flex justify-end items-center">
