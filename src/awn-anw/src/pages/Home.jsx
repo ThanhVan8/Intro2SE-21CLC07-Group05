@@ -6,14 +6,13 @@ import Modal from '../components/Modal';
 
 
 const Home = () => {
- 
   return (
     <div>
         <Header />
         {/* body */}
         <MainContainer />
         <Footer />
-        <Modal />
+        {/* <Modal/> */}
     </div>
   )
 }

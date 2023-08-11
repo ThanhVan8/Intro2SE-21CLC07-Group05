@@ -6,12 +6,18 @@ import { FaRegMap } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { firestore } from '../config/firebase'
+<<<<<<< HEAD
 import { getAuth } from 'firebase/auth'
 import { collection, getDocs, getCountFromServer, getDoc, getUserData, query, where } from 'firebase/firestore'
 
 
+=======
+import { collection, getDocs, getCountFromServer, query, where } from 'firebase/firestore'
+import useAuth from '../custom_hooks/useAuth'
+>>>>>>> 7a1027b8c476449fb2de93728ab783f12dd97abb
 
 const Home = () => {
+  const user = useAuth();
 
   // const [merchantDetails, setMerchantDetails] = useState([])
   const [OneMerchant, setOneMerchant] = useState([])
@@ -54,9 +60,26 @@ const Home = () => {
   // }, [])
 
   useEffect(() => {
+<<<<<<< HEAD
     display1Merchant();
   }, [])
 
+=======
+    const getMerchantDetails = async () => {
+      try{
+        const data = await getDocs(MerchantCollectionRef)
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+        console.log(filteredData);
+      } catch (err){
+        console.error(err);
+      }
+    };
+    getMerchantDetails();
+  }, [MerchantCollectionRef, user.uid])
+>>>>>>> 7a1027b8c476449fb2de93728ab783f12dd97abb
   return (
     <>
         <Header />
