@@ -5,7 +5,7 @@ import salad from "../assets/salad.jpg"
 import food from "../assets/food.png"
 import { firestore } from "../config/firebase"
 import { collection, getDocs } from 'firebase/firestore'
-import Modal from '../components/Modal';
+import Modal from './Modal';
 
 
 const MainContainer = () => {
@@ -28,16 +28,15 @@ const MainContainer = () => {
     };
     getCategoryList();
     console.log(getCategoryList)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <>
-      <div className='ml-4 mt-16 mb-8'>
+      <div className='ml-4 mt-16'>
           {/* Text */}
           <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>       
           {/* devided into 3 cols */}
-          <div className="grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4">
             <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 "> 
               <Link to = {"/"} className='w-full h-fit p-5'>
                 <img  src={salad} 
