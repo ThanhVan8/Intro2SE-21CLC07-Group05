@@ -28,6 +28,7 @@ const Signup = () => {
           password
           );
 
+          const user = userCredential.user;
           await setDoc(doc(firestore, "Merchant", user.uid), {
               Name: name,
               Phone: phone,

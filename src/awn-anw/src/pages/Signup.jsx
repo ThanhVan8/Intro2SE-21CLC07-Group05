@@ -28,6 +28,9 @@ const Signup = () => {
             email, 
             password
             );
+            
+            const user = userCredential.user;
+
 
             await setDoc(doc(firestore, "User", user.uid), {
                 Name: name,
@@ -37,7 +40,7 @@ const Signup = () => {
                 Order_history: []
             });
 
-            await setDoc(doc(firestore, "ShoppingCart"), {
+            await setDoc(doc(firestore, "ShoppingCart",user.uid), {
               Food: [],
               Quantity: [],
               merchant_id: null
