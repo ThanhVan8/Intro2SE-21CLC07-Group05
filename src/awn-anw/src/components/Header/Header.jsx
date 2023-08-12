@@ -5,12 +5,19 @@ import { Link } from "react-router-dom"
 import logo from "../../assets/logo.png";
 
 import { FaShoppingBag, FaReceipt, FaUserCircle, FaSearch } from "react-icons/fa";
+import Modal from "../Modal";
+import OrderDetail from "../../pages/OrderDetail";
 
 const Header = () => {
   const [query, setQuery] = useState("");
-  const handleSearch = () => {
-    console.log('Search')
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(query) 
   }
+
+  function showCart() {
+    <Modal/>
+}
 
   return (
     <header className="fixed z-50 w-full bg-primary p-1 px-3">
@@ -23,7 +30,7 @@ const Header = () => {
         </Link>
 
         {/* Search bar */}
-        <form className="flex w-full px-10 py-1 divide-x-2 divide-solid" onSubmit={handleSearch}>
+        <form className="flex w-full px-10 py-1 divide-x-2 divide-solid" onSubmit={e => handleSearch(e)}>
           <input
             type="text"
             placeholder="Search..."
@@ -31,7 +38,7 @@ const Header = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="bg-white p-2 items-center">
+          <button type='submit' className="bg-white p-2 items-center rounded-r-full">
             <FaSearch className="text-xl" />
           </button>
         </form>
@@ -39,15 +46,17 @@ const Header = () => {
         {/*icons*/}
         <div className="flex items-center ml-auto gap-5">
           {/*Cart*/}
-          <Link to={"/"}>
+          <button onClick={showCart}>
+          {/* <Link to = {Modal}> */}
             <div className="relative">
               <FaShoppingBag className="text-white text-2xl" />
               <div className="w-4 h-4 rounded-full bg-[#F00] absolute top-3 -right-1 flex items-center justify-center">
                 <p className="text-white text-xs font-medium">3</p>
               </div>
             </div>
-          </Link>
-          <Link to={"/"}>
+            {/* </Link> */}
+          </button>
+          <Link to={"/OrderDetail"}>
             <FaReceipt className="text-white text-2xl items-center" />
           </Link>
           <FaUserCircle className="text-white text-2xl items-center" />
