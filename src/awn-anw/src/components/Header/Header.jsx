@@ -5,12 +5,18 @@ import { Link } from "react-router-dom"
 import logo from "../../assets/logo.png";
 
 import { FaShoppingBag, FaReceipt, FaUserCircle, FaSearch } from "react-icons/fa";
+import Modal from "../Modal";
 
 const Header = () => {
   const [query, setQuery] = useState("");
   const handleSearch = () => {
     console.log('Search')
   }
+
+  
+  function showCart() {
+    <Modal/>
+}
 
   return (
     <header className="fixed z-50 w-full bg-primary p-1 px-3">
@@ -31,7 +37,7 @@ const Header = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="bg-white p-2 items-center">
+          <button type="submit" className="bg-white p-2 items-center rounded-r-full">
             <FaSearch className="text-xl" />
           </button>
         </form>
@@ -39,14 +45,16 @@ const Header = () => {
         {/*icons*/}
         <div className="flex items-center ml-auto gap-5">
           {/*Cart*/}
-          <Link to={"/"}>
+          <button onclick={showCart}>
+          {/* <Link to = {Modal}> */}
             <div className="relative">
               <FaShoppingBag className="text-white text-2xl" />
               <div className="w-4 h-4 rounded-full bg-[#F00] absolute top-3 -right-1 flex items-center justify-center">
                 <p className="text-white text-xs font-medium">3</p>
               </div>
             </div>
-          </Link>
+            {/* </Link> */}
+          </button>
           <Link to={"/"}>
             <FaReceipt className="text-white text-2xl items-center" />
           </Link>
