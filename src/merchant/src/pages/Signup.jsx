@@ -27,23 +27,12 @@ const Signup = () => {
           email, 
           password
           );
-          
-          
-          const user = userCredential.user;
-          const data = await getDocs(MerchantCollectionRef)
-          const snapshot = await getCountFromServer(MerchantCollectionRef);
-          const filteredData = data.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id
-          }));
 
           await setDoc(doc(firestore, "Merchant", user.uid), {
-              uid: user.uid,
               Name: name,
               Phone: phone,
               Address: address,
-              email, 
-              n_id: snapshot.data().count+1,
+              email
           });
 
           toast.success('Sign up successfully!', {
