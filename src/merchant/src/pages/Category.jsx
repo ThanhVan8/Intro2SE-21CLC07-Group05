@@ -13,7 +13,7 @@ const Category = () => {
   return (
     <> 
 			<Header />
-			<div className='flex flex-col items-center px-5 mt-20 w-full gap-10'>
+			<div className='flex flex-col items-center px-5 mt-20 w-full h-screen gap-10'>
 				<div className='flex flex-col items-center gap-3'>
 					<p className=''>Choose categories for your products to easily access to customers</p>
 					<Dropdown isDisable={false}/>
