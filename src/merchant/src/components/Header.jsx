@@ -12,9 +12,15 @@ const Header = () => {
             </Link>
 
             <ul className='flex items-center gap-8 ml-auto'>
+              <Link to = {"/"}>
                 <li className='text-base text-textHeadingColor hover:text-textHover cursor-pointer'>Menu</li>
+              </Link>
+              <Link to = {"/"}>
                 <li className='text-base text-textHeadingColor hover:text-textHover cursor-pointer'>Order</li>
+              </Link>
+              <Link to = {"/Category"}>
                 <li className='text-base text-textHeadingColor hover:text-textHover cursor-pointer'>Category</li>
+              </Link>
             </ul>
         </div>
         
