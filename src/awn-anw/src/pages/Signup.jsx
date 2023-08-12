@@ -48,6 +48,13 @@ const Signup = () => {
                 Order_history: []
             });
 
+            await setDoc(doc(firestore, "ShoppingCart", user.uid), {
+              id: user.uid,
+              Food: [],
+              Quantity: [],
+              merchant_id: null
+          });
+
             toast.success('Sign up successfully!', {
               autoClose: 3000, // Thời gian tự đóng toast (milisecond)
             });
