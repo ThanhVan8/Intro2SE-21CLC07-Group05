@@ -28,28 +28,16 @@ const Signup = () => {
             email, 
             password
             );
-            
-            const user = userCredential.user;
-            const data = await getDocs(UserCollectionRef)
-            const snapshot = await getCountFromServer(UserCollectionRef);
-            const filteredData = data.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id
-            }));
 
             await setDoc(doc(firestore, "User", user.uid), {
-                uid: user.uid,
                 Name: name,
                 Phone: phone,
                 Address: address,
                 email,
-                n_id: snapshot.data().count+1,
-                Cart_id: snapshot.data().count+1,
                 Order_history: []
             });
 
-            await setDoc(doc(firestore, "ShoppingCart", user.uid), {
-              id: user.uid,
+            await setDoc(doc(firestore, "ShoppingCart"), {
               Food: [],
               Quantity: [],
               merchant_id: null
