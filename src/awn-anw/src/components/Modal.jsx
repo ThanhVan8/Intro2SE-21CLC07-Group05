@@ -1,11 +1,35 @@
-import React from 'react'
+
 import storepic from "../assets/store.jpg"
 import cake from "../assets/cake.jpg"
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
-import { useState } from 'react';
+import { getAuth } from 'firebase/auth'
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
+import { firestore } from '../config/firebase'
+import React, { useState, useEffect } from 'react';
+
+
+
 
 const Modal = () => {
-    
+    const auth = getAuth();
+    const cart = auth.currentUser;
+    const[Cart, setShoppingCart] = useState([]);
+    const CartRef = doc(firestore, "ShoppingCart", cart.uid);
+
+
+    const fetchCart = async() => {
+        try{
+            const docSnap = await getDoc(CartRef);
+            console.log(docSnap.data());
+        }catch(err){
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        fetchCart();
+    }, [])
+
     const [count, setCount] = useState(0);
 
     function handleAddClick() {
