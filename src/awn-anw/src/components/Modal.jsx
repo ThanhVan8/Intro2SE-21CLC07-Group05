@@ -1,13 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import storepic from "../assets/store.jpg"
 import cake from "../assets/cake.jpg"
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 import { useState } from 'react';
 
 const Modal = () => {
-    
     const [count, setCount] = useState(0);
-
+		
     function handleAddClick() {
       setCount(count + 1);
     }
