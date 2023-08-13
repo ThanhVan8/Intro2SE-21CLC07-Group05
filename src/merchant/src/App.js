@@ -11,7 +11,6 @@ const App = () => {
   return (
     <div className="w-screen h-auto flex flex-col">
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />

@@ -48,7 +48,8 @@ module.exports = {
         primary: "#2F9B4E",
         textHeadingColor: "#FFF",
         textColor: "#000",
-        textHover: "#d9d9d9"
+        textHover: "#d9d9d9",
+        red: "#D46058"
       },
       textSize: {
         40: "40px",
