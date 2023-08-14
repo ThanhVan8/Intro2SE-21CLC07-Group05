@@ -21,13 +21,13 @@ const MainContainer = () => {
           id: doc.id
         }));
         setCategoryList(filteredData)
-        console.log(filteredData);
+        // console.log(filteredData);
       } catch (err){
         console.error(err);
       }
     };
     getCategoryList();
-    console.log(getCategoryList)
+    // console.log(categoryList)
   }, [])
 
   return (
@@ -44,7 +44,7 @@ const MainContainer = () => {
                       className='w-80 h-60 object-cover' 
                 />
                 <p className='text-textColor text-base py-2 '>Salad</p>
-              </Link>             
+              </Link>
               <Link to = {"/"} className='w-full h-fit p-5'>
                 <img  src={salad} 
                       alt="salad"

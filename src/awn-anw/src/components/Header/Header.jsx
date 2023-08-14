@@ -6,7 +6,7 @@ import logo from "../../assets/logo.png";
 
 import { FaShoppingBag, FaReceipt, FaUserCircle, FaSearch } from "react-icons/fa";
 import Modal from "../Modal";
-import OrderDetail from "../../pages/OrderDetail";
+import OrderStatus from "../../pages/OrderStatus";
 
 const Header = () => {
   const [query, setQuery] = useState("");
@@ -56,7 +56,7 @@ const Header = () => {
             </div>
             {/* </Link> */}
           </button>
-          <Link to={"/OrderDetail"}>
+          <Link to={"/OrderStatus"}>
             <FaReceipt className="text-white text-2xl items-center" />
           </Link>
           <FaUserCircle className="text-white text-2xl items-center" />

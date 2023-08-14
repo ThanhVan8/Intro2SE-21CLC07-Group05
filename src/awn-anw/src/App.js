@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Cart from './components/Cart'
 import OrderDetail from './pages/OrderDetail'
+import OrderStatus from './pages/OrderStatus';
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
@@ -16,10 +17,9 @@ const App = () => {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />   
-        <Route path='/Home' element = {<Home />}/>     
-        <Route path='/Cart' element = {<Cart />}/>     
-        <Route path='/OrderDetail' element = {<OrderDetail />}/>     
-
+        <Route path='/Cart' element = {<ProtectedRoute><Cart /></ProtectedRoute>}/>     
+        <Route path='/OrderDetail' element = {<ProtectedRoute><OrderDetail /></ProtectedRoute>}/>     
+        <Route path='/OrderStatus' element = {<ProtectedRoute><OrderStatus /></ProtectedRoute>}/>
       </Routes>
     </div>
   )
