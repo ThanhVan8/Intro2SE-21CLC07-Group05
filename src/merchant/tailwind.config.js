@@ -49,7 +49,9 @@ module.exports = {
         textHeadingColor: "#FFF",
         textColor: "#000",
         textHover: "#d9d9d9",
-        red: "#D46058"
+        red: "#D46058",
+        card: "#F5F5F5",
+        yellow: "#ECC04D",
       },
       textSize: {
         40: "40px",
