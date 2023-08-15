@@ -46,6 +46,11 @@ const Signup = () => {
               n_id: snapshot.data().count+1,
           });
 
+          await setDoc(doc(firestore, "Menu", user.uid), {
+              FoodList: [],
+              Price: []
+          });
+
           toast.success('Sign up successfully!', {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000, // Thời gian tự đóng toast (milisecond)

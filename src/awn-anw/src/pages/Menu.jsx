@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import menupic from "../assets/menupic.png";
 import cake from "../assets/cake.jpg";
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
+import { firestore } from '../config/firebase';
 
 
 
 
 const Menu = () => {
+  const MenuRef = doc(firestore, "Menu", "gJXzL7VOkgME8JXGrIN5q9WsdXd2")
+
+  const fetchMenu = async() => {
+    try{
+      const docSnap = await getDoc(MenuRef);
+      console.log(docSnap.data());
+    }catch(err){
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMenu();
+  },[])
+
   return (
     <>
       <Header />

@@ -13,9 +13,9 @@ import React, { useState, useEffect } from 'react';
 const Modal = () => {
     const auth = getAuth();
     const cart = auth.currentUser;
+    
     const[Cart, setShoppingCart] = useState([]);
     const CartRef = doc(firestore, "ShoppingCart", cart.uid);
-
 
     const fetchCart = async() => {
         try{
@@ -26,8 +26,11 @@ const Modal = () => {
         }
     };
 
+
     useEffect(() => {
-        fetchCart();
+        if (cart){
+            fetchCart();
+        }
     }, [])
 
     const [count, setCount] = useState(0);

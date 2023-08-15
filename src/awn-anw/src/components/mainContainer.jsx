@@ -27,7 +27,7 @@ const MainContainer = () => {
       }
     };
     getCategoryList();
-    console.log(getCategoryList)
+    // console.log(getCategoryList)
   }, [])
 
   return (
