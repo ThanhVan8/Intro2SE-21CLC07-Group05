@@ -10,7 +10,7 @@ import { firestore } from '../config/firebase';
 
 
 const Menu = () => {
-  const MenuRef = doc(firestore, "Menu", "gJXzL7VOkgME8JXGrIN5q9WsdXd2")
+  const MenuRef = doc(firestore, "Menu", "BsD5CNKu5KfAXyjA0ZhgHEq1I7h2") // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
 
   const fetchMenu = async() => {
     try{

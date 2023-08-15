@@ -22,6 +22,7 @@ const OrderDetail = () => {
 			querySnapshot.forEach((doc) => {
 				const orderDetail = doc.data();
 				console.log(orderDetail)
+				setorderDetail(orderDetail)
 			})
 		}catch (err){
 			console.error(err);

@@ -16,9 +16,9 @@ const Home = () => {
   // const MerchantCollectionRef = collection(firestore, "Merchant")
   
   const merchant = useAuth();
-  const MerchantRef = doc(firestore, "Merchant", merchant.uid)
   const display1Merchant = async(uid) => {
     try{
+        const MerchantRef = doc(firestore, "Merchant", uid)
         const docSnap = await getDoc(MerchantRef)
         const merchantData = docSnap.data();
         console.log(merchantData)
@@ -42,7 +42,7 @@ const Home = () => {
         <div className="grid grid-cols-2 h-full w-full pt-16">
           <div key={OneMerchant.uid} className='grid text-textColor text-left h-2/3 justify-items-start py-28 px-12 my-24 mx-10 gap-y-2 '>
             <p className=' h-fit text-2xl font-semibold mb-8'>
-             {OneMerchant.Nam}
+             {OneMerchant.Name}
            </p>
            <p className=' h-fit flex gap-4 text-base'>
              <FaRegMap className=' text-2xl cursor-pointer'/>
