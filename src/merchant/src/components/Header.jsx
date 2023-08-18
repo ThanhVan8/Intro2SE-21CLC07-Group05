@@ -14,7 +14,7 @@ const Header = () => {
           <Link to = {"/"}>
             <li className='text-base text-textHeadingColor hover:text-textHover cursor-pointer'>Menu</li>
           </Link>
-          <Link to = {"/"}>
+          <Link to = {"/Order"}>
             <li className='text-base text-textHeadingColor hover:text-textHover cursor-pointer'>Order</li>
           </Link>
           <Link to = {"/Category"}>
