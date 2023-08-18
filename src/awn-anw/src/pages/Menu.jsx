@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import menupic from "../assets/menupic.png";
 import cake from "../assets/cake.jpg";
-
-
-
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
+import { firestore } from '../config/firebase';
 
 const Menu = () => {
+  const MenuRef = doc(firestore, "Menu", "BsD5CNKu5KfAXyjA0ZhgHEq1I7h2") // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
+
+  const fetchMenu = async() => {
+    try{
+      const docSnap = await getDoc(MenuRef);
+      console.log(docSnap.data());
+    }catch(err){
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMenu();
+  },[])
+
   return (
     <>
       <Header />

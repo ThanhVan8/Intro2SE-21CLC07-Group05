@@ -1,13 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import payment from '../assets/payment.png'
 import { FaUserCircle } from "react-icons/fa";
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import OrderSumCard from '../components/OrderSumCard';
+import { getAuth } from 'firebase/auth'
+import { firestore } from '../config/firebase';
+import useAuth from '../custom_hooks/useAuth';
+
 
 const OrderDetail = () => {
-  return (
-    <>
+	const [orderDetail, setorderDetail] = useState([])
+	const OrderCollectionRef = collection(firestore, "Order")
+	// const auth = getAuth();
+	const user = useAuth();
+	const displayOrderDetail = async(uid) => {
+		try{
+			const q = query(OrderCollectionRef, where("O_ID", "==", uid));
+			const querySnapshot = await getDocs(q)
+			querySnapshot.forEach((doc) => {
+				const orderDetail = doc.data();
+				console.log(orderDetail)
+				setorderDetail(orderDetail)
+			})
+		}catch (err){
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		if(user){
+			displayOrderDetail(user.uid);
+		}
+	  }, [user])
+
+  	return (
+    	<>
 			<Header />
 			<div className='w-full mt-16 pl-6 py-5'>
 				<div className="grid grid-cols-3 md:grid-cols-4 w-full gap-4">
@@ -53,8 +82,8 @@ const OrderDetail = () => {
 				</div>
 			</div>
 			<Footer />
-    </>
-  )
-}
+    	</>
+  	)
+};
 
 export default OrderDetail
