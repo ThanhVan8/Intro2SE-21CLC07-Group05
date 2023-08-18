@@ -27,7 +27,7 @@ const MainContainer = () => {
       }
     };
     getCategoryList();
-    console.log(getCategoryList)
+    // console.log(categoryList)
   }, [])
 
   return (
@@ -37,8 +37,19 @@ const MainContainer = () => {
           <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>       
           {/* devided into 3 cols */}
           <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4">
-            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 "> 
-              <Link to = {"/"} className='w-full h-fit p-5'>
+            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 ">
+            {categoryList && categoryList.map((data) =>{
+              return(
+                <Link key={data.id} to = {"/"} className='w-full h-fit p-5'>
+                  <img  src={salad} 
+                        alt="salad"
+                        className='w-80 h-60 object-cover' 
+                  />
+                  <p className='text-textColor text-base py-2 '>{data.Name}</p>
+                </Link>)             
+      
+            })} 
+              {/* <Link to = {"/"} className='w-full h-fit p-5'>
                 <img  src={salad} 
                       alt="salad"
                       className='w-80 h-60 object-cover' 
@@ -65,7 +76,7 @@ const MainContainer = () => {
                       className='w-80 h-60 object-cover' 
                 />
                 <p className='text-textColor text-base py-2 '>Salad</p>
-              </Link>
+              </Link> */}
 
             </div>
             {/* last col - img */}
