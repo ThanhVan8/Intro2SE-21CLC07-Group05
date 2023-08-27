@@ -32,22 +32,22 @@ const Order = () => {
                     </div>
                     {/* check box */}
                     <div className='w-full grid grid-rows-3 justify-end '>
-                        <div className='p-2 flex gap-2 '>
+                        <label className='p-2 flex gap-2 '>
                             <input  type="checkbox" 
                                     class="w-4 h-4" />
                             <span> Preparing </span>
-                        </div>
-                        <div className='p-2 flex gap-2 '>
+                        </label>
+                        <label className='p-2 flex gap-2 '>
                             <input  type="checkbox" 
-                                    class="w-4 h-4" />
+                                    class=" w-4 h-4" />
                             <span> Delivering </span>
-                        </div>
+                        </label>
 
-                        <div className='p-2 flex gap-2 '>
+                        <label className='p-2 flex gap-2 '>
                             <input  type="checkbox" 
                                     class="w-4 h-4" />
                             <span> Delivered </span>
-                        </div>
+                        </label>
                     </div>
                 </div>
 
