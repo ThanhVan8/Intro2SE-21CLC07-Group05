@@ -8,6 +8,7 @@ import Category from './pages/Category'
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
+
   return (
     <div className="w-screen h-auto flex flex-col">
       <Routes>

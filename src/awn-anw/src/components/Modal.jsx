@@ -3,19 +3,23 @@ import storepic from "../assets/store.jpg"
 import cake from "../assets/cake.jpg"
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 import { getAuth } from 'firebase/auth'
-import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
+import { collection, getDocs, query, where, doc, getDoc, updateDoc, arrayUnion, deleteField, addDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
 import React, { useState, useEffect } from 'react';
-
-
 
 
 const Modal = () => {
     const auth = getAuth();
     const cart = auth.currentUser;
     
+    //get cart data
     const[Cart, setShoppingCart] = useState([]);
     const CartRef = doc(firestore, "ShoppingCart", cart.uid);
+
+    //add food to cart
+    const [newFood, setNewFood] = useState("");
+    const [newQuantity, setNewQuantity] = useState("");
+    const [newMerchant, setNewMerchant] = useState("")
 
     const fetchCart = async() => {
         try{
@@ -26,12 +30,43 @@ const Modal = () => {
         }
     };
 
-
     useEffect(() => {
         if (cart){
             fetchCart();
         }
     }, [])
+
+    const AddFood = async(merchantId) => {
+        try{
+            const docSnap = await getDoc(CartRef);
+            if (merchantId == docSnap.merchant_id){
+                await updateDoc(CartRef, {
+                    Food: arrayUnion(newFood),
+                    Quantity : arrayUnion(newQuantity)
+                });
+            }    
+            else{
+                await updateDoc(CartRef, {
+                    Food: deleteField(),
+                    Quantity: deleteField(),
+                    Food: [],
+                    Quantity: [],
+                    Food: arrayUnion(newFood),
+                    Quantity: arrayUnion(newQuantity),
+                    merchant_id: merchantId,
+                });
+            }
+        }catch(err){
+            console.error(err)
+        }
+    }    
+
+    useEffect((uid) => { //id cua merchant ban mon an muon them vao cart
+        if (cart){
+            fetchCart();
+        }
+    }, [])
+
 
     const [count, setCount] = useState(0);
 

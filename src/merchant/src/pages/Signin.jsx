@@ -24,10 +24,6 @@ const Signin = () => {
       password
       );
 
-
-      const user = userCredential.user
-
-      console.log(user);
       toast.success('Sign in successfully!', {
         autoClose: 1000, // Thời gian tự đóng toast (milisecond)
       });

@@ -13,6 +13,8 @@ import useAuth from '../custom_hooks/useAuth'
 const Home = () => {
   // const user = useAuth();
   const [OneMerchant, setOneMerchant] = useState([])
+  const [OrderDetail, setOrder] = useState([])
+
   // const MerchantCollectionRef = collection(firestore, "Merchant")
   
   const merchant = useAuth();
@@ -27,12 +29,37 @@ const Home = () => {
       console.error(err);
     }
   };
+  const getOrder = async(uid) => {
+    try{
+      const OrderRef = collection(firestore, "Order")
+      const q = query(OrderRef, where ("M_ID", "==", uid));
+      const querySnapshot = await getDocs(q)
+      querySnapshot.forEach((doc) => {
+        const OrderData = doc.data();
+        console.log(OrderData);
+        setOrder(OrderData)
+      })
+
+    } catch(err){
+      console.error(err)
+    }
+  };
+
+
+  useEffect(() => {
+    if(merchant){
+      getOrder(merchant.uid);
+    }
+  }, [merchant])
+
 
   useEffect(() => {
     if(merchant){
       display1Merchant(merchant.uid);
     }
   }, [merchant])
+
+
 
   return (
     <>
