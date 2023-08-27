@@ -70,19 +70,22 @@ const Home = () => {
           <div key={OneMerchant.uid} className='grid text-textColor text-left h-2/3 justify-items-start py-28 px-12 my-24 mx-10 gap-y-2 '>
             <p className=' h-fit text-2xl font-semibold mb-8'>
              {OneMerchant.Name}
-           </p>
-           <p className=' h-fit flex gap-4 text-base'>
-             <FaRegMap className=' text-2xl cursor-pointer'/>
-             {OneMerchant.Address}
-           </p>
-           <p className=' h-fit flex gap-4 text-base'>
-             <FiPhone className=' text-2xl cursor-pointer'/>
-             {OneMerchant.Phone}
-           </p>
-           <p className=' h-fit flex gap-4 text-base'>
-             <FiMail className=' text-2xl cursor-pointer'/>
-             {OneMerchant.email}
-           </p>
+            </p>
+
+            <p className=' h-fit flex gap-4 text-base'>
+              <FaRegMap className=' text-2xl cursor-pointer'/>
+              {OneMerchant.Address}
+            </p>
+            
+            <p className=' h-fit flex gap-4 text-base'>
+              <FiPhone className=' text-2xl cursor-pointer'/>
+              {OneMerchant.Phone}
+            </p>
+            
+            <p className=' h-fit flex gap-4 text-base'>
+              <FiMail className=' text-2xl cursor-pointer'/>
+              {OneMerchant.email}
+            </p>
           </div>
           <div className="hidden md:flex justify-end items-center">
              <img src={mainpic} alt="mainpic" className="h-2/3 object-contain sticky"/>
