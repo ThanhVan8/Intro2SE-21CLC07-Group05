@@ -64,7 +64,8 @@ module.exports = {
         primary: "#2F9B4E",
         textHeadingColor: "#FFF",
         textColor: "#000",
-        textHover: "#d9d9d9"
+        textHover: "#d9d9d9",
+        disabled: "#C5C5C5",
       },
       textSize: {
         40: "40px",
