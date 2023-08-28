@@ -7,8 +7,6 @@ import useAuth from '../custom_hooks/useAuth'
 import { collection, getDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore'
 
 
-
-
 const Order = () => {
 
     const [OrderDetail, setOrder] = useState([])
@@ -43,7 +41,6 @@ const Order = () => {
     useEffect(() => {
         if(merchant){
             getOrder(merchant.uid);
-            console.log(merchant.uid)
         }
     }, [merchant])
 
