@@ -6,7 +6,7 @@ import { firestore, storage } from "../config/firebase"
 import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc  } from "firebase/firestore";
 import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
-import { ref, uploadBytes } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable, getStorage } from "firebase/storage"
 
 
 
@@ -15,7 +15,12 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   const [price, setPrice] = useState(itemPrice)
   const [description, setDescription] = useState(itemDescription)
   const [imageURL, setImageURL] = useState(itemImageURL)
-  
+  const [isLoading, setisLoading] = useState(false)
+  const [progress, setProgress] = useState(null)
+
+  // const alert = useSelector((state) => state.alert)
+  // const dispath = useDispath()
+
   const uploadImage = (e) => {
     // if (!imageURL) return;
     // const filesFolderRef = ref(storage,  `image/${imageURL.name}`)

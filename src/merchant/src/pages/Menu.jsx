@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import FoodCard from '../components/FoodCard'
@@ -12,6 +12,7 @@ import useAuth from "../custom_hooks/useAuth";
 const Menu = () => {
 	const [{ showAddItem }, dispatch] = useStateValue()
 	const handleAddItem = () => {
+		
 		dispatch({
 			type: 'SET_SHOW_ADD_ITEM',
 			showAddItem: !showAddItem,
