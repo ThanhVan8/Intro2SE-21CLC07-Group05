@@ -6,8 +6,8 @@ import Home from './pages/Home'
 import Menu from './pages/Menu'
 import OrderDetail from './pages/OrderDetail'
 import OrderStatus from './pages/OrderStatus';
+import ShopList from './pages/ShopList';
 import ProtectedRoute from './routers/ProtectedRoute'
-// import Menu from './pages/Menu'
 
 const App = () => {
   return (
@@ -17,8 +17,10 @@ const App = () => {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />   
+        <Route path='/Menu' element = {<ProtectedRoute><Menu /></ProtectedRoute>}/>     
         <Route path='/OrderDetail' element = {<ProtectedRoute><OrderDetail /></ProtectedRoute>}/>     
         <Route path='/OrderStatus' element = {<ProtectedRoute><OrderStatus /></ProtectedRoute>}/>
+        <Route path='/ShopList' element = {<ProtectedRoute><ShopList /></ProtectedRoute>}/>
       </Routes>
     </div>
   )
