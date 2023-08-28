@@ -29,6 +29,15 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
 
   }
 
+  const saveFood = () => {
+    if (action === "add") {
+      addFood()
+    }
+    else if (action === "update") {
+      updateFood()
+    }
+  }
+
   const deleteImage = (e) => {
     console.log('delete image')
   }
