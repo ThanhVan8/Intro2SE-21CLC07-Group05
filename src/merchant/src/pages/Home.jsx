@@ -28,7 +28,7 @@ const Home = () => {
       console.error(err);
     }
   };
-
+  
   useEffect(() => {
     if(merchant){
       display1Merchant(merchant.uid);

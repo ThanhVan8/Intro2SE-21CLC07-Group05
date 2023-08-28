@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 import {FaTimes, FaCloudUploadAlt, FaTrashAlt} from "react-icons/fa"
 import InputField from './InputField'
 import { useStateValue } from '../context/StateProvider'
-
+import { firestore } from "../config/firebase"
+import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore  } from "firebase/firestore";
 import food from "../assets/food.png"
+
 
 const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL}) => {
   const [name, setName] = useState(itemName)
   const [price, setPrice] = useState(itemPrice)
   const [description, setDescription] = useState(itemDescription)
   const [imageURL, setImageURL] = useState(itemImageURL)
-
+  
   const uploadImage = (e) => {
     const imgFile = e.target.files[0]
     // console.log(imgFile)
@@ -22,8 +24,13 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   }
 
   const saveFood = () => {
-    const newItem = action.payload;
-    console.log(newItem)
+    const docRef =  doc(firestore, "Menu", "BsD5CNKu5KfAXyjA0ZhgHEq1I7h2");
+    // update array
+    updateDoc(docRef, { 
+      Description: arrayUnion(description),
+      FoodList: arrayUnion(name),
+      Price: arrayUnion(price)
+    })
     console.log('save food')
   }
 
