@@ -3,10 +3,11 @@ import ShopCard from '../components/ShopCard'
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 import {useParams} from "react-router-dom"
+import {Link} from "react-router-dom";
 
 const ShopList = () => {
 	const { id } = useParams();
-	
+
 
 	const [list, setList] = useState([
 		{img: 1, name:'KFC'},
@@ -21,8 +22,10 @@ const ShopList = () => {
         <div className='grid md:grid-cols-3 gap-3 mt-24 mb-16 px-10'>
 					{list && list.map((data) =>{
 						return(
-							<ShopCard image={data.img} name={data.name}/>)
-					})}
+							<Link key={data.id} to = {`/Menu/${data.id}`}>
+								<ShopCard image={data.img} name={data.name}/>
+							</Link>
+						)})}
         </div>
         <Footer />
     </div>
