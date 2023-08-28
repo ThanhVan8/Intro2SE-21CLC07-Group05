@@ -14,6 +14,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   const uploadImage = (e) => {
     const imgFile = e.target.files[0]
     // console.log(imgFile)
+
   }
 
   const deleteImage = (e) => {
@@ -21,6 +22,8 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   }
 
   const saveFood = () => {
+    const newItem = action.payload;
+    console.log(newItem)
     console.log('save food')
   }
 

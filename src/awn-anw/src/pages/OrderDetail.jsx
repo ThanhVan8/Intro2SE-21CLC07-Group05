@@ -4,7 +4,6 @@ import Footer from '../components/Footer'
 import payment from '../assets/payment.png'
 import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import OrderSumCard from '../components/OrderSumCard';
-import { useState, useEffect } from 'react';
 import useAuth from '../custom_hooks/useAuth'
 import { doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
