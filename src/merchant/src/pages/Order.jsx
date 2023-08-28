@@ -19,11 +19,12 @@ const Order = () => {
           const q = query(OrderRef, where ("M_ID", "==", uid));
           const querySnapshot = await getDocs(q)
           let u_id = [];
+          let orderList = [];
           let buyerList = [];
           querySnapshot.forEach((doc) => {
             const OrderData = doc.data();
             console.log(OrderData);
-            setOrder(OrderData);
+            orderList.push(OrderData);
             u_id.push(OrderData.O_ID);
           })
           for (let i = 0; i < u_id.length; i++){
