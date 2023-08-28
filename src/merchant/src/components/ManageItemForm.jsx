@@ -6,7 +6,7 @@ import { firestore, storage } from "../config/firebase"
 import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc  } from "firebase/firestore";
 import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
-import { ref, uploadBytes } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable, getStorage } from "firebase/storage"
 
 
 
@@ -15,16 +15,43 @@ const ManageItemForm = ({action, itemName, itemPrice = '70000', itemDescription,
   const [price, setPrice] = useState(itemPrice)
   const [description, setDescription] = useState(itemDescription)
   const [imageURL, setImageURL] = useState(itemImageURL)
-  
+  const [isLoading, setisLoading] = useState(false)
+  const [progress, setProgress] = useState(null)
+
+  // const alert = useSelector((state) => state.alert)
+  // const dispath = useDispath()
+
   const uploadImage = (e) => {
-    if (!imageURL) return;
-    const filesFolderRef = ref(storage,  `image/${imageURL.name}`)
-    try {
-      uploadBytes(filesFolderRef, imageURL)
-    } catch (err) {
-      console.error(err)
-    }
-    // const imgFile = e.target.files[0]
+    setisLoading(true);
+    const imgFile = e.target.files[0]
+    const storageRef = ref(storage, `Image/${Date.now()}_${imageURL.name}`)
+
+
+
+    // const uploadTask = uploadBytesResumable(storageRef, imageFile)
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+    //     setProgess((snapshot.bytesTransferred / snapshot.totalBytes) *100)
+    //   },
+    //   (error) => {
+    //     dispatch(alertDanger(`Error: ${error}`))
+    //     setTimeout(() => {
+    //       dispatch(alertNULL())
+    //     }, 3000)
+    //   },
+    //   () => {
+    //     getDownloadURL(uploadTask.snapshot.ref).then((dowloadURL) => {
+    //       setImageURL(dowloadURL)
+    //       setisLoading(false)
+    //       setProgress(null)
+    //       dispatch(alertSuccess("image uploaded"))
+    //       setTimeout(() =>{
+    //         dispatch(alertNULL())
+    //       }, 3000)
+    //     })
+    //   }
+    // )
     // console.log(imgFile)
 
   }
