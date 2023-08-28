@@ -13,7 +13,8 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 
 	function handleMinClick() {
 			if(count>1)
-					setCount(count - 1);
+				setCount(count - 1);
+			if(count < 0)
 	}
 
 	const handleAddToCart = () => {
@@ -22,12 +23,60 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 	}
 
 	const [{ addFoodShow }, dispatch] = useStateValue()
-  const handleCloseModal = () => {
-    dispatch({
-      type: 'SET_ADD_FOOD_SHOW',
-      addFoodShow: !addFoodShow,
-    })
+	const handleCloseModal = () => {
+		dispatch({
+		type: 'SET_ADD_FOOD_SHOW',
+		addFoodShow: !addFoodShow,
+		})
 	}
+
+	const cart = useAuth();
+	
+  	// phan nay add m_id (khoi tao )
+  	const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
+    	Food: [],
+    	Quantity: [],
+    	merchant_id: idMerchant
+    });
+  	//
+  	const addCart = async (food, quant) => {
+    	try {
+		//get array
+			const docSnap = await getDoc(docRef)
+			const food_list = docSnap.data()['Food'];
+			const quant_list = docSnap.data()['Quantity'];
+		//update
+		food_list.push(food)
+		quant_list.push(quant)
+		updateDoc(docRef, {
+			['Food']: food_list,
+			['Quantity']: quant_list
+		})  
+		}catch(err){
+			console.error(err);
+		}
+	}
+
+  	const deleteCart = async (idx) => {
+    	try {
+      	//get array
+			const docSnap = await getDoc(docRef)
+			const food_list = docSnap.data()['Food'];
+			const quant_list = docSnap.data()['Quantity'];
+      	
+      	//delete
+      	food_list.splice(idx, 1)
+      	quant_list.splice(idx, 1) 
+      	updateDoc(docRef, {
+        	['Food']: food_list,
+        	['Quantity']: quant_list
+      	})  
+    	}catch(err){
+			console.error(err);
+		}
+	}
+
+
 
   return (
     <div className="fixed bg-black bg-opacity-25 top-0 left-0 w-full h-screen flex justify-center items-center z-50">
