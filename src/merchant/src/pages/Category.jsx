@@ -5,31 +5,86 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Dropdown from '../components/Dropdown';
 import { FaCircleMinus }from "react-icons/fa6";
+import useAuth from "../custom_hooks/useAuth";
+import { getAuth } from "firebase/auth";
 
 const Category = () => {
-	const [categories, setCategories] = useState(['Rice', 'Milk tea', 'Noodle', 'Chicken'])
+	const [categories, setCategories] = useState([])
+	// const[merchantCate, setMerchantCate] = useState([])
 
 	const handleRemove = (index) => {
 		console.log(index)
-		// remove from database
+
+	}
+	const merchant = useAuth();
+
+	const FetchMerchantCate = async(uid) => {
+		try{
+			const cate = ''
+			const MerchantCateRef = doc(firestore, "Merchant", uid)
+			const docSnap = await getDoc(MerchantCateRef)
+			const merchantCate = docSnap.data()['Categories'];
+			// setCategories(merchantCate)
+			// console.log(merchantCate);
+			for (let i = 0; i < merchantCate.length; i++){
+				const CategoryRef = doc(firestore, "Category", merchantCate[i])
+				const docSnap = await getDoc(CategoryRef)
+				const cate = docSnap.data().Name;
+				console.log(cate);
+			}
+			
+			
+		}catch(err){
+			console.error(err);
+		}
 	}
 
-	const FetchCategory = async() => {
-        try{
-            const categoriesRef = collection(firestore, "Category")
-            const cateData = new Set();
-            const querySnapshot = await getDocs(categoriesRef)
-            querySnapshot.forEach((doc) => {
-                const cate = doc.data();
-                console.log(cate.Name);
-            })
-        }catch(err){
-            console.error(err);
-        }
-    }
-    useEffect(() => {
-        FetchCategory();
-    }, []);
+	useEffect(() => {
+		if(merchant){
+			FetchMerchantCate(merchant.uid);
+		}
+	},[merchant]);
+
+	// const DeleteCategory = async(index) => {
+	// 	try{
+	// 		const merchantRef = doc(firestore, "Merchant", merchant.uid)
+	// 		let ID = ''
+	// 		const q = query(collection(firestore, "Category"),where ('Name',"==", cate));
+	// 		const querySnapshot = await getDocs(q)
+	// 		querySnapshot.forEach((doc) => {
+	// 			ID = doc.id;
+	// 		});
+	// 		await updateDoc(merchantRef, {
+	// 			Categories: arrayUnion(ID),
+	// 		});                
+	// 	}catch(err){
+	// 		console.error(err);
+	// 	}
+	// } 
+
+	// useEffect(() => {
+	// 	if(merchant){
+	// 		AddCategory("cate");
+	// 	}
+	// },[]);
+
+// Category cua ca he thong
+	// const FetchCategory = async() => {
+    //     try{
+    //         const categoriesRef = collection(firestore, "Category")
+    //         const cateData = new Set();
+    //         const querySnapshot = await getDocs(categoriesRef)
+    //         querySnapshot.forEach((doc) => {
+    //             const cate = doc.data();
+    //             console.log(cate.Name);
+    //         })
+    //     }catch(err){
+    //         console.error(err);
+    //     }
+    // }
+    // useEffect(() => {
+    //     FetchCategory();
+    // }, []);
 
 
   return (
