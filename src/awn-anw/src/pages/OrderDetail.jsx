@@ -10,7 +10,12 @@ import { doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
 
 const OrderDetail = () => {
-	const OrderCollectionRef = collection(firestore, "Order")
+	const [details, setDetails] = useState([
+		{name:"Cheese cake", description:"Sweet", quantity:3, price:10000},
+		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
+		{name:"Chicken", description:"Sweet", quantity:2, price:20000}]
+	)
+
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
 	const fetchCart = async(uid) => {
@@ -23,29 +28,8 @@ const OrderDetail = () => {
 			console.error(err);
 		}
 	};
-
-	const displayOrderDetail = async(uid) => {
-		try{
-			const q = query(OrderCollectionRef, where("O_ID", "==", uid));
-			const querySnapshot = await getDocs(q)
-			querySnapshot.forEach((doc) => {
-				const orderDetail = doc.data();
-				console.log(orderDetail)
-				setorderDetail(orderDetail)
-			})
-		}catch (err){
-			console.error(err);
-		}
-	};
-
-	useEffect(() => {
-		if(buyer){
-			displayOrderDetail(buyer.uid);
-		}
-	  }, [buyer])
-
-
-    useEffect(() => {
+	
+  useEffect(() => {
 		if (buyer) {
 			fetchCart(buyer.uid);
 		}
