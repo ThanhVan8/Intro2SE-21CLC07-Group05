@@ -27,10 +27,7 @@ const MainContainer = () => {
       }
     };
     getCategoryList();
-<<<<<<< HEAD
-=======
     // console.log(categoryList)
->>>>>>> 56aa45b77ab45a7522e758130a14779b3a764214
   }, [])
 
   return (
@@ -40,20 +37,6 @@ const MainContainer = () => {
           <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>       
           {/* devided into 3 cols */}
           <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4">
-<<<<<<< HEAD
-            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 ">
-            {categoryList && categoryList.map((data) =>{
-              return(
-                <Link key={data.id} to = {"/"} className='w-full h-fit p-5'>
-                  <img  src={salad} 
-                        alt="salad"
-                        className='w-80 h-60 object-cover' 
-                  />
-                  <p className='text-textColor text-base py-2 '>{data.Name}</p>
-                </Link>)             
-      
-            })} 
-=======
             <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 "> 
               <Link to = {"/"} className='w-full h-fit p-5'>
                 <img  src={salad} 
@@ -84,7 +67,6 @@ const MainContainer = () => {
                 <p className='text-textColor text-base py-2 '>Salad</p>
               </Link>
 
->>>>>>> 56aa45b77ab45a7522e758130a14779b3a764214
             </div>
             {/* last col - img */}
             <div className="hidden md:flex justify-end items-center">

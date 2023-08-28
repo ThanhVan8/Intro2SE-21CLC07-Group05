@@ -17,19 +17,8 @@ const App = () => {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />   
-<<<<<<< HEAD
-        <Route path='/Home' element = {<Home />}/>     
-        {/* <Route path='/Menu' element = {<Menu />}/>      */}
-
-        {/* <Route path='/Cart' element = {<Cart />}/>     */}
-        <Route path='/Menu' element = {<Menu />}/>     
-        <Route path='/OrderDetail' element = {<OrderDetail />}/>     
-
-=======
-        <Route path='/Cart' element = {<ProtectedRoute><Cart /></ProtectedRoute>}/>     
         <Route path='/OrderDetail' element = {<ProtectedRoute><OrderDetail /></ProtectedRoute>}/>     
         <Route path='/OrderStatus' element = {<ProtectedRoute><OrderStatus /></ProtectedRoute>}/>
->>>>>>> 56aa45b77ab45a7522e758130a14779b3a764214
       </Routes>
     </div>
   )

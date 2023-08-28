@@ -8,22 +8,12 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../custom_hooks/useAuth'
 
 const Modal = () => {
-<<<<<<< HEAD
-    const auth = getAuth();
-    const cart = auth.currentUser;
-    
-    const[Cart, setShoppingCart] = useState([]);
-    const CartRef = doc(firestore, "ShoppingCart", cart.uid);
-
-    const fetchCart = async() => {
-=======
     // const auth = getAuth();
     // const cart = auth.currentUser;
     const cart = useAuth();
     const[Cart, setShoppingCart] = useState([]);
     
     const fetchCart = async(uid) => {
->>>>>>> 56aa45b77ab45a7522e758130a14779b3a764214
         try{
             const CartRef = doc(firestore, "ShoppingCart", uid);
             const docSnap = await getDoc(CartRef);
@@ -35,17 +25,10 @@ const Modal = () => {
 
 
     useEffect(() => {
-<<<<<<< HEAD
-        if (cart){
-            fetchCart();
-        }
-    }, [])
-=======
         if (cart) {
             fetchCart(cart.uid);
         }
     }, [cart])
->>>>>>> 56aa45b77ab45a7522e758130a14779b3a764214
 
     const [count, setCount] = useState(0);
 
