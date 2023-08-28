@@ -19,9 +19,13 @@ const Order = () => {
           const q = query(OrderRef, where ("M_ID", "==", uid));
           const querySnapshot = await getDocs(q)
           querySnapshot.forEach((doc) => {
-            const OrderData = doc.data();
-            console.log(OrderData);
-            setOrder(OrderData);
+            const OrderData = {...doc.data(), id: doc.id};
+            // console.log(OrderData);
+            // setOrder(OrderData);
+            setOrder([
+              ...OrderDetail,
+              OrderData
+            ]);
             u_id.push(OrderData.O_ID);
           })
           for (let i = 0; i < u_id.length; i++){
@@ -30,9 +34,9 @@ const Order = () => {
             const buyer = docSnap.data();
             setBuyer([
                 ...BuyerDetail,
-                {buyer} // need to check here
+                buyer // need to check here
             ]);
-            console.log(buyer);
+            // console.log(buyer);
           }
         } catch(err){
           console.error(err)
@@ -42,7 +46,6 @@ const Order = () => {
     useEffect(() => {
         if(merchant){
             getOrder(merchant.uid);
-            console.log(merchant.uid)
         }
     }, [merchant])
     return (
@@ -51,10 +54,13 @@ const Order = () => {
         {/* container */}
         <div className='w-full min-h-screen mt-16 py-16 px-16 grid gap-4'>
             {/* an order */}
-            <OrderCard />
+            {OrderDetail && OrderDetail.map((detailedInfo, index) => {
+              return (
+                <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]}/>
+              )
+            })}
         </div>
         <Footer/>
-    
     </>
   )
 }
