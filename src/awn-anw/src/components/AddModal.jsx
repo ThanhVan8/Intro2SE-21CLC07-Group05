@@ -2,8 +2,17 @@ import React, {useState} from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
-import { collection, getDoc, getDocs, query, where, doc, updateDoc, arrayUnion, arrayRemove  } from 'firebase/firestore'
-import useAuth from "../custom_hooks/useAuth";
+import {addDoc,setDoc,
+	collection,
+	getDocs,
+	query,
+	where,
+	doc,
+	getDoc,
+	updateDoc,
+  } from "firebase/firestore";
+  import { firestore } from "../config/firebase";
+  import useAuth from "../custom_hooks/useAuth";
 
 
 const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
@@ -15,11 +24,12 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 
 	function handleMinClick() {
 			if(count>1)
-					setCount(count - 1);
+				setCount(count - 1);
 	}
 
 	const handleAddToCart = () => {
 		//write here
+		addCart(index, count)
 		handleCloseModal()
 	}
 
@@ -35,8 +45,6 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 	
   // phan nay add m_id (khoi tao )
   	const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-    	Food: [],
-    	Quantity: [],
     	merchant_id: idMerchant
     });
   //
