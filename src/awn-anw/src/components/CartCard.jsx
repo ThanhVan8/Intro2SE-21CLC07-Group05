@@ -4,6 +4,18 @@ import {FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 
 import cake from "../assets/cake.jpg"
 
+import {addDoc,setDoc,
+	collection,
+	getDocs,
+	query,
+	where,
+	doc,
+	getDoc,
+	updateDoc,
+  } from "firebase/firestore";
+  import { firestore } from "../config/firebase";
+  import useAuth from "../custom_hooks/useAuth";
+
 const CartCard = ({name, quantity, price, idFood}) => {
     const [count, setCount] = useState(quantity);
 

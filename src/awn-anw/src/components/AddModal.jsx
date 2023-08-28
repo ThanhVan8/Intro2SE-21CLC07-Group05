@@ -2,6 +2,17 @@ import React, {useState} from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
+import {addDoc,setDoc,
+	collection,
+	getDocs,
+	query,
+	where,
+	doc,
+	getDoc,
+	updateDoc,
+  } from "firebase/firestore";
+  import { firestore } from "../config/firebase";
+  import useAuth from "../custom_hooks/useAuth";
 
 
 const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
@@ -21,24 +32,6 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 		addCart(index, count)
 		handleCloseModal()
 	}
-	// const addCart = async ( food, quant) => {
-	// 	try {
-	// 	  //get array
-	// 	  const docSnap = await getDoc(docRef)
-	// 			const food_list = docSnap.data()['Food'];
-	// 			const quant_list = docSnap.data()['Quantity'];
-	
-	// 	  //update
-	// 	  food_list.push(food)
-	// 	  quant_list.push(quant)
-	// 	  updateDoc(docRef, {
-	// 		['Food']: food_list,
-	// 		['Quantity']: quant_list
-	// 	  })  
-	// 	}catch(err){
-	// 			console.error(err);
-	// 		}
-	//   }
 
 	const [{ addFoodShow }, dispatch] = useStateValue()
 	const handleCloseModal = () => {
