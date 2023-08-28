@@ -15,12 +15,13 @@ const Order = () => {
     const [BuyerDetail, setBuyer] = useState([])
     const [updatedStatus, setUpdatedStatus] = useState()
     const merchant = useAuth();
-    let u_id = []
     const getOrder = async(uid) => {
         try{
           const OrderRef = collection(firestore, "Order")
           const q = query(OrderRef, where ("M_ID", "==", uid));
           const querySnapshot = await getDocs(q)
+          let u_id = [];
+          let buyerList = [];
           querySnapshot.forEach((doc) => {
             const OrderData = doc.data();
             console.log(OrderData);
@@ -31,12 +32,9 @@ const Order = () => {
             const BuyerRef = doc(firestore, "User", u_id[i])
             const docSnap = await getDoc(BuyerRef)
             const buyer = docSnap.data();
-            setBuyer([
-                ...BuyerDetail,
-                {buyer} // need to check here
-            ]);
-            console.log(buyer);
+            buyerList.push(buyer);
           }
+          console.log(buyerList);
         } catch(err){
           console.error(err)
         }
