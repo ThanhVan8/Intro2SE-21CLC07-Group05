@@ -50,11 +50,12 @@ const Order = () => {
     }, [merchant])
 
     // tvan lấy id của order cần phải update
-    const updateOrder = async(id) => {
-        const OrderDoc = doc(firestore, "Order", id);
-        await updateDoc(OrderDoc, {Status: updatedStatus});
-    }
+    // const updateOrder = async(id) => {
+    //     const OrderDoc = doc(firestore, "Order", id);
+    //     await updateDoc(OrderDoc, {Status: updatedStatus});
+    // }
 
+    
 
     return (
     <>

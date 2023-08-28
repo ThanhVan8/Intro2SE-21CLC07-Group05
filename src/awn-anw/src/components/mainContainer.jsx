@@ -15,13 +15,10 @@ const MainContainer = () => {
   useEffect(() => {
     const getCategoryList = async () => {
       try{
-        const data = await getDocs(CategoryCollectionRef)
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
+        const DocData = await getDocs(CategoryCollectionRef)
+        const filteredData = DocData.data()
         setCategoryList(filteredData)
-        // console.log(filteredData);
+        console.log(filteredData);
       } catch (err){
         console.error(err);
       }
