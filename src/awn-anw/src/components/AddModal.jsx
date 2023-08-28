@@ -13,8 +13,7 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 
 	function handleMinClick() {
 			if(count>1)
-				setCount(count - 1);
-			if(count < 0)
+					setCount(count - 1);
 	}
 
 	const handleAddToCart = () => {
@@ -32,13 +31,13 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 
 	const cart = useAuth();
 	
-  	// phan nay add m_id (khoi tao )
+  // phan nay add m_id (khoi tao )
   	const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
     	Food: [],
     	Quantity: [],
     	merchant_id: idMerchant
     });
-  	//
+  //
   	const addCart = async (food, quant) => {
     	try {
 		//get array
@@ -72,7 +71,7 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
         	['Quantity']: quant_list
       	})  
     	}catch(err){
-			console.error(err);
+		console.error(err);
 		}
 	}
 
