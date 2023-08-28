@@ -37,11 +37,14 @@ const Modal = () => {
     }
   };
 
+  
+
   useEffect(() => {
     if (cart) {
       fetchCart(cart.uid);
     }
   }, [cart]);
+
 
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
