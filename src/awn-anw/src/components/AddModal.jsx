@@ -14,11 +14,11 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 	function handleMinClick() {
 			if(count>1)
 				setCount(count - 1);
-			if(count < 0)
 	}
 
 	const handleAddToCart = () => {
 		//write here
+		addCart(index, count)
 		handleCloseModal()
 	}
 
@@ -34,8 +34,6 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 	
   	// phan nay add m_id (khoi tao )
   	const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-    	Food: [],
-    	Quantity: [],
     	merchant_id: idMerchant
     });
   	//
@@ -57,24 +55,7 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 		}
 	}
 
-  	const deleteCart = async (idx) => {
-    	try {
-      	//get array
-			const docSnap = await getDoc(docRef)
-			const food_list = docSnap.data()['Food'];
-			const quant_list = docSnap.data()['Quantity'];
-      	
-      	//delete
-      	food_list.splice(idx, 1)
-      	quant_list.splice(idx, 1) 
-      	updateDoc(docRef, {
-        	['Food']: food_list,
-        	['Quantity']: quant_list
-      	})  
-    	}catch(err){
-			console.error(err);
-		}
-	}
+  	
 
 
 
