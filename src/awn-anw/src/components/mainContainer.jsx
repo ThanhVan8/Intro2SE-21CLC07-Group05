@@ -4,7 +4,7 @@ import mainpic from "../assets/mainpic.png";
 import salad from "../assets/salad.jpg"
 import food from "../assets/food.png"
 import { firestore } from "../config/firebase"
-import { collection, getDocs, addDoc  } from 'firebase/firestore'
+import { collection, getDocs  } from 'firebase/firestore'
 import Modal from './Modal';
 
 

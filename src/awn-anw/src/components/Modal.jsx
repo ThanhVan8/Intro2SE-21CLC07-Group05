@@ -2,7 +2,7 @@ import storepic from "../assets/store.jpg";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
-import {
+import {addDoc,setDoc,
   collection,
   getDocs,
   query,
@@ -20,11 +20,53 @@ const Modal = () => {
   // const cart = auth.currentUser;
   const cart = useAuth();
   const [shoppingCart, setShoppingCart] = useState({});
-  const [cartDetail, setCartDetail] = useState([
-    { name: "Cheese cake", quantity: 3, price: 10000 },
-    { name: "Chicken", quantity: 2, price: 20000 },
-    { name: "Chicken", quantity: 2, price: 20000 },
-  ]);
+
+
+  // phan nay add m_id (khoi tao )
+  const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
+    Food: [],
+    Quantity: [],
+    merchant_id: m_id
+    });
+  //
+  const addCart = async ( food, quant) => {
+    try {
+      //get array
+      const docSnap = await getDoc(docRef)
+			const food_list = docSnap.data()['Food'];
+			const quant_list = docSnap.data()['Quantity'];
+
+      //update
+      food_list.push(food)
+      quant_list.push(quant)
+      updateDoc(docRef, {
+        ['Food']: food_list,
+        ['Quantity']: quant_list
+      })  
+    }catch(err){
+			console.error(err);
+		}
+  }
+
+  const deleteCart = async (idx) => {
+    try {
+      //get array
+      const docSnap = await getDoc(docRef)
+			const food_list = docSnap.data()['Food'];
+			const quant_list = docSnap.data()['Quantity'];
+      
+				
+      //delete
+      food_list.splice(idx, 1)
+      quant_list.splice(idx, 1) 
+      updateDoc(docRef, {
+        ['Food']: food_list,
+        ['Quantity']: quant_list
+      })  
+    }catch(err){
+			console.error(err);
+		}
+  }
 
   const fetchCart = async (uid) => {
     try {
