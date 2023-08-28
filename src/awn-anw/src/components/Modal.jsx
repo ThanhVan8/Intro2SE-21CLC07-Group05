@@ -21,17 +21,22 @@ const Modal = () => {
   const cart = useAuth();
   const [shoppingCart, setShoppingCart] = useState({});
 
-
+  var food_id = [];
   const fetchCart = async (uid) => {
     try {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
       console.log(docSnap.data());
       setShoppingCart(docSnap.data());
+      food_id = docSnap.data()["Food"];
     } catch (err) {
       console.error(err);
     }
   };
+  console.log(food_id);
+  // const fetchFoodDetail = async (food_id) => {
+
+  // }
 
   useEffect(() => {
     if (cart) {

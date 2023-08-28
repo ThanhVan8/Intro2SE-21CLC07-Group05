@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
+import { collection, getDoc, getDocs, query, where, doc, updateDoc, arrayUnion, arrayRemove  } from 'firebase/firestore'
+import useAuth from "../custom_hooks/useAuth";
 
 
 const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
