@@ -13,7 +13,8 @@ const OrderDetail = () => {
 	const [details, setDetails] = useState([
 		{name:"Cheese cake", description:"Sweet", quantity:3, price:10000},
 		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
-		{name:"Chicken", description:"Sweet", quantity:2, price:20000}])
+		{name:"Chicken", description:"Sweet", quantity:2, price:20000}]
+	)
 
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
@@ -27,7 +28,8 @@ const OrderDetail = () => {
 			console.error(err);
 		}
 	};
-    useEffect(() => {
+	
+  useEffect(() => {
 		if (buyer) {
 			fetchCart(buyer.uid);
 		}
