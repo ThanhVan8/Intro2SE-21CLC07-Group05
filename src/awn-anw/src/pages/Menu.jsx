@@ -17,6 +17,10 @@ const Menu = () => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
+      const MerchantRef = doc(firestore, "Merchant", uid)
+      const docSnap2 = await getDoc(MerchantRef);
+      nameMerchant = docSnap2.data().Name
+      console.log(nameMerchant)
       // console.log(docSnap.data());
       setMenuData(docSnap.data())
     }catch(err){
