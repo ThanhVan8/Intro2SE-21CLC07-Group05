@@ -47,8 +47,7 @@ const MainContainer = () => {
                   />
                   <p className='text-textColor text-base py-2 '>{data.Name}</p>
                 </Link>
-                )             
-      
+                )
             })} 
             </div>
             {/* last col - img */}

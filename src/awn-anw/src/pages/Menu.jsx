@@ -6,109 +6,64 @@ import cake from "../assets/cake.jpg";
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase';
 import {useParams} from "react-router-dom"
+import MenuCard from '../components/MenuCard';
+import { useStateValue } from '../context/StateProvider'
+import AddModal from "../components/AddModal";
 
 const Menu = () => {
   const { id } = useParams();
-  const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
-
+  // const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
+  const [menuData, setMenuData] = useState()
+  const [nameMerchant, setNameMerchant] = useState()
   const fetchMenu = async(uid) => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
-      console.log(docSnap.data());
+      const MerchantRef = doc(firestore, "Merchant", id)
+      const docSnap2 = await getDoc(MerchantRef);
+      setNameMerchant(docSnap2.data().Name)
+      // console.log(nameMerchant)
+      // console.log(docSnap.data());
+      setMenuData(docSnap.data())
     }catch(err){
       console.error(err);
     }
   };
 
   useEffect(() => {
-    fetchMenu('BsD5CNKu5KfAXyjA0ZhgHEq1I7h2');
-  },[])
+    fetchMenu(id);
+  },[id])
+
+  // const [{ addFoodShow }, dispatch] = useStateValue()
 
   return (
     <>
       <Header />
       <div className='ml-4 mt-20 mb-8'>
-        <div className='grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4'>
-          
-          <div className='grid col-span-2 grid-cols-1 gap-4 justify-item-start p-12 min-h-420'>
-            <div className=' w-656 border border-black h-150 rounded-2xl'>
-              <div className='grid grid-cols-4 w-full h-full gap-2'>
-                <div>
-                  <img src={cake} alt="Food image" className='h-32 w-32 object-cover rounded-full my-2 mx-4 ' />
-                </div>
-                <div className='grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4'>
-                  <div className='text-xl font-semibold text-textColor '>Cheese Cake</div>
-                  <div className='text-base text-textColor opacity-50'>Sweet</div>
-                </div>
-                <div className='relative'>
-                  <button 
-                    className='rounded-3xl border bg-primary border-primary w-16 h-8 my-2 text-textHeadingColor text-base
-                              absolute bottom-2 right-4 hover:opacity-80'>
-                    
-                    ADD
-                  </button>
-                </div>
-                
+        <div className='grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4'>
+          <div className="grid col-span-2 gap-4 px-5">
+          {/* <div className="flex flex-col justify-center items-center mb-8 sticky "> */}
+          {/* <div className="flex flex-col  items-center mb-8 gap-2 "> */}
+            {menuData && menuData.FoodList.map((data, index) => {
+              return (
+                <MenuCard index={index} 
+                foodName={data} 
+                foodDescription={menuData.Description[index]}
+                foodPrice={menuData.Price[index]}
+                idMerchant={id}/>
+              )
+            })}
+            </div>
+            <div className='hidden md:flex justify-end items-center'>
+              <div className=''>
+                <img
+                    src={menupic}
+                    alt="menupic"
+                    className="h-full object-contain sticky pl-5"
+                  />
+                <p className='text-xl font-bold text-center pl-24'>{nameMerchant}</p>
               </div>
             </div>
-
-            <div className=' w-656 border border-black h-150 rounded-2xl'>
-              <div className='grid grid-cols-4 w-full h-full gap-2'>
-                <div>
-                  <img src={cake} alt="Food image" className='h-32 w-32 object-cover rounded-full my-2 mx-4 ' />
-                </div>
-                <div className='grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4'>
-                  <div className='text-xl font-semibold text-textColor '>Cheese Cake</div>
-                  <div className='text-base text-textColor opacity-50'>Sweet</div>
-                </div>
-                <div className='relative'>
-                  <button 
-                    className='rounded-3xl border bg-primary border-primary w-16 h-8 my-2 text-textHeadingColor text-base
-                              absolute bottom-2 right-4 hover:opacity-80'>
-                    
-                    ADD
-                  </button>
-                </div>
-                
-              </div>
-            </div>
-
-            <div className=' w-656 border border-black h-150 rounded-2xl'>
-              <div className='grid grid-cols-4 w-full h-full gap-2'>
-                <div>
-                  <img src={cake} alt="Food image" className='h-32 w-32 object-cover rounded-full my-2 mx-4 ' />
-                </div>
-                <div className='grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4'>
-                  <div className='text-xl font-semibold text-textColor '>Cheese Cake</div>
-                  <div className='text-base text-textColor opacity-50'>Sweet</div>
-                </div>
-                <div className='relative'>
-                  <button 
-                    className='rounded-3xl border bg-primary border-primary w-16 h-8 my-2 text-textHeadingColor text-base
-                              absolute bottom-2 right-4 hover:opacity-80'>
-                    
-                    ADD
-                  </button>
-                </div>
-                
-              </div>
-            </div>
-            
-          </div>
-          <div className="flex flex-col justify-center items-center mb-8 sticky">
-            <div className='sticky'>
-              <img
-                  src={menupic}
-                  alt="menupic"
-                  className="h-full object-contain pl-5"
-                />
-              <p className='text-xl font-bold text-center pl-24'>Shop name</p>
-
-            </div>
-              
-
-          </div>
         </div>
 
       </div>

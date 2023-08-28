@@ -22,37 +22,15 @@ const ManageItemForm = ({action, itemName, itemPrice = '70000', itemDescription,
   // const dispath = useDispath()
 
   const uploadImage = (e) => {
-    setisLoading(true);
+    // if (!imageURL) return;
+    // const filesFolderRef = ref(storage,  `image/${imageURL.name}`)
+    // try {
+    //   uploadBytes(filesFolderRef, imageURL)
+    // } catch (err) {
+    //   console.error(err)
+    // }
     const imgFile = e.target.files[0]
-    const storageRef = ref(storage, `Image/${Date.now()}_${imageURL.name}`)
-
-
-
-    // const uploadTask = uploadBytesResumable(storageRef, imageFile)
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     setProgess((snapshot.bytesTransferred / snapshot.totalBytes) *100)
-    //   },
-    //   (error) => {
-    //     dispatch(alertDanger(`Error: ${error}`))
-    //     setTimeout(() => {
-    //       dispatch(alertNULL())
-    //     }, 3000)
-    //   },
-    //   () => {
-    //     getDownloadURL(uploadTask.snapshot.ref).then((dowloadURL) => {
-    //       setImageURL(dowloadURL)
-    //       setisLoading(false)
-    //       setProgress(null)
-    //       dispatch(alertSuccess("image uploaded"))
-    //       setTimeout(() =>{
-    //         dispatch(alertNULL())
-    //       }, 3000)
-    //     })
-    //   }
-    // )
-    // console.log(imgFile)
+    console.log(imgFile)
 
   }
 
