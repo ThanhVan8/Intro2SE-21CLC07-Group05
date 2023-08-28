@@ -7,16 +7,22 @@ import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firesto
 import { firestore } from '../config/firebase';
 import {useParams} from "react-router-dom"
 import MenuCard from '../components/MenuCard';
+import { useStateValue } from '../context/StateProvider'
+import AddModal from "../components/AddModal";
 
 const Menu = () => {
   const { id } = useParams();
   // const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
   const [menuData, setMenuData] = useState()
-  let nameMerchant = ''
+  const [nameMerchant, setNameMerchant] = useState()
   const fetchMenu = async(uid) => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
+      const MerchantRef = doc(firestore, "Merchant", id)
+      const docSnap2 = await getDoc(MerchantRef);
+      setNameMerchant(docSnap2.data().Name)
+      // console.log(nameMerchant)
       // console.log(docSnap.data());
       setMenuData(docSnap.data())
     }catch(err){
@@ -27,6 +33,8 @@ const Menu = () => {
   useEffect(() => {
     fetchMenu(id);
   },[id])
+
+  // const [{ addFoodShow }, dispatch] = useStateValue()
 
   return (
     <>
@@ -52,7 +60,7 @@ const Menu = () => {
                     alt="menupic"
                     className="h-full object-contain sticky pl-5"
                   />
-                <p className='text-xl font-bold text-center pl-24'>Shop name</p>
+                <p className='text-xl font-bold text-center pl-24'>{nameMerchant}</p>
               </div>
             </div>
         </div>

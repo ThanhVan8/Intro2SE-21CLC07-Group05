@@ -7,6 +7,11 @@ const reducer = (state, action) => {
                 ...state,
                 cartShow: action.cartShow,
             };
+        case 'SET_ADD_FOOD_SHOW':
+            return {
+                ...state,
+                addFoodShow: action.addFoodShow,
+            };
     
         default:
           return state;  
