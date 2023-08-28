@@ -2,20 +2,28 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import payment from '../assets/payment.png'
-<<<<<<< HEAD
-import { FaUserCircle } from "react-icons/fa";
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import OrderSumCard from '../components/OrderSumCard';
-import { getAuth } from 'firebase/auth'
-import { firestore } from '../config/firebase';
-import useAuth from '../custom_hooks/useAuth';
-
+import { useState, useEffect } from 'react';
+import useAuth from '../custom_hooks/useAuth'
+import { doc, getDoc } from 'firebase/firestore'
+import { firestore } from '../config/firebase'
 
 const OrderDetail = () => {
-	const [orderDetail, setorderDetail] = useState([])
 	const OrderCollectionRef = collection(firestore, "Order")
-	// const auth = getAuth();
-	const user = useAuth();
+	const[shoppingCart, setShoppingCart] = useState({});
+	const buyer = useAuth();
+	const fetchCart = async(uid) => {
+		try{
+			const CartRef = doc(firestore, "ShoppingCart", uid);
+			const docSnap = await getDoc(CartRef);
+			console.log(docSnap.data());
+			setShoppingCart(docSnap.data());
+		} catch(err) {
+			console.error(err);
+		}
+	};
+
 	const displayOrderDetail = async(uid) => {
 		try{
 			const q = query(OrderCollectionRef, where("O_ID", "==", uid));
@@ -31,39 +39,12 @@ const OrderDetail = () => {
 	};
 
 	useEffect(() => {
-		if(user){
-			displayOrderDetail(user.uid);
+		if(buyer){
+			displayOrderDetail(buyer.uid);
 		}
-	  }, [user])
+	  }, [buyer])
 
-  	return (
-    	<>
-=======
-import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
-import OrderSumCard from '../components/OrderSumCard';
-import { useState, useEffect } from 'react';
-import useAuth from '../custom_hooks/useAuth'
-import { doc, getDoc } from 'firebase/firestore'
-import { firestore } from '../config/firebase'
 
-const OrderDetail = () => {
-	const [details, setDetails] = useState([
-		{name:"Cheese cake", description:"Sweet", quantity:3, price:10000},
-		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
-		{name:"Chicken", description:"Sweet", quantity:2, price:20000}])
-
-	const[shoppingCart, setShoppingCart] = useState({});
-	const buyer = useAuth();
-	const fetchCart = async(uid) => {
-		try{
-			const CartRef = doc(firestore, "ShoppingCart", uid);
-			const docSnap = await getDoc(CartRef);
-			console.log(docSnap.data());
-			setShoppingCart(docSnap.data());
-		} catch(err) {
-			console.error(err);
-		}
-	};
     useEffect(() => {
 		if (buyer) {
 			fetchCart(buyer.uid);
@@ -80,7 +61,6 @@ const OrderDetail = () => {
 	}
   return (
     <>
->>>>>>> 56aa45b77ab45a7522e758130a14779b3a764214
 			<Header />
 			<div className='w-full mt-16 p-6 md:pr-0 py-5'>
 				<div className="grid grid-cols-3 md:grid-cols-4 w-full gap-4">

@@ -2,10 +2,9 @@ import storepic from "../assets/store.jpg"
 import cake from "../assets/cake.jpg"
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 import { getAuth } from 'firebase/auth'
-import { collection, getDocs, query, where, doc, getDoc, updateDoc, arrayUnion, deleteField, addDoc } from 'firebase/firestore'
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
 import React, { useState, useEffect } from 'react';
-import useAuth from '../custom_hooks/useAuth'
 
 const Modal = () => {
     const auth = getAuth();
@@ -15,14 +14,7 @@ const Modal = () => {
     const CartRef = doc(firestore, "ShoppingCart", cart.uid);
 
     const fetchCart = async() => {
-    // const auth = getAuth();
-    // const cart = auth.currentUser;
-    const cart = useAuth();
-    const[Cart, setShoppingCart] = useState([]);
-    
-    const fetchCart = async(uid) => {
         try{
-            const CartRef = doc(firestore, "ShoppingCart", uid);
             const docSnap = await getDoc(CartRef);
             console.log(docSnap.data());
         }catch(err){
@@ -30,43 +22,12 @@ const Modal = () => {
         }
     };
 
+
     useEffect(() => {
-        if (cart) {
-            fetchCart(cart.uid);
-        }
-    }, [cart])
-
-    const AddFood = async(merchantId) => {
-        try{
-            const docSnap = await getDoc(CartRef);
-            if (merchantId == docSnap.merchant_id){
-                await updateDoc(CartRef, {
-                    Food: arrayUnion(newFood),
-                    Quantity : arrayUnion(newQuantity)
-                });
-            }    
-            else{
-                await updateDoc(CartRef, {
-                    Food: deleteField(),
-                    Quantity: deleteField(),
-                    Food: [],
-                    Quantity: [],
-                    Food: arrayUnion(newFood),
-                    Quantity: arrayUnion(newQuantity),
-                    merchant_id: merchantId,
-                });
-            }
-        }catch(err){
-            console.error(err)
-        }
-    }    
-
-    useEffect((uid) => { //id cua merchant ban mon an muon them vao cart
         if (cart){
             fetchCart();
         }
     }, [])
-
 
     const [count, setCount] = useState(0);
 
@@ -89,7 +50,7 @@ const Modal = () => {
             {/* Store */}
             <div className='flex flex-col justify-center items-center px-2 h-1/3'> 
                 <img src={storepic} 
-                     alt="Store" 
+                     alt="Store Image" 
                      className='h-20 w-20 rounded-full object-cover'/>
                 <p className='py-2 font-semibold'> STORE NAME</p>
                 <hr className= 'w-full border:none border-black border-opacity-30'/>
@@ -100,7 +61,7 @@ const Modal = () => {
                     <div className='grid grid-cols-4 gap-2 justify-center items-center'>
                         {/* Image */}
                         <div className='w-fit'>
-                            <img src={cake} alt="Food" className='object-cover h-20 w-20 rounded-full' />
+                            <img src={cake} alt="Food image" className='object-cover h-20 w-20 rounded-full' />
                         </div>
                         {/* Infor */}
                         <div className='col-span-2 grid grid-rows-3'>
@@ -130,7 +91,7 @@ const Modal = () => {
                     <div className='grid grid-cols-4 gap-2 justify-center items-center'>
                         {/* Image */}
                         <div className='w-fit'>
-                            <img src={cake} alt="Food" className='object-cover h-20 w-20 rounded-full' />
+                            <img src={cake} alt="Food image" className='object-cover h-20 w-20 rounded-full' />
                         </div>
                         {/* Infor */}
                         <div className='col-span-2 grid grid-rows-3'>
@@ -160,7 +121,7 @@ const Modal = () => {
                     <div className='grid grid-cols-4 gap-2 justify-center items-center'>
                         {/* Image */}
                         <div className='w-fit'>
-                            <img src={cake} alt="Food" className='object-cover h-20 w-20 rounded-full' />
+                            <img src={cake} alt="Food image" className='object-cover h-20 w-20 rounded-full' />
                         </div>
                         {/* Infor */}
                         <div className='col-span-2 grid grid-rows-3'>
@@ -180,8 +141,13 @@ const Modal = () => {
                         <div className='text-textColor font-semibold justify-self-end self-end'>
                             30.000 VND
                         </div>
+
                     </div>
-                </div>
+
+                    
+                </div> 
+                             
+                
             </div>
             
             {/* button buy */}
