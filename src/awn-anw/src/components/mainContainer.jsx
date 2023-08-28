@@ -5,8 +5,8 @@ import salad from "../assets/salad.jpg"
 import food from "../assets/food.png"
 import { firestore } from "../config/firebase"
 import { collection, getDocs } from 'firebase/firestore'
-// import Modal from './Modal';
-import ShopList from '../pages/ShopList';
+import Modal from './Modal';
+
 
 const MainContainer = () => {
   const [categoryList, setCategoryList] = useState([])

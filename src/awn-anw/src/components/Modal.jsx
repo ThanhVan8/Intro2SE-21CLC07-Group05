@@ -43,6 +43,7 @@ const Modal = () => {
     }
   }, [cart]);
 
+
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
       <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
