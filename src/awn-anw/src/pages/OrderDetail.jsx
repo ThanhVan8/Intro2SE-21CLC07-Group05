@@ -1,10 +1,9 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import payment from '../assets/payment.png'
 import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import OrderSumCard from '../components/OrderSumCard';
-import { useState, useEffect } from 'react';
 import useAuth from '../custom_hooks/useAuth'
 import { doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
@@ -13,7 +12,8 @@ const OrderDetail = () => {
 	const [details, setDetails] = useState([
 		{name:"Cheese cake", description:"Sweet", quantity:3, price:10000},
 		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
-		{name:"Chicken", description:"Sweet", quantity:2, price:20000}])
+		{name:"Chicken", description:"Sweet", quantity:2, price:20000}]
+	)
 
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
@@ -27,7 +27,8 @@ const OrderDetail = () => {
 			console.error(err);
 		}
 	};
-    useEffect(() => {
+	
+  useEffect(() => {
 		if (buyer) {
 			fetchCart(buyer.uid);
 		}

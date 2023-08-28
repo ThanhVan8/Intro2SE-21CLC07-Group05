@@ -5,8 +5,8 @@ import salad from "../assets/salad.jpg"
 import food from "../assets/food.png"
 import { firestore } from "../config/firebase"
 import { collection, getDocs } from 'firebase/firestore'
-import Modal from './Modal';
-
+// import Modal from './Modal';
+import ShopList from '../pages/ShopList';
 
 const MainContainer = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -27,8 +27,7 @@ const MainContainer = () => {
       }
     };
     getCategoryList();
-    // console.log(categoryList)
-  }, [])
+  }, [CategoryCollectionRef])
 
   return (
     <>
@@ -37,36 +36,18 @@ const MainContainer = () => {
           <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>       
           {/* devided into 3 cols */}
           <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4">
-            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 "> 
-              <Link to = {"/"} className='w-full h-fit p-5'>
-                <img  src={salad} 
-                      alt="salad"
-                      className='w-80 h-60 object-cover' 
-                />
-                <p className='text-textColor text-base py-2 '>Salad</p>
-              </Link>
-              <Link to = {"/"} className='w-full h-fit p-5'>
-                <img  src={salad} 
-                      alt="salad"
-                      className='w-80 h-60 object-cover' 
-                />
-                <p className='text-textColor text-base py-2 '>Salad</p>
-              </Link>
-              <Link to = {"/"} className=' w-full h-fit p-5'>
-                <img  src={salad} 
-                      alt="salad"
-                      className='w-80 h-60 object-cover' 
-                />
-                <p className='text-textColor text-base py-2 '>Salad</p>
-              </Link>
-              <Link to = {"/"} className='w-full h-fit p-5'>
-                <img  src={salad} 
-                      alt="salad"
-                      className='w-80 h-60 object-cover' 
-                />
-                <p className='text-textColor text-base py-2 '>Salad</p>
-              </Link>
-
+            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 ">
+            {categoryList && categoryList.map((data) =>{
+              return(
+                <Link key={data.id} to = {"/ShopList"} className='w-full h-fit p-5'>
+                  <img  src={salad} 
+                        alt="salad"
+                        className='w-80 h-60 object-cover' 
+                  />
+                  <p className='text-textColor text-base py-2 '>{data.Name}</p>
+                </Link>)             
+      
+            })} 
             </div>
             {/* last col - img */}
             <div className="hidden md:flex justify-end items-center">
