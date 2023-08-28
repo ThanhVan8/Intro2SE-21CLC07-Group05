@@ -20,7 +20,7 @@ const App = () => {
         <Route path='/Menu' element = {<ProtectedRoute><Menu /></ProtectedRoute>}/>     
         <Route path='/OrderDetail' element = {<ProtectedRoute><OrderDetail /></ProtectedRoute>}/>     
         <Route path='/OrderStatus' element = {<ProtectedRoute><OrderStatus /></ProtectedRoute>}/>
-        <Route path='/ShopList' element = {<ProtectedRoute><ShopList /></ProtectedRoute>}/>
+        <Route path='/ShopList/:id' element = {<ProtectedRoute><ShopList /></ProtectedRoute>}/>
       </Routes>
     </div>
   )
