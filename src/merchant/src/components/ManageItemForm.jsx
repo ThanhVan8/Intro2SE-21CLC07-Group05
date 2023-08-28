@@ -10,7 +10,7 @@ import { ref, uploadBytes } from "firebase/storage"
 
 
 
-const ManageItemForm = ({action, itemName, itemPrice = '70000', itemDescription, itemImageURL, idItem= 1}) => {
+const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL, idItem}) => {
   const [name, setName] = useState(itemName)
   const [price, setPrice] = useState(itemPrice)
   const [description, setDescription] = useState(itemDescription)
@@ -146,7 +146,7 @@ const ManageItemForm = ({action, itemName, itemPrice = '70000', itemDescription,
                     name="upload-image"
                     accept="image/jpg, image/png, image/jpeg"
                     className="w-0 h-0"
-                    required={true}
+                    required={false}
                     onChange={uploadImage}
                   />
                 </div>

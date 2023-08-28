@@ -9,9 +9,6 @@ import { getAuth } from "firebase/auth";
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
-
-
-
 const Menu = () => {
 	const [{ showAddItem }, dispatch] = useStateValue()
 	const handleAddItem = () => {
@@ -27,7 +24,7 @@ const Menu = () => {
 		try{
 			const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
 			const docSnap = await getDoc(MenuRef);
-			// console.log(docSnap.data());
+			console.log(docSnap.data());
 			setMenuData(docSnap.data())
 		  }catch(err){
 			console.error(err);
@@ -51,7 +48,11 @@ const Menu = () => {
 					<div className='flex flex-col items-center mt-5 gap-3'>
 						{menuData && menuData.FoodList.map((food, index) => {
 							return (
-								
+								<FoodCard index={index} 
+								foodName={food} 
+								foodDescription={menuData.Description[index]}
+								foodPrice={menuData.Price[index]}
+								/>
 							)
 						})}
 					</div>

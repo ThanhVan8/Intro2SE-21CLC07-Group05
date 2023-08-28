@@ -4,7 +4,7 @@ import { useStateValue } from '../context/StateProvider'
 import ManageItemForm from '../components/ManageItemForm'
 import DeleteMess from './DeleteMess'
 
-const FoodCard = () => {
+const FoodCard = ({index, foodName, foodDescription, foodPrice}) => {
 	const [available, setAvailable] = useState(true)
 	const [{ showUpdateItem, showDeleteItem }, dispatch] = useStateValue()
 
@@ -35,25 +35,31 @@ const FoodCard = () => {
 
         {/* Content */}
         <div className='flex flex-col w-full relative gap-2 justify-center'>
-            <p className='font-semibold'>Chicken</p>
-            <p className='italic'>Some description</p>
-            <p className='mt-2 font-medium'>30000 VND</p>
+            <p className='font-semibold'>{foodName}</p>
+            <p className='italic'>{foodDescription}</p>
+            <p className='mt-2 font-medium'>{foodPrice} VND</p>
         </div>
 
         {/* Buttons */}
 				<div className='flex flex-col justify-between items-center'>
 					{/* Available */}
-					<div className='flex gap-2 self-start'>
+					{/* <div className='flex gap-2 self-start'>
 						<input type='radio' className='w-5 h-5' checked={available === true}
 						onClick={() => handleClickAvail()} />
 						{available ? <p className=''>Available</p> : <p className=''>Unavailable</p>}
-					</div>
+					</div> */}
 					{/* Update and Delete */}
 					<div className='flex gap-2'>
 						<button className='bg-yellow font-medium text-white px-2 py-1 rounded-lg' onClick={updateFood}>Update</button>
 						<button className='bg-red font-medium text-white px-2 py-1 rounded-lg' onClick={deleteMess}>Delete</button>
 					</div>
-					{showUpdateItem && <ManageItemForm action='update' itemName='Chicken' itemPrice='30000' itemDescription='Cheese' />}
+					{showUpdateItem && 
+					<ManageItemForm 
+								action='update' 
+								itemName={foodName} 
+								itemPrice={foodPrice} 
+								itemDescription={foodDescription}
+								idItem={index} />}
 					{showDeleteItem && <DeleteMess />}
 				</div>
     </div>

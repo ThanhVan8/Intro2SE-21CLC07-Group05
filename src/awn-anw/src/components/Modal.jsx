@@ -14,6 +14,7 @@ import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
+import { useStateValue } from '../context/StateProvider'
 
 const Modal = () => {
   // const auth = getAuth();
@@ -22,51 +23,34 @@ const Modal = () => {
   const [shoppingCart, setShoppingCart] = useState({});
 
 
-  // phan nay add m_id (khoi tao )
-  const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-    Food: [],
-    Quantity: [],
-    merchant_id: m_id
-    });
-  //
-  const addCart = async ( food, quant) => {
-    try {
-      //get array
-      const docSnap = await getDoc(docRef)
-			const food_list = docSnap.data()['Food'];
-			const quant_list = docSnap.data()['Quantity'];
+  // // phan nay add m_id (khoi tao )
+  // const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
+  //   Food: [],
+  //   Quantity: [],
+  //   merchant_id: m_id
+  //   });
+  // //
+  
 
-      //update
-      food_list.push(food)
-      quant_list.push(quant)
-      updateDoc(docRef, {
-        ['Food']: food_list,
-        ['Quantity']: quant_list
-      })  
-    }catch(err){
-			console.error(err);
-		}
-  }
-
-  const deleteCart = async (idx) => {
-    try {
-      //get array
-      const docSnap = await getDoc(docRef)
-			const food_list = docSnap.data()['Food'];
-			const quant_list = docSnap.data()['Quantity'];
+  // const deleteCart = async (idx) => {
+  //   try {
+  //     //get array
+  //     const docSnap = await getDoc(docRef)
+	// 		const food_list = docSnap.data()['Food'];
+	// 		const quant_list = docSnap.data()['Quantity'];
       
 				
-      //delete
-      food_list.splice(idx, 1)
-      quant_list.splice(idx, 1) 
-      updateDoc(docRef, {
-        ['Food']: food_list,
-        ['Quantity']: quant_list
-      })  
-    }catch(err){
-			console.error(err);
-		}
-  }
+  //     //delete
+  //     food_list.splice(idx, 1)
+  //     quant_list.splice(idx, 1) 
+  //     updateDoc(docRef, {
+  //       ['Food']: food_list,
+  //       ['Quantity']: quant_list
+  //     })  
+  //   }catch(err){
+	// 		console.error(err);
+	// 	}
+  // }
 
   const fetchCart = async (uid) => {
     try {
@@ -85,16 +69,23 @@ const Modal = () => {
     }
   }, [cart]);
 
+  const [{ cartShow }, dispatch] = useStateValue()
+  const handleCloseModal = () => {
+    dispatch({
+      type: 'SET_CART_SHOW',
+      cartShow: !cartShow,
+    })
+	}
 
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
       <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
         {/* close */}
-        <button>
+        <button onClick={handleCloseModal}>
           <FaTimes className="absolute h-5 w-5 text-primary top-4 right-2 pr" />
         </button>
 
-        {shoppingCart.merchant_id ? (
+        {shoppingCart ? (
           <>
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
@@ -109,15 +100,16 @@ const Modal = () => {
 
             {/* food */}
             <div className="overflow-auto grid grid-cols-1 gap-4 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240 ">
-              {cartDetail.map((food) => {
+              {/* {cartDetail.map((food, index) => {
                 return (
                   <CartCard
                     name={food.name}
                     quantity={food.quantity}
                     price={food.price}
+                    idFood={index}
                   />
                 );
-              })}
+              })} */}
             </div>
 
             {/* button buy */}

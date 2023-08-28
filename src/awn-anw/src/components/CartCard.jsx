@@ -4,7 +4,7 @@ import {FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 
 import cake from "../assets/cake.jpg"
 
-const CartCard = ({name, quantity, price}) => {
+const CartCard = ({name, quantity, price, idFood}) => {
     const [count, setCount] = useState(quantity);
 
     function handleAddClick() {
