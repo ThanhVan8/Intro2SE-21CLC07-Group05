@@ -17,25 +17,21 @@ const Category = () => {
 
 	}
 	const merchant = useAuth();
-
+	const merchantCategories = []
 	const FetchMerchantCate = async(uid) => {
 		try{
 			const cate = ''
 			const MerchantCateRef = doc(firestore, "Merchant", uid)
 			const docSnap = await getDoc(MerchantCateRef)
 			const merchantCate = docSnap.data()['Categories'];
-			// setCategories(merchantCate)
-			// console.log(merchantCate);
+			setCategories(merchantCate)
 			for (let i = 0; i < merchantCate.length; i++){
 				const CategoryRef = doc(firestore, "Category", merchantCate[i])
 				const docSnap = await getDoc(CategoryRef)
 				const cate = docSnap.data().Name;
-				setCategories([
-					...categories,
-					{cate} // need to check here
-				]);
+				merchantCategories.push(cate)
 			}
-			
+			console.log(merchantCategories);
 			
 		}catch(err){
 			console.error(err);
