@@ -13,6 +13,7 @@ import useAuth from '../custom_hooks/useAuth'
 const Home = () => {
   // const user = useAuth();
   const [OneMerchant, setOneMerchant] = useState([])
+
   // const MerchantCollectionRef = collection(firestore, "Merchant")
   
   const merchant = useAuth();
@@ -27,12 +28,14 @@ const Home = () => {
       console.error(err);
     }
   };
-
+  
   useEffect(() => {
     if(merchant){
       display1Merchant(merchant.uid);
     }
   }, [merchant])
+
+
 
   return (
     <>

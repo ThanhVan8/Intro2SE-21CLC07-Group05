@@ -27,7 +27,8 @@ const MainContainer = () => {
       }
     };
     getCategoryList();
-  }, [CategoryCollectionRef])
+    // console.log(categoryList)
+  }, [])
 
   return (
     <>
@@ -39,13 +40,14 @@ const MainContainer = () => {
             <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 ">
             {categoryList && categoryList.map((data) =>{
               return(
-                <Link key={data.id} to = {"/ShopList"} className='w-full h-fit p-5'>
+                <Link key={data.id} to = {`/ShopList/${data.id}`} className='w-full h-fit p-5'>
                   <img  src={salad} 
                         alt="salad"
                         className='w-80 h-60 object-cover' 
                   />
                   <p className='text-textColor text-base py-2 '>{data.Name}</p>
-                </Link>)             
+                </Link>
+                )             
       
             })} 
             </div>

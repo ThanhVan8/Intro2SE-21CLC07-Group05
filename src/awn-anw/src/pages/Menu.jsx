@@ -5,9 +5,11 @@ import menupic from "../assets/menupic.png";
 import cake from "../assets/cake.jpg";
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase';
+import {useParams} from "react-router-dom"
 
 const Menu = () => {
-  const MenuRef = doc(firestore, "Menu", "BsD5CNKu5KfAXyjA0ZhgHEq1I7h2") // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
+  const { id } = useParams();
+  const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
 
   const fetchMenu = async() => {
     try{
