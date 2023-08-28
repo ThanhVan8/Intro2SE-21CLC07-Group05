@@ -3,14 +3,14 @@ import {FaTimes, FaCloudUploadAlt, FaTrashAlt} from "react-icons/fa"
 import InputField from './InputField'
 import { useStateValue } from '../context/StateProvider'
 import { firestore, storage } from "../config/firebase"
-import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore  } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc  } from "firebase/firestore";
 import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
 import { ref, uploadBytes } from "firebase/storage"
 
 
 
-const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL}) => {
+const ManageItemForm = ({action, itemName, itemPrice = '70000', itemDescription, itemImageURL, idItem= 1}) => {
   const [name, setName] = useState(itemName)
   const [price, setPrice] = useState(itemPrice)
   const [description, setDescription] = useState(itemDescription)
@@ -30,19 +30,21 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   }
 
   const saveFood = () => {
+    console.log(action)
     if (action === "add") {
       addFood()
     }
     else if (action === "update") {
       updateFood()
     }
+    handleCloseModal()  
   }
 
   const deleteImage = (e) => {
     console.log('delete image')
   }
   const merchant = useAuth();
-
+  
   const addFood = () => {
       
     const docRef =  doc(firestore, "Menu", merchant.uid);
@@ -54,21 +56,31 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
       Price: arrayUnion(price)
     })}
 
-  const updateFood = () => {
+  const updateFood = async () => {
       
     const docRef =  doc(firestore, "Menu", merchant.uid);
+    const docSnap = await getDoc(docRef)
+
     //delete old value in array
-    updateDoc(docRef, { 
-      Description: arrayRemove(itemDescription),
-      FoodList: arrayRemove(itemName),
-      Price: arrayRemove(itemPrice)
-    })
+    const des_list = docSnap.data()['Description'];
+    const food_list = docSnap.data()['FoodList'];
+    const price_list = docSnap.data()['Price']
+
+    des_list.splice(idItem, 1)
+    food_list.splice(idItem, 1)
+    price_list.splice(idItem, 1)
+      
+    //update new value into array
+    des_list.splice(idItem,0, description)
+    food_list.splice(idItem, 0, name)
+    price_list.splice(idItem, 0, price)
     // update array
-    updateDoc(docRef, { 
-      Description: arrayUnion(description),
-      FoodList: arrayUnion(name),
-      Price: arrayUnion(price)
-    })}
+    updateDoc(docRef, {
+      ['Description']: des_list,
+      ['FoodList']: food_list,
+      ['Price']: price_list
+    });
+  }
   
   const [{ showAddItem, showUpdateItem }, dispatch] = useStateValue()
 
@@ -97,7 +109,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
         </div>
 
         {/* Field */}
-        <form className="flex flex-col items-center" onSubmit={saveFood}>
+        <form className="flex flex-col items-center" >
           <InputField
             label="Name"
             type="text"
@@ -154,8 +166,8 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
           {/* Button */}
           <button
             className="w-fit md:w-[100px] bg-primary text-white font-medium p-2 rounded-lg self-center"
-            // onClick={saveFood}
-            type='submit'>
+            onClick={saveFood}>
+            {/* type='submit'> */}
             Save
           </button>
         </form>
