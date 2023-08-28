@@ -5,7 +5,7 @@ import payment from '../assets/payment.png'
 import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import OrderSumCard from '../components/OrderSumCard';
 import useAuth from '../custom_hooks/useAuth'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, addDoc, collection } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
 
 const OrderDetail = () => {
@@ -34,20 +34,23 @@ const OrderDetail = () => {
 	// 		fetchCart(buyer.uid);
 	// 	}
 	// }, [buyer]);
-
-	const makeOrder = async(uid) => {
+	const foodlist = []
+	const deslist = []
+	const pricelist = []
+	var quantity_list = []
+	var merchant_id = ""
+	const handlePlaceOrder = async( uid) => {
 		try{
+			//fetch data from categories
 			const OrderRef = doc(firestore, "ShoppingCart", uid);
 			const docSnap = await getDoc(OrderRef);
 			
 			const food_list = docSnap.data()['Food'];
-			const quantity_list = docSnap.data()['Quantity'];
-			const merchant_id = docSnap.data().merchant_id;
+			quantity_list = docSnap.data()['Quantity'];
+			merchant_id = docSnap.data().merchant_id;
 			console.log(merchant_id);
 
-			const foodlist = []
-			const deslist = []
-			const pricelist = []
+			
 
 			for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
@@ -64,6 +67,20 @@ const OrderDetail = () => {
 			console.log(deslist);
 			console.log(pricelist);
 
+			//making order, set to order collection
+			var sum = 0
+			for (let i = 0; i < pricelist.length; i++) {
+				sum += Number(pricelist[i]) * Number(quantity_list[i])
+			}
+			console.log(sum)
+			const docRef = await addDoc(collection(firestore, "Order"), {
+				Food: foodlist,
+				M_ID: merchant_id,
+				O_ID: buyer.uid,
+				Quantity: quantity_list,
+				Status: "Prepare",
+				Total: sum
+			  });
 			
 		}catch(err){
 			console.error(err);
@@ -72,18 +89,16 @@ const OrderDetail = () => {
 
 	useEffect(() => {
 		if (buyer) {
-			makeOrder(buyer.uid);
+			handlePlaceOrder(buyer.uid);
 		}
 	}, [buyer]);
 
-	const handlePlaceOrder = (e) => {
-		e.preventDefault()
-		console.log("Place order")
-		// get cart data
 
-		// add to order collection
 
-	}
+
+	// useEffect(() => {
+	// 	handlePlaceOrder()
+	// })
   return (
     <>
 			<Header />
