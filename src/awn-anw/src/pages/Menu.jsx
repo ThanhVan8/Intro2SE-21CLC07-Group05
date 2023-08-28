@@ -6,24 +6,26 @@ import cake from "../assets/cake.jpg";
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase';
 import {useParams} from "react-router-dom"
+import MenuCard from '../components/MenuCard';
 
 const Menu = () => {
   const { id } = useParams();
-  const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
-
+  // const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
+  const [menuData, setMenuData] = useState()
   const fetchMenu = async(uid) => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
       console.log(docSnap.data());
+      setMenuData(docSnap.data())
     }catch(err){
       console.error(err);
     }
   };
 
   useEffect(() => {
-    fetchMenu('BsD5CNKu5KfAXyjA0ZhgHEq1I7h2');
-  },[])
+    fetchMenu(id);
+  },[id])
 
   return (
     <>
@@ -31,6 +33,11 @@ const Menu = () => {
       <div className='ml-4 mt-20 mb-8'>
         <div className='grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4'>
           <div className="flex flex-col justify-center items-center mb-8 sticky">
+            {menuData && menuData.map((data, index) => {
+              return (
+                <MenuCard />
+              )
+            })}
             <div className='sticky'>
               <img
                   src={menupic}

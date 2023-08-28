@@ -5,9 +5,7 @@ import { getAuth } from 'firebase/auth'
 import { firestore } from '../config/firebase'
 import useAuth from '../custom_hooks/useAuth'
 import { collection, getDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore'
-
-
-
+import OrderCard from '../components/OrderCard'
 
 const Order = () => {
 
