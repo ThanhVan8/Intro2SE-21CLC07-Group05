@@ -11,8 +11,9 @@ const Menu = () => {
   const { id } = useParams();
   const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
 
-  const fetchMenu = async() => {
+  const fetchMenu = async(uid) => {
     try{
+      const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
       console.log(docSnap.data());
     }catch(err){
@@ -21,7 +22,7 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    fetchMenu();
+    fetchMenu('BsD5CNKu5KfAXyjA0ZhgHEq1I7h2');
   },[])
 
   return (

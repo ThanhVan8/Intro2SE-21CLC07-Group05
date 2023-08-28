@@ -53,7 +53,7 @@ const FoodCard = () => {
 						<button className='bg-yellow font-medium text-white px-2 py-1 rounded-lg' onClick={updateFood}>Update</button>
 						<button className='bg-red font-medium text-white px-2 py-1 rounded-lg' onClick={deleteMess}>Delete</button>
 					</div>
-					{showUpdateItem && <ManageItemForm action='update' itemName='Chicken' itemPrice='70000' itemDescription='Cheese' />}
+					{showUpdateItem && <ManageItemForm action='update' itemName='Chicken' itemPrice='30000' itemDescription='Cheese' />}
 					{showDeleteItem && <DeleteMess />}
 				</div>
     </div>

@@ -14,23 +14,65 @@ const OrderDetail = () => {
 		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
 		{name:"Chicken", description:"Sweet", quantity:2, price:20000}]
 	)
+	const [order, setOrder] = useState([{}])
 
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
-	const fetchCart = async(uid) => {
+	// const fetchCart = async(uid) => {
+	// 	try{
+	// 		const CartRef = doc(firestore, "ShoppingCart", uid);
+	// 		const docSnap = await getDoc(CartRef);
+	// 		// console.log(docSnap.data());
+	// 		setShoppingCart(docSnap.data());
+	// 	} catch(err) {
+	// 		console.error(err);
+	// 	}
+	// };
+	
+  	// useEffect(() => {
+	// 	if (buyer) {
+	// 		fetchCart(buyer.uid);
+	// 	}
+	// }, [buyer]);
+
+	const makeOrder = async(uid) => {
 		try{
-			const CartRef = doc(firestore, "ShoppingCart", uid);
-			const docSnap = await getDoc(CartRef);
-			console.log(docSnap.data());
-			setShoppingCart(docSnap.data());
-		} catch(err) {
+			const OrderRef = doc(firestore, "ShoppingCart", uid);
+			const docSnap = await getDoc(OrderRef);
+			
+			const food_list = docSnap.data()['Food'];
+			const quantity_list = docSnap.data()['Quantity'];
+			const merchant_id = docSnap.data().merchant_id;
+			console.log(merchant_id);
+
+			const foodlist = []
+			const deslist = []
+			const pricelist = []
+
+			for (let i = 0; i < food_list.length; i++) {
+				const menuRef = doc(firestore, "Menu", merchant_id);
+				const docSnap = await getDoc(menuRef);
+				const food = docSnap.data().FoodList[i];
+				const description = docSnap.data().Description[i];
+				const price = docSnap.data().Price[i];
+				foodlist.push(food);
+				deslist.push(description);
+				pricelist.push(price);
+			}
+
+			console.log(foodlist);
+			console.log(deslist);
+			console.log(pricelist);
+
+			
+		}catch(err){
 			console.error(err);
 		}
 	};
-	
-  useEffect(() => {
+
+	useEffect(() => {
 		if (buyer) {
-			fetchCart(buyer.uid);
+			makeOrder(buyer.uid);
 		}
 	}, [buyer]);
 

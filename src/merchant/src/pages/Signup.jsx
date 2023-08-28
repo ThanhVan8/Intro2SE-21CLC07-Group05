@@ -34,8 +34,7 @@ const Signup = () => {
               Name: name,
               Phone: phone,
               Address: address,
-              email,
-              Categories: []
+              email
           });
 
           await setDoc(doc(firestore, "Menu", user.uid), {

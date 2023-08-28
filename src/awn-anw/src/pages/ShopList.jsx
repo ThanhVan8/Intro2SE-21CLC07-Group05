@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import ShopCard from '../components/ShopCard'
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 import {useParams} from "react-router-dom"
-import {Link} from "react-router-dom";
+import { collection, getDoc, getDocs, query, where, doc } from 'firebase/firestore'
+import { firestore } from '../config/firebase'
+
 
 const ShopList = () => {
 	const { id } = useParams();
-
+	
 
 	const [list, setList] = useState([
 		{img: 1, name:'KFC'},
@@ -16,16 +18,36 @@ const ShopList = () => {
 		{img: 1, name:'KFC'},
 		{img: 1, name:'KFC'},
 	])
-  return (
+
+    const [MerchantDetail, setMerchant] = useState([])
+
+	const fetchMerchant = async(id) => {
+		try{
+			const MerchantRef = collection(firestore, "Merchant")
+			const q = query(MerchantRef, where ("Categories", "array-contains", id));
+			const querySnapshot = await getDocs(q)
+			querySnapshot.forEach((doc) => {
+				const OrderData = doc.data();
+            	console.log(OrderData);
+				setMerchant(OrderData)
+			})
+		}catch(err){
+		  console.error(err);
+		}
+	  };
+	
+	  useEffect(() => {
+		fetchMerchant(id);
+	  },[])
+
+  	return (
     <div>
         <Header />
         <div className='grid md:grid-cols-3 gap-3 mt-24 mb-16 px-10'>
 					{list && list.map((data) =>{
 						return(
-							<Link key={data.id} to = {`/Menu/${data.id}`}>
-								<ShopCard image={data.img} name={data.name}/>
-							</Link>
-						)})}
+							<ShopCard image={data.img} name={data.name}/>)
+					})}
         </div>
         <Footer />
     </div>

@@ -15,7 +15,7 @@ const OrderSumCard = ({name, description, quantity, price}) => {
 				<p className=''>x{quantity}</p>
 				<p className='absolute bottom-0 right-0'>{price} VND</p>
 			</div>
-    </div>	
+    </div>
   )
 }
 
