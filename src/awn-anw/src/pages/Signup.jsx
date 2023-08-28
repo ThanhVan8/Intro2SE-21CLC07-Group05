@@ -43,8 +43,8 @@ const Signup = () => {
             await setDoc(doc(firestore, "ShoppingCart",user.uid), {
               Food: [],
               Quantity: [],
-              merchant_id: null
-          });
+              merchant_id: ''
+            });
 
             toast.success('Sign up successfully!', {
               autoClose: 3000, // Thời gian tự đóng toast (milisecond)

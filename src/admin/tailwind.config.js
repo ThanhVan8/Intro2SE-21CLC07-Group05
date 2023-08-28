@@ -46,6 +46,11 @@ module.exports = {
       },
       colors: {
         primary: "#2F9B4E",
+        textHeadingColor: "#FFF",
+        textColor: "#000",
+        textHover: "#d9d9d9",
+        red: "#D46058",
+        gray: "#F5F5F5",
       },
     },
   },
