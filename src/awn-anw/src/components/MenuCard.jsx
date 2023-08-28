@@ -3,7 +3,7 @@ import cake from "../assets/cake.jpg";
 import { useStateValue } from '../context/StateProvider'
 import AddModal from "./AddModal";
 
-const MenuCard = ({index, foodName, foodDescription, foodPrice}) => {
+const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => {
   const [{ addFoodShow }, dispatch] = useStateValue()
   const showAddModal = () => {
     dispatch({
@@ -39,7 +39,8 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice}) => {
         <AddModal index={index}
         foodName={foodName} 
         foodDescription={foodDescription}
-        foodPrice={foodPrice}/>}
+        foodPrice={foodPrice}
+        idMerchant={idMerchant}/>}
       </div>
     </div>
   );

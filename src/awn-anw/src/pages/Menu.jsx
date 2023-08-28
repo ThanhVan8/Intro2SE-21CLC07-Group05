@@ -49,7 +49,8 @@ const Menu = () => {
                 <MenuCard index={index} 
                 foodName={data} 
                 foodDescription={menuData.Description[index]}
-                foodPrice={menuData.Price[index]}/>
+                foodPrice={menuData.Price[index]}
+                idMerchant={id}/>
               )
             })}
             </div>

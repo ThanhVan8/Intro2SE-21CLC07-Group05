@@ -4,7 +4,7 @@ import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
 
 
-const AddModal = ({index, foodName, foodDescription, foodPrice}) => {
+const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 	const [count, setCount] = useState(1);
 
 	function handleAddClick() {
