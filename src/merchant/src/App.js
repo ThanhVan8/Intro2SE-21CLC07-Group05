@@ -10,6 +10,7 @@ import Menu from './pages/Menu'
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
+
   return (
     <div className="w-full h-auto flex flex-col">
       <Routes>
