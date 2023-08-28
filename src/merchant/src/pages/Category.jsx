@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { collection, getDoc, getDocs, query, where, doc, updateDoc, arrayUnion, arrayRemove  } from 'firebase/firestore'
+import { firestore } from '../config/firebase'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Dropdown from '../components/Dropdown';
@@ -6,10 +8,30 @@ import { FaCircleMinus }from "react-icons/fa6";
 
 const Category = () => {
 	const [categories, setCategories] = useState(['Rice', 'Milk tea', 'Noodle', 'Chicken'])
+
 	const handleRemove = (index) => {
 		console.log(index)
 		// remove from database
 	}
+
+	const FetchCategory = async() => {
+        try{
+            const categoriesRef = collection(firestore, "Category")
+            const cateData = new Set();
+            const querySnapshot = await getDocs(categoriesRef)
+            querySnapshot.forEach((doc) => {
+                const cate = doc.data();
+                console.log(cate.Name);
+            })
+        }catch(err){
+            console.error(err);
+        }
+    }
+    useEffect(() => {
+        FetchCategory();
+    }, []);
+
+
   return (
     <> 
 			<Header />

@@ -5,9 +5,8 @@ import useAuth from "../custom_hooks/useAuth";
 import { getAuth } from "firebase/auth";
 
 
-const Dropdown = ({isDisable, selectedValue}) => {
+const Dropdown = ({isDisable, selectedValue, categories}) => {
     const [selectedCategory, setSelectedCategory] = useState(selectedValue)
-    const [categories, setCategories] = useState([])
     
 	const merchant = useAuth();
     
@@ -35,29 +34,11 @@ const Dropdown = ({isDisable, selectedValue}) => {
 
     useEffect(() => {
         if(merchant){
-            AddCategory("DimSum");
+            AddCategory("cate");
         }
-    });
+    },[]);
 
-    const FetchCategory = async() => {
-        try{
-            const CategoryCollectionRef = collection(firestore, "Category")
-            const data = await getDocs(CategoryCollectionRef)
-            const filteredData = data.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id
-            }));
-            setCategories(filteredData)
-            console.log(filteredData);
-        }catch(err){
-            console.error(err);
-        }
-    }
-
-    useEffect(() => {
-        FetchCategory();
-    });
-
+    
     return (
         <select value={selectedCategory} disabled={isDisable} autoFocus={!isDisable}
         className={isDisable?"w-64 p-2.5 text-gray-500 bg-gray-100 border rounded-md shadow-sm outline-none appearance-none"
