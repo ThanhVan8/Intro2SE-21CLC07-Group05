@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
 import logo from "../../assets/logo.png";
@@ -7,17 +6,22 @@ import logo from "../../assets/logo.png";
 import { FaShoppingBag, FaReceipt, FaUserCircle, FaSearch } from "react-icons/fa";
 import Modal from "../Modal";
 import OrderStatus from "../../pages/OrderStatus";
+import { useStateValue } from '../../context/StateProvider'
 
 const Header = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const handleSearch = (e) => {
     e.preventDefault();
     console.log(query) 
   }
 
-  function showCart() {
-    <Modal/>
-}
+  const [{cartShow}, dispatch] = useStateValue()
+  const handleCart = () => {
+    dispatch({
+      type: 'SET_CART_SHOW',
+      cartShow: !cartShow,
+    })
+  }
 
   return (
     <header className="fixed z-50 w-full bg-primary p-1 px-3">
@@ -46,16 +50,16 @@ const Header = () => {
         {/*icons*/}
         <div className="flex items-center ml-auto gap-5">
           {/*Cart*/}
-          <button onClick={showCart}>
-          {/* <Link to = {Modal}> */}
+          <button onClick={handleCart}>
             <div className="relative">
               <FaShoppingBag className="text-white text-2xl" />
               <div className="w-4 h-4 rounded-full bg-[#F00] absolute top-3 -right-1 flex items-center justify-center">
                 <p className="text-white text-xs font-medium">3</p>
               </div>
             </div>
-            {/* </Link> */}
           </button>
+          {cartShow && <Modal />}
+
           <Link to={"/OrderStatus"}>
             <FaReceipt className="text-white text-2xl items-center" />
           </Link>

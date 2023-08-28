@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Order from './pages/Order'
 import Category from './pages/Category'
+import Menu from './pages/Menu'
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
@@ -18,8 +19,12 @@ const App = () => {
         <Route path="/Signup" element={<Signup />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Category" element={<Category />} />
+<<<<<<< HEAD
         <Route path="/Order" element={<Order />} />
 
+=======
+        <Route path="/Menu" element={<Menu />} />
+>>>>>>> 24c57bbe4b6a4d8ad536f5e5df0264aca50c3d6c
       </Routes>
     </div>
   )

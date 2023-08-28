@@ -10,7 +10,16 @@ import { doc, getDoc } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
 
 const OrderDetail = () => {
+<<<<<<< HEAD
 	const OrderCollectionRef = collection(firestore, "Order")
+=======
+	const [details, setDetails] = useState([
+		{name:"Cheese cake", description:"Sweet", quantity:3, price:10000},
+		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
+		{name:"Chicken", description:"Sweet", quantity:2, price:20000}]
+	)
+
+>>>>>>> 24c57bbe4b6a4d8ad536f5e5df0264aca50c3d6c
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
 	const fetchCart = async(uid) => {
@@ -23,6 +32,7 @@ const OrderDetail = () => {
 			console.error(err);
 		}
 	};
+<<<<<<< HEAD
 
 	const displayOrderDetail = async(uid) => {
 		try{
@@ -46,6 +56,10 @@ const OrderDetail = () => {
 
 
     useEffect(() => {
+=======
+	
+  useEffect(() => {
+>>>>>>> 24c57bbe4b6a4d8ad536f5e5df0264aca50c3d6c
 		if (buyer) {
 			fetchCart(buyer.uid);
 		}
