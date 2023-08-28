@@ -30,7 +30,10 @@ const Category = () => {
 				const CategoryRef = doc(firestore, "Category", merchantCate[i])
 				const docSnap = await getDoc(CategoryRef)
 				const cate = docSnap.data().Name;
-				console.log(cate);
+				setCategories([
+					...categories,
+					{cate} // need to check here
+				]);
 			}
 			
 			

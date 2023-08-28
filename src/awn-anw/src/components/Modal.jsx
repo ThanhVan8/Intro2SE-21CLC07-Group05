@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
-import useAuth from "../custom_hooks/useAuth";a
+import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
 
 const Modal = () => {
@@ -36,8 +36,6 @@ const Modal = () => {
       console.error(err);
     }
   };
-
-
 
   useEffect(() => {
     if (cart) {
