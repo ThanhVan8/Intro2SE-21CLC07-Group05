@@ -21,12 +21,14 @@ const Menu = () => {
 		})
 	}
 	const merchant = useAuth();
+	const [menuData, setMenuData] = useState()
 
 	const fetchMenu = async(uid) => {
 		try{
 			const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
 			const docSnap = await getDoc(MenuRef);
-			console.log(docSnap.data());
+			// console.log(docSnap.data());
+			setMenuData(docSnap.data())
 		  }catch(err){
 			console.error(err);
 		  }
@@ -47,9 +49,11 @@ const Menu = () => {
 						onClick={handleAddItem}>Add item</button>
 					</div>
 					<div className='flex flex-col items-center mt-5 gap-3'>
-						<FoodCard />
-						<FoodCard />
-						<FoodCard />
+						{menuData && menuData.FoodList.map((food, index) => {
+							return (
+								
+							)
+						})}
 					</div>
 
 					{showAddItem && <ManageItemForm action='add' />}
