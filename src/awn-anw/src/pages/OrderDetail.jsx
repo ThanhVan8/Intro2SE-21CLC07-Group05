@@ -76,9 +76,28 @@ const OrderDetail = () => {
 		}
 	}, [buyer]);
 
-	const handlePlaceOrder = (e) => {
+	const handlePlaceOrder = async(e) => {
 		e.preventDefault()
-		console.log("Place order")
+		try {
+			var collectionRef = firebase.firestore().collection("Order");
+			var Total = 0
+			for (let i = 0; i < pricelist.length; i++) {
+				sum += pricelist[i] * quantity_list[i]
+			}
+
+			const orderData = {
+				Food: foodlist,
+				M_ID: merchant_id,
+				O_ID: buyer.uid,
+				Quantity: quantity_list,
+				Status: "Prepare",
+				Total: sum
+			};
+
+			const docRef = await collectionRef.add(orderData);
+		}catch (error) {
+			console.error("Failed to making order", error);
+		}
 		// get cart data
 
 		// add to order collection
