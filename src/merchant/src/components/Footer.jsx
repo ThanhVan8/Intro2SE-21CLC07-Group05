@@ -4,11 +4,9 @@ import {Link} from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
-
-
 const Footer = () => {
   return (
-    <footer className='w-screen bg-primary py-3 pr-8 pl-2 bottom-0 mt-8'>
+    <footer className='w-full bg-primary py-3 pr-8 pl-2 bottom-0 mt-8'>
         <div className='hidden md:flex w-full h-full'>
             <Link to = {"/"} className = 'flex items-center'>
                 <img src={logo} className = 'w-14 object-cover' alt="Logo" />
