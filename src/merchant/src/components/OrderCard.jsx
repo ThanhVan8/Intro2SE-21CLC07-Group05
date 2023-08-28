@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
-const OrderCard = () => {
-	const [status, setStatus] = useState('Preparing')
+const OrderCard = ({orderStatus}) => {
+	const [status, setStatus] = useState(orderStatus)
 	const handleClickStatus = (statusName) => {
 		setStatus(statusName)
 	}

@@ -49,9 +49,9 @@ const Order = () => {
     <>
         <Header/>
         {/* container */}
-        <div className='w-full min-h-screen mt-16 py-16 px-16 grid gap-4'>
+        <div className='w-full h-full mt-16 py-16 px-16 grid gap-4'>
             {/* an order */}
-            <OrderCard />
+            <OrderCard/>
         </div>
         <Footer/>
     
