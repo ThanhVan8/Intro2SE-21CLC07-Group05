@@ -78,7 +78,7 @@ const OrderDetail = () => {
 				M_ID: merchant_id,
 				O_ID: buyer.uid,
 				Quantity: quantity_list,
-				Status: "Prepare",
+				Status: "Preparing",
 				Total: sum
 			  });
 			
