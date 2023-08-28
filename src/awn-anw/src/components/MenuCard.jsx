@@ -1,7 +1,7 @@
 import React from "react";
 import cake from "../assets/cake.jpg";
 
-const MenuCard = () => {
+const MenuCard = ({index, foodName, foodDescription, foodPrice}) => {
   return (
     <div className=" w-656 border border-black h-150 rounded-2xl">
       <div className="grid grid-cols-4 w-full h-full gap-2">
@@ -14,9 +14,9 @@ const MenuCard = () => {
         </div>
         <div className="grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4">
           <div className="text-xl font-semibold text-textColor ">
-            Cheese Cake
+          {foodName}
           </div>
-          <div className="text-base text-textColor opacity-50">Sweet</div>
+          <div className="text-base text-textColor opacity-50">{foodDescription}</div>
         </div>
         <div className="relative">
           <button

@@ -9,15 +9,6 @@ import {Link} from "react-router-dom";
 
 const ShopList = () => {
 	const { id } = useParams();
-	
-
-	// const [list, setList] = useState([
-	// 	{img: 1, name:'KFC'},
-	// 	{img: 1, name:'KFC'},
-	// 	{img: 1, name:'KFC'},
-	// 	{img: 1, name:'KFC'},
-	// 	{img: 1, name:'KFC'},
-	// ])
 
   const [MerchantDetail, setMerchant] = useState([])
 
@@ -26,12 +17,13 @@ const ShopList = () => {
 			const MerchantRef = collection(firestore, "Merchant")
 			const q = query(MerchantRef, where ("Categories", "array-contains", id));
 			const querySnapshot = await getDocs(q)
+			let merchantList = []
 			querySnapshot.forEach((doc) => {
-				const OrderData = doc.data();
-        console.log(OrderData);
-				// setMerchant(OrderData)
-				setMerchant([...MerchantDetail, OrderData])
+				const OrderData = {...doc.data(), id: doc.id};
+        // console.log(OrderData);
+				merchantList.push(OrderData)
 			})
+			setMerchant(merchantList)
 		}catch(err){
 		  console.error(err);
 		}
@@ -48,7 +40,6 @@ const ShopList = () => {
 					{MerchantDetail && MerchantDetail.map((data) =>{
 						return(
 							<Link key={data.id} to = {`/Menu/${data.id}`}>
-								{console.log(MerchantDetail)}
 								<ShopCard image={data.img} name={data.Name}/>
 							</Link>
 						)

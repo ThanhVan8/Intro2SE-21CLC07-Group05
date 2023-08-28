@@ -23,10 +23,12 @@ const Order = () => {
           let buyerList = [];
           querySnapshot.forEach((doc) => {
             const OrderData = doc.data();
-            console.log(OrderData);
-            orderList.push(OrderData);
+            // console.log(OrderData);
+            orderList.push({...OrderData, id: doc.id});
+            // orderList.push(OrderData);
             u_id.push(OrderData.O_ID);
           })
+          setOrder(orderList)
           for (let i = 0; i < u_id.length; i++){
             const BuyerRef = doc(firestore, "User", u_id[i])
             const docSnap = await getDoc(BuyerRef)
@@ -53,7 +55,7 @@ const Order = () => {
         <div className='w-full min-h-screen mt-16 py-16 px-16 grid gap-4'>
           {BuyerDetail && BuyerDetail.map((detailedInfo, index) => {
             return (
-              <OrderCard key={OrderDetail[index].id} detail={OrderDetail[index]} buyerInfo={detailedInfo}/>
+              <OrderCard detail={OrderDetail[index]} buyerInfo={detailedInfo}/>
             )
           })}
           </div>

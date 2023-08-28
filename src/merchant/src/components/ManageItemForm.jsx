@@ -17,15 +17,15 @@ const ManageItemForm = ({action, itemName, itemPrice = '70000', itemDescription,
   const [imageURL, setImageURL] = useState(itemImageURL)
   
   const uploadImage = (e) => {
-    if (!imageURL) return;
-    const filesFolderRef = ref(storage,  `image/${imageURL.name}`)
-    try {
-      uploadBytes(filesFolderRef, imageURL)
-    } catch (err) {
-      console.error(err)
-    }
-    // const imgFile = e.target.files[0]
-    // console.log(imgFile)
+    // if (!imageURL) return;
+    // const filesFolderRef = ref(storage,  `image/${imageURL.name}`)
+    // try {
+    //   uploadBytes(filesFolderRef, imageURL)
+    // } catch (err) {
+    //   console.error(err)
+    // }
+    const imgFile = e.target.files[0]
+    console.log(imgFile)
 
   }
 

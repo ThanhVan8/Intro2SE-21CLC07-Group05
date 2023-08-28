@@ -12,11 +12,12 @@ const Menu = () => {
   const { id } = useParams();
   // const MenuRef = doc(firestore, "Menu", id) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
   const [menuData, setMenuData] = useState()
+  let nameMerchant = ''
   const fetchMenu = async(uid) => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
-      console.log(docSnap.data());
+      // console.log(docSnap.data());
       setMenuData(docSnap.data())
     }catch(err){
       console.error(err);
@@ -31,25 +32,29 @@ const Menu = () => {
     <>
       <Header />
       <div className='ml-4 mt-20 mb-8'>
-        <div className='grid grid-cols-3 md:grid-cols-3 w-full h-fit gap-4'>
-          <div className="flex flex-col justify-center items-center mb-8 sticky">
-            {menuData && menuData.map((data, index) => {
+        <div className='grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4'>
+          <div className="grid col-span-2 gap-4 px-5">
+          {/* <div className="flex flex-col justify-center items-center mb-8 sticky "> */}
+          {/* <div className="flex flex-col  items-center mb-8 gap-2 "> */}
+            {menuData && menuData.FoodList.map((data, index) => {
               return (
-                <MenuCard />
+                <MenuCard index={index} 
+                foodName={data} 
+                foodDescription={menuData.Description[index]}
+                foodPrice={menuData.Price[index]}/>
               )
             })}
-            <div className='sticky'>
-              <img
-                  src={menupic}
-                  alt="menupic"
-                  className="h-full object-contain pl-5"
-                />
-              <p className='text-xl font-bold text-center pl-24'>Shop name</p>
-
             </div>
-              
-
-          </div>
+            <div className='hidden md:flex justify-end items-center'>
+              <div className=''>
+                <img
+                    src={menupic}
+                    alt="menupic"
+                    className="h-full object-contain sticky pl-5"
+                  />
+                <p className='text-xl font-bold text-center pl-24'>Shop name</p>
+              </div>
+            </div>
         </div>
 
       </div>
