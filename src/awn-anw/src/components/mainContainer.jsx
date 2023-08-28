@@ -27,7 +27,8 @@ const MainContainer = () => {
       }
     };
     getCategoryList();
-  }, [CategoryCollectionRef])
+    // console.log(categoryList)
+  }, [])
 
   return (
     <>

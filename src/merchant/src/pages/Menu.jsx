@@ -8,6 +8,7 @@ import { useStateValue } from '../context/StateProvider'
 const Menu = () => {
 	const [{ showAddItem }, dispatch] = useStateValue()
 	const handleAddItem = () => {
+		
 		dispatch({
 			type: 'SET_SHOW_ADD_ITEM',
 			showAddItem: !showAddItem,

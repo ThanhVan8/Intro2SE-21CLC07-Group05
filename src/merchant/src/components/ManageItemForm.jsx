@@ -2,28 +2,65 @@ import React, { useEffect, useState } from 'react'
 import {FaTimes, FaCloudUploadAlt, FaTrashAlt} from "react-icons/fa"
 import InputField from './InputField'
 import { useStateValue } from '../context/StateProvider'
-
+import { firestore, storage } from "../config/firebase"
+import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore  } from "firebase/firestore";
 import food from "../assets/food.png"
+import useAuth from '../custom_hooks/useAuth'
+import { ref, uploadBytes } from "firebase/storage"
+
+
 
 const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL}) => {
   const [name, setName] = useState(itemName)
   const [price, setPrice] = useState(itemPrice)
   const [description, setDescription] = useState(itemDescription)
   const [imageURL, setImageURL] = useState(itemImageURL)
-
+  
   const uploadImage = (e) => {
-    const imgFile = e.target.files[0]
+    if (!imageURL) return;
+    const filesFolderRef = ref(storage,  `image/${imageURL.name}`)
+    try {
+      uploadBytes(filesFolderRef, imageURL)
+    } catch (err) {
+      console.error(err)
+    }
+    // const imgFile = e.target.files[0]
     // console.log(imgFile)
+
   }
 
   const deleteImage = (e) => {
     console.log('delete image')
   }
+  const merchant = useAuth();
 
-  const saveFood = () => {
-    console.log('save food')
-  }
+  const addFood = () => {
+      
+    const docRef =  doc(firestore, "Menu", merchant.uid);
+    
+    // update array
+    updateDoc(docRef, { 
+      Description: arrayUnion(description),
+      FoodList: arrayUnion(name),
+      Price: arrayUnion(price)
+    })}
 
+  const updateFood = () => {
+      
+    const docRef =  doc(firestore, "Menu", merchant.uid);
+    //delete old value in array
+    updateDoc(docRef, { 
+      Description: arrayRemove(itemDescription),
+      FoodList: arrayRemove(itemName),
+      Price: arrayRemove(itemPrice)
+    })
+    // update array
+    updateDoc(docRef, { 
+      Description: arrayUnion(description),
+      FoodList: arrayUnion(name),
+      Price: arrayUnion(price)
+    })}
+  
   const [{ showAddItem, showUpdateItem }, dispatch] = useStateValue()
 
 	const handleCloseModal = () => {
