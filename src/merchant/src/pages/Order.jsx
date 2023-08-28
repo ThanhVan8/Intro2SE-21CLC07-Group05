@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import { getAuth } from 'firebase/auth'
 import { firestore } from '../config/firebase'
 import useAuth from '../custom_hooks/useAuth'
-import { collection, getDoc, getDocs, query, where, doc } from 'firebase/firestore'
+import { collection, getDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore'
 
 
 
@@ -13,6 +13,7 @@ const Order = () => {
 
     const [OrderDetail, setOrder] = useState([])
     const [BuyerDetail, setBuyer] = useState([])
+    const [updatedStatus, setUpdatedStatus] = useState()
     const merchant = useAuth();
     let u_id = []
     const getOrder = async(uid) => {
@@ -47,6 +48,14 @@ const Order = () => {
             console.log(merchant.uid)
         }
     }, [merchant])
+
+    // tvan lấy id của order cần phải update
+    const updateOrder = async(id) => {
+        const OrderDoc = doc(firestore, "Order", id);
+        await updateDoc(OrderDoc, {Status: updatedStatus});
+    }
+
+
     return (
     <>
         <Header/>
