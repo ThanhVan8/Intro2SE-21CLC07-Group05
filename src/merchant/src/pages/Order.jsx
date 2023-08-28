@@ -36,6 +36,7 @@ const Order = () => {
             buyerList.push(buyer);
           }
           console.log(buyerList);
+          setBuyer(buyerList)
         } catch(err){
           console.error(err)
         }
