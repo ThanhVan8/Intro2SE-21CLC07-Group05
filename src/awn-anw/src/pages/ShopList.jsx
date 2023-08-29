@@ -19,7 +19,7 @@ const ShopList = () => {
   return (
     <div>
         <Header />
-        <div className='grid md:grid-cols-3 gap-3 mt-24 mb-16 px-10'>
+        <div className='grid md:grid-cols-3 gap-3 mt-24 mb-16 px-10 h-screen'>
 					{list && list.map((data) =>{
 						return(
 							<Link key={data.id} to = {`/Menu/${data.id}`}>

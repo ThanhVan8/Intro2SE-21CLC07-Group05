@@ -16,8 +16,8 @@ const Menu = () => {
 	}
   return (
     <>
-			<Header />
-				<div className='w-full mt-20 px-10'>
+		<Header />
+				<div className='w-full h-screen mt-20 px-10'>
 					<div className='grid justify-items-end'>
 						<button className='w-fit bg-primary text-white font-medium p-2 rounded-lg'
 						onClick={handleAddItem}>Add item</button>
@@ -30,7 +30,8 @@ const Menu = () => {
 
 					{showAddItem && <ManageItemForm action='add' />}
 				</div>
-			<Footer />
+		<Footer />
+			
     </>
   )
 }
