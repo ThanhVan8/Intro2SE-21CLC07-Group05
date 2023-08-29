@@ -47,7 +47,6 @@ const OrderDetail = () => {
 			
 			const food_list = docSnap.data()['Food'];
 			quantity_list = docSnap.data()['Quantity'];
-			merchant_id = docSnap.data().merchant_id;
 			console.log(merchant_id);
 
 			
