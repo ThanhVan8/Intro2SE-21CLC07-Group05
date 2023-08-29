@@ -4,9 +4,9 @@ import mainpic from "../assets/mainpic.png";
 import salad from "../assets/salad.jpg"
 import food from "../assets/food.png"
 import { firestore } from "../config/firebase"
-import { collection, getDocs } from 'firebase/firestore'
-// import Modal from './Modal';
-import ShopList from '../pages/ShopList';
+import { collection, getDocs  } from 'firebase/firestore'
+import Modal from './Modal';
+
 
 const MainContainer = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -47,8 +47,7 @@ const MainContainer = () => {
                   />
                   <p className='text-textColor text-base py-2 '>{data.Name}</p>
                 </Link>
-                )             
-      
+                )
             })} 
             </div>
             {/* last col - img */}

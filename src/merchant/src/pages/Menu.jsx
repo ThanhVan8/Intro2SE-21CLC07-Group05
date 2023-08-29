@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import FoodCard from '../components/FoodCard'
 import ManageItemForm from '../components/ManageItemForm'
 import { useStateValue } from '../context/StateProvider'
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
+import { getAuth } from "firebase/auth";
+import { firestore } from "../config/firebase";
+import useAuth from "../custom_hooks/useAuth";
 
 const Menu = () => {
 	const [{ showAddItem }, dispatch] = useStateValue()
@@ -14,6 +18,26 @@ const Menu = () => {
 			showAddItem: !showAddItem,
 		})
 	}
+	const merchant = useAuth();
+	const [menuData, setMenuData] = useState()
+
+	const fetchMenu = async(uid) => {
+		try{
+			const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
+			const docSnap = await getDoc(MenuRef);
+			console.log(docSnap.data());
+			setMenuData(docSnap.data())
+		  }catch(err){
+			console.error(err);
+		  }
+	}
+
+	useEffect(() => {
+		if (merchant) {
+			fetchMenu(merchant.uid);
+		}
+	  }, [merchant]);
+
   return (
     <>
 			<Header />
@@ -23,9 +47,15 @@ const Menu = () => {
 						onClick={handleAddItem}>Add item</button>
 					</div>
 					<div className='flex flex-col items-center mt-5 gap-3'>
-						<FoodCard />
-						<FoodCard />
-						<FoodCard />
+						{menuData && menuData.FoodList.map((food, index) => {
+							return (
+								<FoodCard index={index} 
+								foodName={food} 
+								foodDescription={menuData.Description[index]}
+								foodPrice={menuData.Price[index]}
+								/>
+							)
+						})}
 					</div>
 
 					{showAddItem && <ManageItemForm action='add' />}

@@ -5,7 +5,7 @@ import payment from '../assets/payment.png'
 import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import OrderSumCard from '../components/OrderSumCard';
 import useAuth from '../custom_hooks/useAuth'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, addDoc, collection } from 'firebase/firestore'
 import { firestore } from '../config/firebase'
 
 const OrderDetail = () => {
@@ -14,34 +14,91 @@ const OrderDetail = () => {
 		{name:"Chicken", description:"Sweet", quantity:2, price:20000},
 		{name:"Chicken", description:"Sweet", quantity:2, price:20000}]
 	)
+	const [order, setOrder] = useState([{}])
 
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
-	const fetchCart = async(uid) => {
+	// const fetchCart = async(uid) => {
+	// 	try{
+	// 		const CartRef = doc(firestore, "ShoppingCart", uid);
+	// 		const docSnap = await getDoc(CartRef);
+	// 		// console.log(docSnap.data());
+	// 		setShoppingCart(docSnap.data());
+	// 	} catch(err) {
+	// 		console.error(err);
+	// 	}
+	// };
+	
+  	// useEffect(() => {
+	// 	if (buyer) {
+	// 		fetchCart(buyer.uid);
+	// 	}
+	// }, [buyer]);
+	const foodlist = []
+	const deslist = []
+	const pricelist = []
+	var quantity_list = []
+	var merchant_id = ""
+	const handlePlaceOrder = async( uid) => {
 		try{
-			const CartRef = doc(firestore, "ShoppingCart", uid);
-			const docSnap = await getDoc(CartRef);
-			console.log(docSnap.data());
-			setShoppingCart(docSnap.data());
-		} catch(err) {
+			//fetch data from categories
+			const OrderRef = doc(firestore, "ShoppingCart", uid);
+			const docSnap = await getDoc(OrderRef);
+			
+			const food_list = docSnap.data()['Food'];
+			quantity_list = docSnap.data()['Quantity'];
+			merchant_id = docSnap.data().merchant_id;
+			console.log(merchant_id);
+
+			
+
+			for (let i = 0; i < food_list.length; i++) {
+				const menuRef = doc(firestore, "Menu", merchant_id);
+				const docSnap = await getDoc(menuRef);
+				const food = docSnap.data().FoodList[i];
+				const description = docSnap.data().Description[i];
+				const price = docSnap.data().Price[i];
+				foodlist.push(food);
+				deslist.push(description);
+				pricelist.push(price);
+			}
+
+			console.log(foodlist);
+			console.log(deslist);
+			console.log(pricelist);
+
+			//making order, set to order collection
+			var sum = 0
+			for (let i = 0; i < pricelist.length; i++) {
+				sum += Number(pricelist[i]) * Number(quantity_list[i])
+			}
+			console.log(sum)
+			const docRef = await addDoc(collection(firestore, "Order"), {
+				Food: foodlist,
+				M_ID: merchant_id,
+				O_ID: buyer.uid,
+				Quantity: quantity_list,
+				Status: "Preparing",
+				Total: sum
+			  });
+			
+		}catch(err){
 			console.error(err);
 		}
 	};
-	
-  useEffect(() => {
+
+	useEffect(() => {
 		if (buyer) {
-			fetchCart(buyer.uid);
+			handlePlaceOrder(buyer.uid);
 		}
 	}, [buyer]);
 
-	const handlePlaceOrder = (e) => {
-		e.preventDefault()
-		console.log("Place order")
-		// get cart data
 
-		// add to order collection
 
-	}
+
+	// useEffect(() => {
+	// 	handlePlaceOrder()
+	// })
   return (
     <>
 			<Header />
@@ -74,11 +131,11 @@ const OrderDetail = () => {
 						{/* Order summary */}
 						<div className='flex flex-col gap-3 bg-white border w-full p-3 h-fit shadow-sm'>
 							<p className='text-textColor font-bold'>Order Summary</p>
-							{shoppingCart.merchant_id ? 
+							{foodlist ? 
 							<>
-								{details.map((detail) => {
+								{foodlist.map((food, index) => {
 									return (
-										<OrderSumCard name={detail.name} description={detail.description} quantity={detail.quantity} price={detail.price} />
+										<OrderSumCard name={food} description={deslist[index]} quantity={quantity_list[index]} price={pricelist[index]} />
 									)
 								})} 
 								<div className='flex justify-between mt-2'>
