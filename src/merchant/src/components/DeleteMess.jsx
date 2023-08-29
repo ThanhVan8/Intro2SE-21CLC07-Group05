@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import {FaTimes, FaCloudUploadAlt, FaTrashAlt} from "react-icons/fa"
 import { useStateValue } from '../context/StateProvider'
+import {addDoc,setDoc,
+	collection,
+	getDocs,
+	query,
+	where,
+	doc,
+	getDoc,
+	updateDoc,
+  } from "firebase/firestore";
+import { firestore } from "../config/firebase";
+import useAuth from "../custom_hooks/useAuth";
 
 const DeleteMess = ({idItem}) => {
   const [{ showDeleteItem }, dispatch] = useStateValue()
@@ -10,9 +21,10 @@ const DeleteMess = ({idItem}) => {
       showDeleteItem: !showDeleteItem,
     })
 	}
+
+  const merchant = useAuth();
   const handleDelete = () => {
     // delete from database
-    const merchant = useAuth();
     const docRef =  doc(firestore, "Menu", merchant.uid);
     const docSnap =  getDoc(docRef)
     //get array

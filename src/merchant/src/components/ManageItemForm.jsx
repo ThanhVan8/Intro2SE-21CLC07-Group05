@@ -18,8 +18,8 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   const [progress, setProgress] = useState(null)
   const [imageURL, setImageURL] = useState(null)
   
-  const alert = useSelector((state) => state.alert)
-  const dispatch1 = useDispatch();
+  // const alert = useSelector((state) => state.alert)
+  // const dispatch1 = useDispatch();
 
   // const uploadImage = (e) => {
   //   setisLoading(true)
@@ -169,7 +169,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
                     accept="image/jpg, image/png, image/jpeg"
                     className="w-0 h-0"
                     required={false}
-                    onChange={uploadImage}
+                    // onChange={uploadImage}
                   />
                 </div>
               </label>

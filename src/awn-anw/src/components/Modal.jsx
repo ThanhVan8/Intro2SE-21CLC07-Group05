@@ -17,27 +17,24 @@ import CartCard from "./CartCard";
 import { useStateValue } from '../context/StateProvider'
 
 const Modal = () => {
-  // const auth = getAuth();
-  // const cart = auth.currentUser;
   const cart = useAuth();
-  const [shoppingCart, setShoppingCart] = useState({});
-
-  const foodlist = [];
-  const pricelist = [];
+  const [foods, setFoods] = useState([]);
+  const [prices, setPrices] = useState([]);
+  const [quantities, setQuantities] = useState([]);
+  
+  var foodlist = [];
+  var pricelist = [];
   var quantity_list = [];
 
   const fetchCart = async (uid) => {
     try {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
-      // console.log(docSnap.data());
-      // setShoppingCart(docSnap.data());
 
       const food_list = docSnap.data()["Food"];
 			quantity_list = docSnap.data()['Quantity'];
+      setQuantities(quantity_list)
 			const merchant_id = docSnap.data().merchant_id;
-
-      
 
       for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
@@ -47,6 +44,8 @@ const Modal = () => {
 				foodlist.push(food);
 				pricelist.push(price);
 			}
+      setPrices(pricelist)
+      setFoods(foodlist)
 
 			console.log(foodlist);
       console.log(pricelist);
@@ -65,18 +64,6 @@ const Modal = () => {
     }
   }, [cart]);
 
-  // console.log(quantity);
-
-  // const fetchFoodDetail = async (food_id) => {
-  //   try{
-  //     for (let i = 0; i < food_id.length; i++){
-  //       const 
-  //     }
-  //   }catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-
 
   const [{ cartShow }, dispatch] = useStateValue()
   const handleCloseModal = () => {
@@ -94,7 +81,7 @@ const Modal = () => {
           <FaTimes className="absolute h-5 w-5 text-primary top-4 right-2 pr" />
         </button>
 
-        {shoppingCart ? (
+        {foods ? (
           <>
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
@@ -109,16 +96,16 @@ const Modal = () => {
 
             {/* food */}
             <div className="overflow-auto grid grid-cols-1 gap-4 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240 ">
-              {/* {cartDetail.map((food, index) => {
+              {foods.map((food, index) => {
                 return (
                   <CartCard
-                    name={food.name}
-                    quantity={food.quantity}
-                    price={food.price}
-                    idFood={index}
+                    name={food}
+                    quantity={quantities[Number(index)]}
+                    price={prices[Number(index)]}
+                    idFood={Number(index)}
                   />
                 );
-              })} */}
+              })}
             </div>
 
             {/* button buy */}
