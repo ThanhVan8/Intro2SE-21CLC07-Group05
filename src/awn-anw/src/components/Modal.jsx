@@ -2,7 +2,7 @@ import storepic from "../assets/store.jpg";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
-import {
+import {addDoc,setDoc,
   collection,
   getDocs,
   query,
@@ -14,28 +14,49 @@ import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
+import { useStateValue } from '../context/StateProvider'
 
 const Modal = () => {
-  // const auth = getAuth();
-  // const cart = auth.currentUser;
   const cart = useAuth();
-  const [shoppingCart, setShoppingCart] = useState({});
-  const [cartDetail, setCartDetail] = useState([
-    { name: "Cheese cake", quantity: 3, price: 10000 },
-    { name: "Chicken", quantity: 2, price: 20000 },
-    { name: "Chicken", quantity: 2, price: 20000 },
-  ]);
+  const [foods, setFoods] = useState([]);
+  const [prices, setPrices] = useState([]);
+  const [quantities, setQuantities] = useState([]);
+  
+  var foodlist = [];
+  var pricelist = [];
+  var quantity_list = [];
 
   const fetchCart = async (uid) => {
     try {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
-      console.log(docSnap.data());
-      setShoppingCart(docSnap.data());
+
+      const food_list = docSnap.data()["Food"];
+			quantity_list = docSnap.data()['Quantity'];
+      setQuantities(quantity_list)
+			const merchant_id = docSnap.data().merchant_id;
+
+      for (let i = 0; i < food_list.length; i++) {
+				const menuRef = doc(firestore, "Menu", merchant_id);
+				const docSnap = await getDoc(menuRef);
+				const food = docSnap.data().FoodList[i];
+				const price = docSnap.data().Price[i];
+				foodlist.push(food);
+				pricelist.push(price);
+			}
+      setPrices(pricelist)
+      setFoods(foodlist)
+
+			console.log(foodlist);
+      console.log(pricelist);
+      console.log(quantity_list);
+
+
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   useEffect(() => {
     if (cart) {
@@ -43,15 +64,24 @@ const Modal = () => {
     }
   }, [cart]);
 
+
+  const [{ cartShow }, dispatch] = useStateValue()
+  const handleCloseModal = () => {
+    dispatch({
+      type: 'SET_CART_SHOW',
+      cartShow: !cartShow,
+    })
+	}
+
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
       <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
         {/* close */}
-        <button>
+        <button onClick={handleCloseModal}>
           <FaTimes className="absolute h-5 w-5 text-primary top-4 right-2 pr" />
         </button>
 
-        {shoppingCart.merchant_id ? (
+        {foods ? (
           <>
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
@@ -66,12 +96,13 @@ const Modal = () => {
 
             {/* food */}
             <div className="overflow-auto grid grid-cols-1 gap-4 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240 ">
-              {cartDetail.map((food) => {
+              {foods.map((food, index) => {
                 return (
                   <CartCard
-                    name={food.name}
-                    quantity={food.quantity}
-                    price={food.price}
+                    name={food}
+                    quantity={quantities[Number(index)]}
+                    price={prices[Number(index)]}
+                    idFood={Number(index)}
                   />
                 );
               })}

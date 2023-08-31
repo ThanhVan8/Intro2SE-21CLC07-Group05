@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import {FaTimes, FaCloudUploadAlt, FaTrashAlt} from "react-icons/fa"
 import { useStateValue } from '../context/StateProvider'
+import {addDoc,setDoc,
+	collection,
+	getDocs,
+	query,
+	where,
+	doc,
+	getDoc,
+	updateDoc,
+  } from "firebase/firestore";
+import { firestore } from "../config/firebase";
+import useAuth from "../custom_hooks/useAuth";
 
 const DeleteMess = ({idItem}) => {
   const [{ showDeleteItem }, dispatch] = useStateValue()
@@ -10,8 +21,26 @@ const DeleteMess = ({idItem}) => {
       showDeleteItem: !showDeleteItem,
     })
 	}
+
+  const merchant = useAuth();
   const handleDelete = () => {
     // delete from database
+    const docRef =  doc(firestore, "Menu", merchant.uid);
+    const docSnap =  getDoc(docRef)
+    //get array
+    const des_list = docSnap.data()['Description'];
+    const food_list = docSnap.data()['FoodList'];
+    const price_list = docSnap.data()['Price']
+    
+    des_list.splice(idItem, 1)
+    food_list.splice(idItem, 1)
+    price_list.splice(idItem, 1)
+
+    updateDoc(docRef, {
+        ['Description']: des_list,
+        ['FoodList']: food_list,
+        ['Price']: price_list
+    })
   }
   return (
     <div className="fixed bg-black bg-opacity-25 top-0 left-0 w-full h-screen flex justify-center items-center z-50">
