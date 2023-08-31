@@ -4,58 +4,36 @@ import {FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 
 import cake from "../assets/cake.jpg"
 
-import {addDoc,setDoc,
-	collection,
-	getDocs,
-	query,
-	where,
-	doc,
-	getDoc,
-	updateDoc,
-  } from "firebase/firestore";
-  import { firestore } from "../config/firebase";
-  import useAuth from "../custom_hooks/useAuth";
+import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc,updateDoc} from "firebase/firestore";
+import { firestore } from "../config/firebase";
+import useAuth from "../custom_hooks/useAuth";
 
 const CartCard = ({name, quantity, price, idFood}) => {
     const [count, setCount] = useState(quantity);
-
     function handleAddClick() {
       setCount(count + 1);
     }
-
     function handleMinClick() {
-        // if(count>1)
+        if(count>1)
             setCount(count - 1);
-        // if (count <1)
-        // deleteCart(idFood)
     }
-      	// lay id xu ly tren cart
-    const cart = useAuth();
-    // const docRef =  getDocs(collection(firestore, "ShoppingCart", cart.uid))
 
-    // const deleteCart = async (idx) => {
-    // 	try {
-    //   	//get array
-	// 		const docSnap = await getDoc(docRef)
-	// 		const food_list = docSnap.data()['Food'];
-	// 		const quant_list = docSnap.data()['Quantity'];
-      	
-    //   	//delete
-    //   	food_list.splice(idx, 1)
-    //   	quant_list.splice(idx, 1) 
-    //   	updateDoc(docRef, {
-    //     	['Food']: food_list,
-    //     	['Quantity']: quant_list
-    //   	})  
-    // 	}catch(err){
-	// 		console.error(err);
-	// 	}
-	// }
-    // useEffect(() => {
-    //     if (cart && count < 1) {
-    //         deleteCart(idFood)
-    //     }
-    //   }, [cart, count, idFood]);
+    const cart = useAuth();
+    const updateQuant = async(uid) => {
+        try {
+            const CartRef = doc(firestore, "ShoppingCart", uid);
+            await updateDoc(CartRef, {
+                [`Quantity.${idFood}`]: count
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        if(cart)
+            updateQuant(cart.uid)
+    }, [cart, count]);
+    
     return (
         <div className='border rounded-3xl border-black p-2 h-120 px-2 mx-4'>
             <div className='grid grid-cols-4 gap-2 justify-center items-center'>
@@ -79,7 +57,7 @@ const CartCard = ({name, quantity, price, idFood}) => {
                 </div>
                 {/* Price */}
                 <div className='text-textColor font-semibold justify-self-end self-end'>
-                    {price} VND
+                    {price*count} VND
                 </div>
 
             </div>

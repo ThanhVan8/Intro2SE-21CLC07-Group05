@@ -7,7 +7,7 @@ import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
 
-	const AddModal = ({addedFood}) => {
+const AddModal = ({addedFood}) => {
 	const [count, setCount] = useState(1);
 	function handleAddClick() {
 		setCount(count + 1);
@@ -29,10 +29,13 @@ import useAuth from "../custom_hooks/useAuth";
 	const [foods, setFoods] = useState([])
 	const [quants, setQuants] = useState([])
 
-  const addCart = () => {
-		console.log('add cart')
-		setFoods([...foods, addedFood.index])
-		setQuants([...quants, count])
+  const addCart = async(uid) => {
+		try {
+			const CartRef = doc(firestore, "ShoppingCart", uid);
+			
+    } catch (error) {
+      console.log(error);
+    }
 	}
 
   // 	const deleteCart = async (idx) => {
@@ -66,9 +69,9 @@ import useAuth from "../custom_hooks/useAuth";
 	useEffect(() => {
 		if (cart) {
 			// phan nay add m_id (khoi tao )
-			const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-				merchant_id: selectedFood.idMerchant
-			});
+			// const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
+			// 	merchant_id: selectedFood.idMerchant
+			// });
 			//
 			// console.log('merchantID')
 			// const getCart = async () => {

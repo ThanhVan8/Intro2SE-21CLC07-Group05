@@ -26,8 +26,6 @@ const Modal = () => {
       const docSnap = await getDoc(CartRef);
 
       const food_list = docSnap.data()["Food"];
-			// quantity_list = docSnap.data()['Quantity'];
-      // setQuantities(quantity_list)
       setQuantities(docSnap.data()['Quantity'])
 			const merchant_id = docSnap.data().merchant_id;
       const merchantRef = doc(firestore, "Merchant", merchant_id);
@@ -39,17 +37,9 @@ const Modal = () => {
 				const docSnap = await getDoc(menuRef);
 				const food = docSnap.data().FoodList[food_list[i]];
 				const price = docSnap.data().Price[food_list[i]];
-				// foodlist.push(food);
-				// pricelist.push(price);
         setFoods(foods => [...foods, food])
         setPrices(prices => [...prices, price])
 			}
-      // setPrices(pricelist)
-      // setFoods(foodlist)
-
-			// console.log(foodlist);
-      // console.log(pricelist);
-      // console.log(quantity_list);
     } catch (err) {
       console.error(err);
     }
