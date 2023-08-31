@@ -17,7 +17,7 @@ const AddModal = ({addedFood}) => {
 				setCount(count - 1);
 	}
 
-	const [{ addFoodShow, selectedFood }, dispatch] = useStateValue()
+	const [{ addFoodShow, selectedFood, countCart }, dispatch] = useStateValue()
 	const handleCloseModal = () => {
 		dispatch({
 		type: 'SET_ADD_FOOD_SHOW',
@@ -67,6 +67,11 @@ const AddModal = ({addedFood}) => {
 					['Quantity']: quant_list,
 					['merchant_id']: addedFood.idMerchant
 				})
+
+				// dispatch({
+				// 	type: 'SET_COUNT_CART',
+				// 	countCart: countCart+1,
+				// })
 			}
 			if(m_id != addedFood.idMerchant){
 				var food_list = []
@@ -78,8 +83,12 @@ const AddModal = ({addedFood}) => {
 					['Quantity']: quant_list,
 					['merchant_id']: addedFood.idMerchant
 				})
-			}
 
+				// dispatch({
+				// 	type: 'SET_COUNT_CART',
+				// 	countCart: 1,
+				// })
+			}
 		}catch(err){
 			console.error(err)
 		}
@@ -146,7 +155,7 @@ const AddModal = ({addedFood}) => {
 							<button
 								className="rounded-3xl border bg-primary border-primary w-16 h-8
 								text-textHeadingColor text-base hover:opacity-80"
-								onClick={addCart}
+								onClick={() => {addCart(); handleCloseModal()}}
 								>
 								DONE
 							</button>

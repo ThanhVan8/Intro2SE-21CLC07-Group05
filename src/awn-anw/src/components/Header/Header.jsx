@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom"
 
 import logo from "../../assets/logo.png";
@@ -7,6 +7,9 @@ import { FaShoppingBag, FaReceipt, FaUserCircle, FaSearch } from "react-icons/fa
 import Modal from "../Modal";
 import OrderStatus from "../../pages/OrderStatus";
 import { useStateValue } from '../../context/StateProvider'
+import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc} from "firebase/firestore";
+import { firestore } from "../../config/firebase";
+import useAuth from "../../custom_hooks/useAuth";
 
 const Header = () => {
   const [query, setQuery] = useState('');
@@ -15,13 +18,38 @@ const Header = () => {
     console.log(query) 
   }
 
-  const [{cartShow}, dispatch] = useStateValue()
+  const [{cartShow, countCart}, dispatch] = useStateValue()
   const handleCart = () => {
     dispatch({
       type: 'SET_CART_SHOW',
       cartShow: !cartShow,
     })
   }
+
+  const user = useAuth()
+
+  useEffect(() => {
+    const fetchCart = async (uid) => {
+      var items = null
+      try {
+        const CartRef = doc(firestore, "ShoppingCart", uid);
+        const docSnap = await getDoc(CartRef);
+        items = docSnap.data()['Food']
+      } catch (err) {
+        console.error(err);
+      }
+
+      dispatch({
+        type: 'SET_COUNT_CART',
+        countCart: items ? items.length : 0,
+      })
+    };
+
+    if(user) {
+      fetchCart(user.uid)
+    }
+  }, [user])
+  
 
   return (
     <header className="fixed z-50 w-full bg-primary p-1 px-3">
@@ -54,7 +82,7 @@ const Header = () => {
             <div className="relative">
               <FaShoppingBag className="text-white text-2xl" />
               <div className="w-4 h-4 rounded-full bg-[#F00] absolute top-3 -right-1 flex items-center justify-center">
-                <p className="text-white text-xs font-medium">3</p>
+                <p className="text-white text-xs font-medium">{countCart}</p>
               </div>
             </div>
           </button>
