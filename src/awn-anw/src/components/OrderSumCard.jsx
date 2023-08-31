@@ -3,7 +3,7 @@ import cake from '../assets/cake.jpg'
 
 const OrderSumCard = ({name, description, quantity, price}) => {
   return (
-    <div className='w-full border rounded-lg p-2 px-4 flex gap-4'>
+    <div className='w-full border rounded-lg p-2 px-4 flex gap-4 font-mono text-base'>
 			{/* Image */}
 			<div className='flex-none flex item'>
 				<img src={cake} alt="cake" className='w-16 h-16 rounded-full'/>

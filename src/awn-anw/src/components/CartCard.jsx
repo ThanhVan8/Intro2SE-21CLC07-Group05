@@ -17,7 +17,6 @@ import {addDoc,setDoc,
   import useAuth from "../custom_hooks/useAuth";
 
 const CartCard = ({name, quantity, price, idFood}) => {
-    console.log(name, quantity, price, idFood)
     const [count, setCount] = useState(quantity);
 
     function handleAddClick() {
@@ -32,7 +31,7 @@ const CartCard = ({name, quantity, price, idFood}) => {
     }
       	// lay id xu ly tren cart
     const cart = useAuth();
-    const docRef =  getDocs(collection(firestore, "ShoppingCart", cart.uid))
+    // const docRef =  getDocs(collection(firestore, "ShoppingCart", cart.uid))
 
     // const deleteCart = async (idx) => {
     // 	try {
@@ -65,21 +64,21 @@ const CartCard = ({name, quantity, price, idFood}) => {
                     <img src={cake} alt="Food" className='object-cover h-20 w-20 rounded-full' />
                 </div>
                 {/* Infor */}
-                <div className='col-span-2 grid grid-rows-3'>
-                    <div className='text-xl font-semibold'>{name}</div>
-                    {/* <div className='opacity-40'>Sweet</div> */}
+                <div className='col-span-2 grid grid-rows-2 gap-2'>
+                    <div className='text-base font-semibold font-mono'>{name}</div>
+                    
                     <div className='flex flex-row justify-start items-center gap-2 h-full'>
                         <button onClick={handleMinClick}>
                             <FaMinusCircle className='h-5 w-5 text-primary hover:opacity-80'/>
                         </button>
-                        <div className='h-6 w-fit border border-black px-2'>{count}</div>
+                        <div className='h-6 w-fit border border-black px-2 font-mono'>{count}</div>
                         <button onClick = {handleAddClick}>
                             <FaPlusCircle className='h-5 w-5 text-primary hover:opacity-80'/>
                         </button>
                     </div>
                 </div>
                 {/* Price */}
-                <div className='text-textColor font-semibold justify-self-end self-end'>
+                <div className='text-textColor font-semibold text-base font-mono justify-self-end self-end'>
                     {price} VND
                 </div>
 

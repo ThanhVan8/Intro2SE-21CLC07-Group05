@@ -41,18 +41,19 @@ const Menu = () => {
   return (
     <>
 		<Header />
-				<div className='w-full h-screen mt-20 px-10'>
+				<div className='w-full min-h-screen mt-28 mb-8 px-10 font-mono text-base'>
 					<div className='grid justify-items-end'>
-						<button className='w-fit bg-primary text-white font-medium p-2 rounded-lg'
+						<button className='w-fit bg-primary text-white font-medium p-2 rounded-lg capitalize'
 						onClick={handleAddItem}>Add item</button>
 					</div>
-					<div className='flex flex-col items-center mt-5 gap-3'>
+					<div className='flex flex-col items-center mt-5 gap-4'>
 						{menuData && menuData.FoodList.map((food, index) => {
 							return (
 								<FoodCard index={index} 
 								foodName={food} 
 								foodDescription={menuData.Description[index]}
 								foodPrice={menuData.Price[index]}
+								foodImage={menuData.Image[index]}
 								/>
 							)
 						})}

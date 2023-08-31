@@ -8,10 +8,10 @@ const OrderCard = ({detail, buyerInfo}) => {
 		setOrder({...order, Status: statusName})
 	}
   return (
-    <div className='w-full h-fit grid grid-rows-5 justify-items-start px-4 gap-2 bg-gray'>
-        <div className ='w-full flex justify-between items-center gap-4 py-2'>
-            <div className='text-base font-semibold'>ID</div>
-            <div className='text-base'>{order.id}</div>
+    <div className='w-full h-fit grid grid-rows-5 justify-items-start px-4 gap-2 bg-gray text-base'>
+        <div className ='w-full flex justify-between items-center gap-4 py-2 text-lg'>
+            <div className='font-semibold'>ID</div>
+            <div >{order.id}</div>
 
         </div>
  

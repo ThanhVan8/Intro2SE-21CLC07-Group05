@@ -13,9 +13,9 @@ const App = () => {
   return (
     <div className="w-full h-auto flex flex-col">
       <Routes>
-        <Route path="/" element={<ProtectedRoute></ProtectedRoute>} />
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/Signin" element={<Signin />} />
-        <Route path="/Home" element={<Home />} />
+        {/* <Route path="/Home" element={<Home />} /> */}
         <Route path="/Merchant" element={<Merchant />} />
         <Route path="/Customer" element={<Customer />} />
         <Route path="/Category" element={<Category />} />
