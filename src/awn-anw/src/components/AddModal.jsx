@@ -38,26 +38,48 @@ import useAuth from "../custom_hooks/useAuth";
 			// setFoods([...foods, addedFood.index])
 			// setQuants([...quants, quants])
 
-			var food_list = docSnap.data()['Food'];
-			var quant_list = docSnap.data()['Quantity'];
+			const m_id = docSnap.data()['merchant_id']
+		
+			if(m_id == addedFood.idMerchant){
+				var food_list = docSnap.data()['Food'];
+				var quant_list = docSnap.data()['Quantity'];
 
-			food_list.push(String(addedFood.index))
-			quant_list.push(count)
+				for (let i = 0; i < food_list.length; i++) {
+					if(food_list[i] == addedFood.index){
+						quant_list[i] = quant_list[i] + count
+						updateDoc(docRef, {
+							['Quantity']: quant_list,
+						})
+						return
+					}
+				}
 
-			console.log(food_list)
-			console.log(quant_list)
+				food_list.push(String(addedFood.index))
+				quant_list.push(count)
 
-			// setFoods(foods => [...foods, food_list])
-        	// setQuants(quants => [...quants, quants])
+				console.log(food_list)
+				console.log(quant_list)
 
-			updateDoc(docRef, {
-				['Food']: food_list,
-				['Quantity']: quant_list,
-				['merchant_id']: addedFood.idMerchant
-			})
+				// setFoods(foods => [...foods, food_list])
+				// setQuants(quants => [...quants, quants])
 
-			// console.log(foods)
-
+				updateDoc(docRef, {
+					['Food']: food_list,
+					['Quantity']: quant_list,
+					['merchant_id']: addedFood.idMerchant
+				})
+			}
+			if(m_id != addedFood.idMerchant){
+				var food_list = []
+				var quant_list = []
+				food_list.push(String(addedFood.index))
+				quant_list.push(count)
+				updateDoc(docRef, {
+					['Food']: food_list,
+					['Quantity']: quant_list,
+					['merchant_id']: addedFood.idMerchant
+				})
+			}
 
 		}catch(err){
 			console.error(err)
