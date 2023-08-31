@@ -68,10 +68,10 @@ const AddModal = ({addedFood}) => {
 					['merchant_id']: addedFood.idMerchant
 				})
 
-				// dispatch({
-				// 	type: 'SET_COUNT_CART',
-				// 	countCart: countCart+1,
-				// })
+				dispatch({
+					type: 'SET_COUNT_CART',
+					countCart: countCart+1,
+				})
 			}
 			if(m_id != addedFood.idMerchant){
 				var food_list = []
@@ -84,10 +84,10 @@ const AddModal = ({addedFood}) => {
 					['merchant_id']: addedFood.idMerchant
 				})
 
-				// dispatch({
-				// 	type: 'SET_COUNT_CART',
-				// 	countCart: 1,
-				// })
+				dispatch({
+					type: 'SET_COUNT_CART',
+					countCart: 1,
+				})
 			}
 		}catch(err){
 			console.error(err)
