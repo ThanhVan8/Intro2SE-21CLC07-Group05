@@ -43,7 +43,7 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 
 	const cart = useAuth();
 	
-  // phan nay add m_id (khoi tao )
+  // phan nay add m_id (khoi tao)
   	const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
     	merchant_id: idMerchant
     });
@@ -54,37 +54,19 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 			const docSnap = await getDoc(docRef)
 			const food_list = docSnap.data()['Food'];
 			const quant_list = docSnap.data()['Quantity'];
+			var merchant_id = docSnap.data().merchant_id;
 		//update
-		food_list.push(food)
-		quant_list.push(quant)
-		updateDoc(docRef, {
-			['Food']: food_list,
-			['Quantity']: quant_list
-		})  
+			food_list.push(food)
+			quant_list.push(quant)
+			merchant_id = idMerchant
+			updateDoc(docRef, {
+				['Food']: food_list,
+				['Quantity']: quant_list
+			})  
 		}catch(err){
 			console.error(err);
 		}
 	}
-
-  	const deleteCart = async (idx) => {
-    	try {
-      	//get array
-			const docSnap = await getDoc(docRef)
-			const food_list = docSnap.data()['Food'];
-			const quant_list = docSnap.data()['Quantity'];
-      	
-      	//delete
-      	food_list.splice(idx, 1)
-      	quant_list.splice(idx, 1) 
-      	updateDoc(docRef, {
-        	['Food']: food_list,
-        	['Quantity']: quant_list
-      	})  
-    	}catch(err){
-		console.error(err);
-		}
-	}
-
 
 
   return (

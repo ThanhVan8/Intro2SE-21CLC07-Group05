@@ -22,14 +22,16 @@ const Modal = () => {
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
   
-  var foodlist = [];
-  var pricelist = [];
-  var quantity_list = [];
+
 
   const fetchCart = async (uid) => {
     try {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
+
+      const foodlist = [];
+      const pricelist = [];
+      const quantity_list = [];
 
       const food_list = docSnap.data()["Food"];
 			quantity_list = docSnap.data()['Quantity'];
