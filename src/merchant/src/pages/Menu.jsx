@@ -53,6 +53,7 @@ const Menu = () => {
 								foodName={food} 
 								foodDescription={menuData.Description[index]}
 								foodPrice={menuData.Price[index]}
+								foodImage={menuData.Image[index]}
 								/>
 							)
 						})}

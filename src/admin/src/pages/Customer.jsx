@@ -19,10 +19,13 @@ const Customer = () => {
 
     const fetchBuyer = async() => {
         try{
-            const BuyerRef = collection(firestore, "Buyer")
+            const BuyerRef = collection(firestore, "User")
             const docSnap = await getDocs(BuyerRef);
-            console.log(docSnap.data());
-            setBuyerList(docSnap.data());
+            docSnap.forEach((doc) => {
+                const buyer = doc.data() 
+                console.log(buyer);
+                setBuyerList(buyer);
+            })
         }catch(err){
             console.error(err);
         }
@@ -36,35 +39,15 @@ const Customer = () => {
     <>
         <Header/>    
         <div className='flex flex-col w-full min-h-screen mt-16 gap-2 py-16 px-16'>
-            <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                <div className='text-base'>1</div>
-                <div className='text-base'>Nguyen Van A</div>
-                <div className='text-base'>ab1@gmail.com</div>
+            {buyerList && buyerList.map((buyer, index) => {
+                return (
+                    <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
+                    <div className='text-base'>{index}</div>
+                    <div className='text-base'>{buyer.Name}</div>
+                    <div className='text-base'>{buyer.email}</div>
             </div> 
-
-            <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                <div className='text-base'>1</div>
-                <div className='text-base'>Nguyen Van A</div>
-                <div className='text-base'>ab1@gmail.com</div>
-            </div>               
-
-            <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                <div className='text-base'>1</div>
-                <div className='text-base'>Nguyen Van A</div>
-                <div className='text-base'>ab1@gmail.com</div>
-            </div> 
-
-            <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                <div className='text-base'>1</div>
-                <div className='text-base'>Nguyen Van A</div>
-                <div className='text-base'>ab1@gmail.com</div>
-            </div>      
-
-            <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                <div className='text-base'>1</div>
-                <div className='text-base'>Nguyen Van A</div>
-                <div className='text-base'>ab1@gmail.com</div>
-            </div>           
+                )
+            })}
         </div>
         <Footer/>
     </>
