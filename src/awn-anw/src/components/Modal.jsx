@@ -40,6 +40,7 @@ const Modal = () => {
         setFoods(foods => [...foods, food])
         setPrices(prices => [...prices, price])
 			}
+
     } catch (err) {
       console.error(err);
     }

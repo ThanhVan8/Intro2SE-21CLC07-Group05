@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
-import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc,updateDoc } from "firebase/firestore";
+import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc,updateDoc, arrayUnion } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
@@ -29,14 +29,42 @@ const AddModal = ({addedFood}) => {
 	const [foods, setFoods] = useState([])
 	const [quants, setQuants] = useState([])
 
-  const addCart = async(uid) => {
-		try {
-			const CartRef = doc(firestore, "ShoppingCart", uid);
-			
-    } catch (error) {
-      console.log(error);
-    }
+  const addCart = async () => {
+		try{
+			console.log('add cart')
+			const docRef = doc(firestore, "ShoppingCart", cart.uid)
+			const docSnap = await getDoc(docRef)
+
+			// setFoods([...foods, addedFood.index])
+			// setQuants([...quants, quants])
+
+			var food_list = docSnap.data()['Food'];
+			var quant_list = docSnap.data()['Quantity'];
+
+			food_list.push(String(addedFood.index))
+			quant_list.push(count)
+
+			console.log(food_list)
+			console.log(quant_list)
+
+			// setFoods(foods => [...foods, food_list])
+        	// setQuants(quants => [...quants, quants])
+
+			updateDoc(docRef, {
+				['Food']: food_list,
+				['Quantity']: quant_list,
+				['merchant_id']: addedFood.idMerchant
+			})
+
+			// console.log(foods)
+
+
+		}catch(err){
+			console.error(err)
+		}
 	}
+
+	
 
   // 	const deleteCart = async (idx) => {
   //   	try {
@@ -66,12 +94,13 @@ const AddModal = ({addedFood}) => {
 	// 	handleCloseModal()
 	// }
 
-	useEffect(() => {
-		if (cart) {
-			// phan nay add m_id (khoi tao )
-			// const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-			// 	merchant_id: selectedFood.idMerchant
-			// });
+	// useEffect(() => {
+	// 	if (cart) {
+	// 		// phan nay add m_id (khoi tao )
+	// 		// const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
+	// 		// 	merchant_id: selectedFood.idMerchant
+	// 		addCart()
+	// 		};
 			//
 			// console.log('merchantID')
 			// const getCart = async () => {
@@ -91,8 +120,7 @@ const AddModal = ({addedFood}) => {
 			// 	['Food']: foods,
 			// 	['Quantity']: quants,
 			// })
-		}
-	}, [foods, quants, cart])
+	// }, [foods, quants, cart])
 
 
   return (
@@ -137,7 +165,7 @@ const AddModal = ({addedFood}) => {
 							<button
 								className="rounded-3xl border bg-primary border-primary w-16 h-8
 								text-textHeadingColor text-base hover:opacity-80"
-								// onClick={addCart}
+								onClick={addCart}
 								>
 								DONE
 							</button>
