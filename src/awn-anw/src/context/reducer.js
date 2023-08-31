@@ -12,7 +12,11 @@ const reducer = (state, action) => {
                 ...state,
                 addFoodShow: action.addFoodShow,
             };
-    
+        case 'SET_SELECTED_FOOD':
+            return {
+                ...state,
+                selectedFood: action.selectedFood,
+            };
         default:
           return state;  
     }

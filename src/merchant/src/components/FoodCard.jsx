@@ -4,7 +4,7 @@ import { useStateValue } from '../context/StateProvider'
 import ManageItemForm from '../components/ManageItemForm'
 import DeleteMess from './DeleteMess'
 
-const FoodCard = ({index, foodName, foodDescription, foodPrice}) => {
+const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 	const [available, setAvailable] = useState(true)
 	const [{ showUpdateItem, showDeleteItem }, dispatch] = useStateValue()
 
@@ -30,7 +30,7 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice}) => {
     <div className='bg-card flex gap-3 p-3 w-full'>
         {/* Image */}
         <div className='flex-none flex items-center'>
-            <img src={food} alt='food' className='w-16 h-16'/>
+            <img src={foodImage} alt='food' className='w-16 h-16'/>
         </div>
 
         {/* Content */}

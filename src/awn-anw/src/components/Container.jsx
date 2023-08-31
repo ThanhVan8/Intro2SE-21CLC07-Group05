@@ -8,7 +8,7 @@ import { collection, getDocs  } from 'firebase/firestore'
 import Modal from './Modal';
 
 
-const MainContainer = () => {
+const Container = () => {
   const [categoryList, setCategoryList] = useState([])
   const CategoryCollectionRef = collection(firestore, "Category")
 
@@ -64,4 +64,4 @@ const MainContainer = () => {
   )
 }
 
-export default MainContainer;
+export default Container;

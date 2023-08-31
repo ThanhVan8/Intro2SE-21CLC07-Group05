@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import cake from "../assets/cake.jpg";
 import { useStateValue } from '../context/StateProvider'
 import AddModal from "./AddModal";
 
 const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => {
-  const [{ addFoodShow }, dispatch] = useStateValue()
+  const [currentFood, setCurrentFood] = useState({index, foodName, foodDescription, foodPrice, idMerchant})
+  const [{ addFoodShow, selectedFood }, dispatch] = useStateValue()
   const showAddModal = () => {
     dispatch({
       type: 'SET_ADD_FOOD_SHOW',
       addFoodShow: !addFoodShow,
+    })
+    dispatch({
+      type: 'SET_SELECTED_FOOD',
+      selectedFood: currentFood,
     })
   }
   return (
@@ -35,12 +40,9 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => 
             ADD
           </button>
         </div>
-        {addFoodShow && 
-        <AddModal index={index}
-        foodName={foodName} 
-        foodDescription={foodDescription}
-        foodPrice={foodPrice}
-        idMerchant={idMerchant}/>}
+        {addFoodShow &&
+          <AddModal addedFood={selectedFood} />
+        }
       </div>
     </div>
   );

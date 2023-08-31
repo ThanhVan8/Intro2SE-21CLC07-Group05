@@ -6,7 +6,7 @@ import { firestore, storage } from "../config/firebase"
 import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc  } from "firebase/firestore";
 import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
+import { deleteObject, getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
 
 
 
@@ -16,40 +16,55 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   const [description, setDescription] = useState(itemDescription)
   const [isLoading, setisLoading] = useState(false)
   const [progress, setProgress] = useState(null)
-  const [imageURL, setImageURL] = useState(null)
+  const [imageURL, setImageURL] = useState(itemImageURL)
+  // const dispatch = useDispatch();
   
   // const alert = useSelector((state) => state.alert)
   // const dispatch1 = useDispatch();
 
-  // const uploadImage = (e) => {
-  //   setisLoading(true)
-  //   const imageFile = e.target.files[0]
-  //   const storageRef = ref(storage, `Images/${Date.now()}_${imageFile.name}`);
-  //   const uploadTask = uploadBytesResumable(storageRef, imageFile);
-  //   uploadTask.on('state_changed', 
-  //                 (snapshot) => {
-  //                   setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-  //                 }, 
-  //                 (error) => {
-  //                   dispatch1(alertDanger(`Error : ${error}`));
-  //                   setTimeout(() => {
-  //                     dispatch1(alertNULL());
-  //                   }, 3000);
-  //                 }, 
-  //                 () => {
-  //                   getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //                     console.log('File available at', downloadURL);
-  //                     setImageURL(downloadURL)
-  //                     setisLoading(false)
-  //                     setProgress(null)
-  //                     dispatch1(alertDanger(`Error : ${error}`));
-  //                     setTimeout(() => {
-  //                       dispatch1(alertNULL());
-  //                     }, 3000);
-  //                   });
-  //                 }
-  //   );
-  // } 
+  const uploadImage = (e) => {
+    setisLoading(true)
+    const imageFile = e.target.files[0]
+    const storageRef = ref(storage, `Images/${Date.now()}_${imageFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+    uploadTask.on('state_changed', 
+        (snapshot) => {
+          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        }, 
+        (error) => {
+          // dispatch1(alertDanger(`Error : ${error}`));
+          setTimeout(() => {
+            // dispatch1(alertNULL());
+          }, 3000);
+        }, 
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((imageURL) => {
+            // console.log('File available at', downloadURL);
+            setImageURL(imageURL)
+            setisLoading(false)
+            setProgress(null)
+            // dispatch1(alertDanger(`Error : ${error}`));
+            setTimeout(() => {
+            // dispatch1(alertNULL());
+           }, 3000);
+        });
+      }
+    );
+  } 
+
+  const deleteImage = () => {
+    setisLoading(true);
+    const deleteRef = ref(storage, imageURL);
+    deleteObject(deleteRef).then(() => {
+      setImageURL(null)
+      setProgress(null)
+      // setisLoading(false)
+      // dispatch1(alertDanger(`Error : ${error}`));
+      setTimeout(() => {
+      // dispatch1(alertNULL());
+      }, 3000);
+    });
+  }
 
   const saveFood = () => {
     console.log(action)
@@ -62,9 +77,9 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     handleCloseModal()  
   }
 
-  const deleteImage = (e) => {
-    console.log('delete image')
-  }
+  // const deleteImage = (e) => {
+  //   console.log('delete image')
+  // }
   const merchant = useAuth();
   
   const addFood = () => {
@@ -75,7 +90,8 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     updateDoc(docRef, { 
       Description: arrayUnion(description),
       FoodList: arrayUnion(name),
-      Price: arrayUnion(price)
+      Price: arrayUnion(price),
+      Image: arrayUnion(imageURL)
     })}
 
   const updateFood = async () => {
@@ -87,20 +103,25 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     const des_list = docSnap.data()['Description'];
     const food_list = docSnap.data()['FoodList'];
     const price_list = docSnap.data()['Price']
+    const image_list = docSnap.data()['Image']
 
     des_list.splice(idItem, 1)
     food_list.splice(idItem, 1)
     price_list.splice(idItem, 1)
+    image_list.splice(idItem, 1)
+
       
     //update new value into array
     des_list.splice(idItem,0, description)
     food_list.splice(idItem, 0, name)
     price_list.splice(idItem, 0, price)
+    image_list.splice(idItem, 0, imageURL)
     // update array
     updateDoc(docRef, {
       ['Description']: des_list,
       ['FoodList']: food_list,
-      ['Price']: price_list
+      ['Price']: price_list,
+      ['Image']: image_list
     });
   }
   
@@ -169,13 +190,13 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
                     accept="image/jpg, image/png, image/jpeg"
                     className="w-0 h-0"
                     required={false}
-                    // onChange={uploadImage}
+                    onChange={uploadImage}
                   />
                 </div>
               </label>
             ) : (
               <div className="w-full h-full relative">
-                <img src={food} alt="upload" className="object-cover" />
+                <img src={imageURL} alt="upload" className="object-cover" />
                 <div className="bg-red flex absolute top-2 right-2 p-1 rounded-full">
                   <button onClick={deleteImage}>
                     <FaTrashAlt className="text-lg text-white" />
