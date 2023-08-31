@@ -34,25 +34,51 @@ const AddModal = ({addedFood}) => {
 			const docRef = doc(firestore, "ShoppingCart", cart.uid)
 			const docSnap = await getDoc(docRef)
 
-			var food_list = docSnap.data()['Food'];
-			var quant_list = docSnap.data()['Quantity'];
+			// setFoods([...foods, addedFood.index])
+			// setQuants([...quants, quants])
 
-			food_list.push(String(addedFood.index))
-			quant_list.push(count)
+			const m_id = docSnap.data()['merchant_id']
+		
+			if(m_id == addedFood.idMerchant){
+				var food_list = docSnap.data()['Food'];
+				var quant_list = docSnap.data()['Quantity'];
 
-			// setFoods(docSnap.data()['Food'])
-			// setQuants(docSnap.data()['Quantity'])
+				for (let i = 0; i < food_list.length; i++) {
+					if(food_list[i] == addedFood.index){
+						quant_list[i] = quant_list[i] + count
+						updateDoc(docRef, {
+							['Quantity']: quant_list,
+						})
+						return
+					}
+				}
 
-			// setFoods(foods => [...foods, String(addedFood.index)])
-			// setQuants(quants => [...quants, count])
+				food_list.push(String(addedFood.index))
+				quant_list.push(count)
 
-			updateDoc(docRef, {
-				['Food']: food_list,
-				['Quantity']: quant_list,
-				['merchant_id']: addedFood.idMerchant
-			})
+				console.log(food_list)
+				console.log(quant_list)
 
-			handleCloseModal()
+				// setFoods(foods => [...foods, food_list])
+				// setQuants(quants => [...quants, quants])
+
+				updateDoc(docRef, {
+					['Food']: food_list,
+					['Quantity']: quant_list,
+					['merchant_id']: addedFood.idMerchant
+				})
+			}
+			if(m_id != addedFood.idMerchant){
+				var food_list = []
+				var quant_list = []
+				food_list.push(String(addedFood.index))
+				quant_list.push(count)
+				updateDoc(docRef, {
+					['Food']: food_list,
+					['Quantity']: quant_list,
+					['merchant_id']: addedFood.idMerchant
+				})
+			}
 
 		}catch(err){
 			console.error(err)
