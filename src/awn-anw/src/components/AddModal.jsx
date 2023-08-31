@@ -114,8 +114,8 @@ const AddModal = ({addedFood}) => {
 	// }
 
   return (
-    <div className="fixed bg-black bg-opacity-25 top-0 left-0 w-full h-screen flex justify-center items-center z-50">
-        <div className="bg-white drop-shadow-md p-5 w-full md:w-460 flex flex-col gap-3 rounded-lg">
+    <div className="fixed bg-opacity-10 bg-black top-0 left-0 w-full h-screen flex justify-center items-center z-50">
+        <div className="bg-white p-5 w-full md:w-460 flex flex-col gap-3 rounded-lg">
             {/* Cancel icon */}
             <div className="flex justify-end w-full">
             <button onClick={handleCloseModal}>

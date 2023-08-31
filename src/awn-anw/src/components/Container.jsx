@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import mainpic from "../assets/mainpic.png";
 import salad from "../assets/salad.jpg"
-import food from "../assets/food.png"
 import { firestore } from "../config/firebase"
 import { collection, getDocs  } from 'firebase/firestore'
-import Modal from './Modal';
-
 
 const Container = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -21,31 +18,28 @@ const Container = () => {
           id: doc.id
         }));
         setCategoryList(filteredData)
-        // console.log(filteredData);
       } catch (err){
         console.error(err);
       }
     };
     getCategoryList();
-    // console.log(categoryList)
-  }, [])
+  }, [CategoryCollectionRef])
 
   return (
-    <>
-      <div className='ml-4 mt-16 mb-4'>
+      <div className='ml-4 mt-16 mb-4 pl-5'>
           {/* Text */}
-          <p className='pl-10 py-5 font-bold font-serif text-3xl capitalize'>Food for you</p>       
-          {/* devided into 3 cols */}
-          <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4">
-            <div className="grid col-span-2 grid-cols-2 gap-8 justify-item-start px-5">
+          <p className='py-5 font-bold font-serif text-3xl capitalize'>Food for you</p>       
+          {/* divide into 3 cols */}
+          <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-2">
+            <div className="grid col-span-2 grid-cols-2 justify-item-center gap-x-5 gap-y-9">
             {categoryList && categoryList.map((data) =>{
               return(
-                <Link key={data.id} to = {`/ShopList/${data.id}`} className='w-full h-fit p-5'>
+                <Link key={data.id} to = {`/ShopList/${data.id}`} className='w-full h-fit'>
                   <img  src={salad} 
                         alt="salad"
-                        className='w-72 h-52 object-cover' 
+                        className='w-full h-52 object-cover rounded-lg'
                   />
-                  <p className='text-textColor my-4 font-mono text-2xl w-72 text-center'>{data.Name}</p>
+                  <p className='text-textColor text-2xl text-center pt-2'>{data.Name}</p>
                 </Link>
                 )
             })} 
@@ -60,7 +54,6 @@ const Container = () => {
             </div>
           </div>
         </div>
-    </>
   )
 }
 

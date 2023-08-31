@@ -27,15 +27,15 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => 
           />
         </div>
         <div className="grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4">
-          <div className="text-xl font-semibold text-textColor font-mono capitalize ">
+          <div className="text-xl font-semibold text-textColor capitalize ">
           {foodName}
           </div>
-          <div className="text-base text-textColor opacity-50 font-mono">{foodDescription}</div>
+          <div className="text-base text-textColor opacity-50">{foodDescription}</div>
         </div>
         <div className="relative">
           <button
             className="rounded-3xl border bg-primary border-primary w-16 h-8 my-2 text-textHeadingColor text-base
-                              absolute bottom-2 right-4 hover:opacity-80 font-mono uppercase"
+                              absolute bottom-2 right-4 hover:opacity-80 uppercase"
             onClick={showAddModal}>
             add
           </button>

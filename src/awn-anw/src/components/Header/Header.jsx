@@ -62,7 +62,7 @@ const Header = () => {
         </Link>
 
         {/* Search bar */}
-        <form className="flex w-full px-10 py-1 divide-x-2 divide-solid font-mono" onSubmit={e => handleSearch(e)}>
+        <form className="flex w-full px-10 py-1 divide-x-2 divide-solid" onSubmit={e => handleSearch(e)}>
           <input
             type="text"
             placeholder="Search..."
