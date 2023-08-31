@@ -39,7 +39,7 @@ const OrderDetail = () => {
 	const pricelist = []
 	var quantity_list = []
 	var merchant_id = ""
-	const handlePlaceOrder = async( uid) => {
+	const handlePlaceOrder = async(uid) => {
 		try{
 			//fetch data from categories
 			const OrderRef = doc(firestore, "ShoppingCart", uid);
@@ -48,8 +48,6 @@ const OrderDetail = () => {
 			const food_list = docSnap.data()['Food'];
 			quantity_list = docSnap.data()['Quantity'];
 			console.log(merchant_id);
-
-			
 
 			for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
@@ -91,8 +89,6 @@ const OrderDetail = () => {
 			handlePlaceOrder(buyer.uid);
 		}
 	}, [buyer]);
-
-
 
 
 	// useEffect(() => {

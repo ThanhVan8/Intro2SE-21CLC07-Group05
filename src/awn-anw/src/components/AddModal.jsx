@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
-import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc,updateDoc } from "firebase/firestore";
+import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc,updateDoc, arrayUnion } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
 
-	const AddModal = ({addedFood}) => {
+const AddModal = ({addedFood}) => {
 	const [count, setCount] = useState(1);
 	function handleAddClick() {
 		setCount(count + 1);
@@ -17,7 +17,7 @@ import useAuth from "../custom_hooks/useAuth";
 				setCount(count - 1);
 	}
 
-	const [{ addFoodShow, selectedFood }, dispatch] = useStateValue()
+	const [{ addFoodShow, selectedFood, countCart }, dispatch] = useStateValue()
 	const handleCloseModal = () => {
 		dispatch({
 		type: 'SET_ADD_FOOD_SHOW',
@@ -26,13 +26,72 @@ import useAuth from "../custom_hooks/useAuth";
 	}
 
 	const cart = useAuth();
-	const [foods, setFoods] = useState([])
-	const [quants, setQuants] = useState([])
+	// const [foods, setFoods] = useState([])
+	// const [quants, setQuants] = useState([])
 
-  const addCart = () => {
-		console.log('add cart')
-		setFoods([...foods, addedFood.index])
-		setQuants([...quants, count])
+  const addCart = async () => {
+		try{
+			const docRef = doc(firestore, "ShoppingCart", cart.uid)
+			const docSnap = await getDoc(docRef)
+
+			// setFoods([...foods, addedFood.index])
+			// setQuants([...quants, quants])
+
+			const m_id = docSnap.data()['merchant_id']
+		
+			if(m_id == addedFood.idMerchant){
+				var food_list = docSnap.data()['Food'];
+				var quant_list = docSnap.data()['Quantity'];
+
+				for (let i = 0; i < food_list.length; i++) {
+					if(food_list[i] == addedFood.index){
+						quant_list[i] = quant_list[i] + count
+						updateDoc(docRef, {
+							['Quantity']: quant_list,
+						})
+						return
+					}
+				}
+
+				food_list.push(String(addedFood.index))
+				quant_list.push(count)
+
+				console.log(food_list)
+				console.log(quant_list)
+
+				// setFoods(foods => [...foods, food_list])
+				// setQuants(quants => [...quants, quants])
+
+				updateDoc(docRef, {
+					['Food']: food_list,
+					['Quantity']: quant_list,
+					['merchant_id']: addedFood.idMerchant
+				})
+
+				dispatch({
+					type: 'SET_COUNT_CART',
+					countCart: countCart+1,
+				})
+			}
+			if(m_id != addedFood.idMerchant){
+				var food_list = []
+				var quant_list = []
+				food_list.push(String(addedFood.index))
+				quant_list.push(count)
+				updateDoc(docRef, {
+					['Food']: food_list,
+					['Quantity']: quant_list,
+					['merchant_id']: addedFood.idMerchant
+				})
+
+				dispatch({
+					type: 'SET_COUNT_CART',
+					countCart: 1,
+				})
+			}
+		}catch(err){
+			console.error(err)
+		}
 	}
 
   // 	const deleteCart = async (idx) => {
@@ -53,44 +112,6 @@ import useAuth from "../custom_hooks/useAuth";
 	// 	console.error(err);
 	// 	}
 	// }
-
-	// const handleAddToCart = () => {
-	// 	//write here
-	// 	console.log('get cart')
-	// 	// getCart()
-	// 	setFoods([...foods, index])
-	// 	setQuants([...quants, count])
-	// 	handleCloseModal()
-	// }
-
-	useEffect(() => {
-		if (cart) {
-			// phan nay add m_id (khoi tao )
-			const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-				merchant_id: selectedFood.idMerchant
-			});
-			//
-			// console.log('merchantID')
-			// const getCart = async () => {
-			// 	try {
-			// 	//get array
-			// 		const docSnap = await getDoc(docRef)
-			// 		setFoods(docSnap.data()['Food']);
-			// 		setQuants(docSnap.data()['Quantity']);
-			// 	}catch(err){
-			// 		console.error(err);
-			// 	}
-			// }
-
-			// getCart()
-
-			// updateDoc(docRef, {
-			// 	['Food']: foods,
-			// 	['Quantity']: quants,
-			// })
-		}
-	}, [foods, quants, cart])
-
 
   return (
     <div className="fixed bg-black bg-opacity-25 top-0 left-0 w-full h-screen flex justify-center items-center z-50">
@@ -134,7 +155,7 @@ import useAuth from "../custom_hooks/useAuth";
 							<button
 								className="rounded-3xl border bg-primary border-primary w-16 h-8
 								text-textHeadingColor text-base hover:opacity-80"
-								// onClick={addCart}
+								onClick={() => {addCart(); handleCloseModal()}}
 								>
 								DONE
 							</button>

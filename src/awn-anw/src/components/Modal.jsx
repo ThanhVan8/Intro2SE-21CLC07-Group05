@@ -8,6 +8,7 @@ import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
 import { useStateValue } from '../context/StateProvider'
+import { Link, useNavigate } from "react-router-dom";
 
 const Modal = () => {
   const cart = useAuth();
@@ -15,10 +16,6 @@ const Modal = () => {
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [merchantName, setMerchantName] = useState();
-  
-  // var foodlist = [];
-  // var pricelist = [];
-  // var quantity_list = [];
 
   const fetchCart = async (uid) => {
     try {
@@ -26,8 +23,6 @@ const Modal = () => {
       const docSnap = await getDoc(CartRef);
 
       const food_list = docSnap.data()["Food"];
-			// quantity_list = docSnap.data()['Quantity'];
-      // setQuantities(quantity_list)
       setQuantities(docSnap.data()['Quantity'])
 			const merchant_id = docSnap.data().merchant_id;
       const merchantRef = doc(firestore, "Merchant", merchant_id);
@@ -39,17 +34,10 @@ const Modal = () => {
 				const docSnap = await getDoc(menuRef);
 				const food = docSnap.data().FoodList[food_list[i]];
 				const price = docSnap.data().Price[food_list[i]];
-				// foodlist.push(food);
-				// pricelist.push(price);
         setFoods(foods => [...foods, food])
         setPrices(prices => [...prices, price])
 			}
-      // setPrices(pricelist)
-      // setFoods(foodlist)
 
-			// console.log(foodlist);
-      // console.log(pricelist);
-      // console.log(quantity_list);
     } catch (err) {
       console.error(err);
     }
@@ -69,6 +57,12 @@ const Modal = () => {
       cartShow: !cartShow,
     })
 	}
+
+  const navigate = useNavigate();
+  const placeOrder = () => {
+    handleCloseModal()
+    navigate("/OrderDetail");
+  }
 
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
@@ -110,7 +104,7 @@ const Modal = () => {
               <button
                 className="w-20 px-4 py-2 mr-2 border border-primary rounded-full bg-primary sticky
 									text-textHeadingColor font-semibold hover:opacity-80"
-              >
+              onClick={placeOrder}>
                 BUY
               </button>
             </div>

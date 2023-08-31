@@ -17,6 +17,11 @@ const reducer = (state, action) => {
                 ...state,
                 selectedFood: action.selectedFood,
             };
+        case 'SET_COUNT_CART':
+            return {
+                ...state,
+                countCart: action.countCart,
+            };
         default:
           return state;  
     }
