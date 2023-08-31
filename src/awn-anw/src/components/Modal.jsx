@@ -2,14 +2,7 @@ import storepic from "../assets/store.jpg";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
-import {addDoc,setDoc,
-  collection,
-  getDocs,
-  query,
-  where,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
@@ -21,45 +14,42 @@ const Modal = () => {
   const [foods, setFoods] = useState([]);
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
+  const [merchantName, setMerchantName] = useState();
   
-
+  // var foodlist = [];
+  // var pricelist = [];
+  // var quantity_list = [];
 
   const fetchCart = async (uid) => {
     try {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
 
-      const foodlist = [];
-      const pricelist = [];
-      const quantity_list = [];
-
       const food_list = docSnap.data()["Food"];
-			quantity_list = docSnap.data()['Quantity'];
-      setQuantities(quantity_list)
+			// quantity_list = docSnap.data()['Quantity'];
+      // setQuantities(quantity_list)
+      setQuantities(docSnap.data()['Quantity'])
 			const merchant_id = docSnap.data().merchant_id;
+      const merchantRef = doc(firestore, "Merchant", merchant_id);
+      const docSnapMerchant = await getDoc(merchantRef);
+      setMerchantName(docSnapMerchant.data().Name)
 
       for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
 				const docSnap = await getDoc(menuRef);
-				const food = docSnap.data().FoodList[i];
-				const price = docSnap.data().Price[i];
-				foodlist.push(food);
-				pricelist.push(price);
+				const food = docSnap.data().FoodList[food_list[i]];
+				const price = docSnap.data().Price[food_list[i]];
+				// foodlist.push(food);
+				// pricelist.push(price);
+        setFoods(foods => [...foods, food])
+        setPrices(prices => [...prices, price])
 			}
-      setPrices(pricelist)
-      setFoods(foodlist)
-
-			console.log(foodlist);
-      console.log(pricelist);
-      console.log(quantity_list);
-
 
     } catch (err) {
       console.error(err);
     }
   };
   
-
   useEffect(() => {
     if (cart) {
       fetchCart(cart.uid);
@@ -92,7 +82,7 @@ const Modal = () => {
                 alt="Store"
                 className="h-20 w-20 rounded-full object-cover"
               />
-              <p className="py-2 font-semibold"> STORE NAME</p>
+              <p className="py-2 font-semibold">{merchantName}</p>
               <hr className="w-full border:none border-black border-opacity-30" />
             </div>
 
@@ -102,9 +92,9 @@ const Modal = () => {
                 return (
                   <CartCard
                     name={food}
-                    quantity={quantities[Number(index)]}
-                    price={prices[Number(index)]}
-                    idFood={Number(index)}
+                    quantity={Number(quantities[index])}
+                    price={prices[index]}
+                    idFood={index}
                   />
                 );
               })}

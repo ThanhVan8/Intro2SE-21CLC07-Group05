@@ -1,39 +1,23 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useStateValue } from '../context/StateProvider'
 import {FaTimes, FaMinusCircle, FaPlusCircle} from "react-icons/fa"
 import cake from '../assets/cake.jpg'
-import {addDoc,setDoc,
-	collection,
-	getDocs,
-	query,
-	where,
-	doc,
-	getDoc,
-	updateDoc,
-  } from "firebase/firestore";
-  import { firestore } from "../config/firebase";
-  import useAuth from "../custom_hooks/useAuth";
+import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc,updateDoc, arrayUnion } from "firebase/firestore";
+import { firestore } from "../config/firebase";
+import useAuth from "../custom_hooks/useAuth";
 
 
-const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
+	const AddModal = ({addedFood}) => {
 	const [count, setCount] = useState(1);
-
 	function handleAddClick() {
 		setCount(count + 1);
 	}
-
 	function handleMinClick() {
 			if(count>1)
 				setCount(count - 1);
 	}
 
-	const handleAddToCart = () => {
-		//write here
-		addCart(index, count)
-		handleCloseModal()
-	}
-
-	const [{ addFoodShow }, dispatch] = useStateValue()
+	const [{ addFoodShow, selectedFood }, dispatch] = useStateValue()
 	const handleCloseModal = () => {
 		dispatch({
 		type: 'SET_ADD_FOOD_SHOW',
@@ -42,36 +26,106 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 	}
 
 	const cart = useAuth();
-	
-  // phan nay add m_id (khoi tao)
-  	const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-    	merchant_id: idMerchant
-    });
-  //
-  	const addCart = async (food, quant) => {
-    	try {
-		//get array
+	const [foods, setFoods] = useState([])
+	const [quants, setQuants] = useState([])
+
+  const addCart = async () => {
+		try{
+			console.log('add cart')
+			const docRef = doc(firestore, "ShoppingCart", cart.uid)
 			const docSnap = await getDoc(docRef)
-			const food_list = docSnap.data()['Food'];
-			const quant_list = docSnap.data()['Quantity'];
-			var merchant_id = docSnap.data().merchant_id;
-		//update
-			food_list.push(food)
-			quant_list.push(quant)
-			merchant_id = idMerchant
+
+			// setFoods([...foods, addedFood.index])
+			// setQuants([...quants, quants])
+
+			var food_list = docSnap.data()['Food'];
+			var quant_list = docSnap.data()['Quantity'];
+
+			food_list.push(String(addedFood.index))
+			quant_list.push(count)
+
+			console.log(food_list)
+			console.log(quant_list)
+
+			// setFoods(foods => [...foods, food_list])
+        	// setQuants(quants => [...quants, quants])
+
 			updateDoc(docRef, {
 				['Food']: food_list,
-				['Quantity']: quant_list
-			})  
+				['Quantity']: quant_list,
+				['merchant_id']: addedFood.idMerchant
+			})
+
+			// console.log(foods)
+
+
 		}catch(err){
-			console.error(err);
+			console.error(err)
 		}
 	}
+
+	
+
+  // 	const deleteCart = async (idx) => {
+  //   	try {
+  //     	//get array
+	// 		const docSnap = await getDoc(docRef)
+	// 		const food_list = docSnap.data()['Food'];
+	// 		const quant_list = docSnap.data()['Quantity'];
+      	
+  //     	//delete
+  //     	food_list.splice(idx, 1)
+  //     	quant_list.splice(idx, 1) 
+  //     	updateDoc(docRef, {
+  //       	['Food']: food_list,
+  //       	['Quantity']: quant_list
+  //     	})  
+  //   	}catch(err){
+	// 	console.error(err);
+	// 	}
+	// }
+
+	// const handleAddToCart = () => {
+	// 	//write here
+	// 	console.log('get cart')
+	// 	// getCart()
+	// 	setFoods([...foods, index])
+	// 	setQuants([...quants, count])
+	// 	handleCloseModal()
+	// }
+
+	// useEffect(() => {
+	// 	if (cart) {
+	// 		// phan nay add m_id (khoi tao )
+	// 		// const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
+	// 		// 	merchant_id: selectedFood.idMerchant
+	// 		addCart()
+	// 		};
+			//
+			// console.log('merchantID')
+			// const getCart = async () => {
+			// 	try {
+			// 	//get array
+			// 		const docSnap = await getDoc(docRef)
+			// 		setFoods(docSnap.data()['Food']);
+			// 		setQuants(docSnap.data()['Quantity']);
+			// 	}catch(err){
+			// 		console.error(err);
+			// 	}
+			// }
+
+			// getCart()
+
+			// updateDoc(docRef, {
+			// 	['Food']: foods,
+			// 	['Quantity']: quants,
+			// })
+	// }, [foods, quants, cart])
 
 
   return (
     <div className="fixed bg-black bg-opacity-25 top-0 left-0 w-full h-screen flex justify-center items-center z-50">
-        <div className="bg-white drop-shadow-md p-5 w-full md:w-460 flex flex-col gap-3 rounded-lg" onSubmit={handleAddToCart}>
+        <div className="bg-white drop-shadow-md p-5 w-full md:w-460 flex flex-col gap-3 rounded-lg">
             {/* Cancel icon */}
             <div className="flex justify-end w-full">
             <button onClick={handleCloseModal}>
@@ -88,8 +142,8 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 
 							{/* Info */}
 							<div className='flex flex-col w-full relative gap-2'>
-								<p className='font-semibold'>{foodName}</p>
-								<p className='text-[12px] text-gray-500'>{foodDescription}</p>
+								<p className='font-semibold'>{addedFood.foodName}</p>
+								<p className='text-[12px] text-gray-500'>{addedFood.foodDescription}</p>
 							</div>
 						</div>
 
@@ -104,14 +158,15 @@ const AddModal = ({index, foodName, foodDescription, foodPrice,idMerchant}) => {
 									</button>
 							</div>
 
-							<p className='font-medium'>{Number(foodPrice)*count} VND</p>
+							<p className='font-medium'>{Number(addedFood.foodPrice)*count} VND</p>
 						</div>
 
 						<div className='grid place-items-end pt-3'>
 							<button
 								className="rounded-3xl border bg-primary border-primary w-16 h-8
 								text-textHeadingColor text-base hover:opacity-80"
-								onClick={handleAddToCart}>
+								onClick={addCart}
+								>
 								DONE
 							</button>
 						</div>

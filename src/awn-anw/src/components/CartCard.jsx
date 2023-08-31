@@ -17,7 +17,6 @@ import {addDoc,setDoc,
   import useAuth from "../custom_hooks/useAuth";
 
 const CartCard = ({name, quantity, price, idFood}) => {
-    console.log(name, quantity, price, idFood)
     const [count, setCount] = useState(quantity);
 
     function handleAddClick() {
@@ -32,7 +31,7 @@ const CartCard = ({name, quantity, price, idFood}) => {
     }
       	// lay id xu ly tren cart
     const cart = useAuth();
-    const docRef =  getDocs(collection(firestore, "ShoppingCart", cart.uid))
+    // const docRef =  getDocs(collection(firestore, "ShoppingCart", cart.uid))
 
     // const deleteCart = async (idx) => {
     // 	try {
