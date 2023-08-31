@@ -19,7 +19,7 @@ const Menu = () => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
-      const MerchantRef = doc(firestore, "Merchant", id)
+      const MerchantRef = doc(firestore, "Merchant", uid)
       const docSnap2 = await getDoc(MerchantRef);
       setNameMerchant(docSnap2.data().Name)
       // console.log(nameMerchant)
@@ -31,7 +31,9 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    fetchMenu(id);
+    if(id){
+      fetchMenu(id);
+    }
   },[id])
 
   // const [{ addFoodShow }, dispatch] = useStateValue()
