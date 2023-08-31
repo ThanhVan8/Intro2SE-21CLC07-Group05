@@ -130,11 +130,11 @@ const OrderDetail = () => {
 						{/* Order summary */}
 						<div className='flex flex-col gap-3 bg-white border w-full p-3 h-fit shadow-sm'>
 							<p className='text-textColor font-bold'>Order Summary</p>
-							{shoppingCart.merchant_id ? 
+							{foodlist ? 
 							<>
-								{details.map((detail) => {
+								{foodlist.map((food, index) => {
 									return (
-										<OrderSumCard name={detail.name} description={detail.description} quantity={detail.quantity} price={detail.price} />
+										<OrderSumCard name={food} description={deslist[index]} quantity={quantity_list[index]} price={pricelist[index]} />
 									)
 								})} 
 								<div className='flex justify-between mt-2'>

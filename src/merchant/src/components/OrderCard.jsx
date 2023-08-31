@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 const OrderCard = ({detail, buyerInfo}) => {
 	const [order, setOrder] = useState(detail)
 	const [buyer, setBuyer] = useState(buyerInfo)
+	const [status, setStatus] = useState(detail.Status)
 	const handleClickStatus = (statusName) => {
 		setOrder({...order, Status: statusName})
 	}
@@ -11,6 +12,7 @@ const OrderCard = ({detail, buyerInfo}) => {
         <div className ='w-full flex justify-between items-center gap-4 py-2'>
             <div className='text-base font-semibold'>ID</div>
             <div className='text-base'>{order.id}</div>
+
         </div>
  
         <div className='w-full h-fit grid grid-cols-6 justify-items-start gap-4 row-span-3'>
@@ -24,7 +26,6 @@ const OrderCard = ({detail, buyerInfo}) => {
 							)
 						})}
 					</div>
-            
             <div className='w-full col-span-2 flex-col px-4'>
 							{buyer &&
 								<>
@@ -56,6 +57,7 @@ const OrderCard = ({detail, buyerInfo}) => {
                             className="w-4 h-4" 
 														checked={order.Status === 'Delivered'}
 														onClick={() => handleClickStatus('Delivered')}/>
+
                     <span> Delivered </span>
                 </label>
             </div>
