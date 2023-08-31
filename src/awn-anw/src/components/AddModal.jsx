@@ -26,17 +26,13 @@ const AddModal = ({addedFood}) => {
 	}
 
 	const cart = useAuth();
-	const [foods, setFoods] = useState([])
-	const [quants, setQuants] = useState([])
+	// const [foods, setFoods] = useState([])
+	// const [quants, setQuants] = useState([])
 
   const addCart = async () => {
 		try{
-			console.log('add cart')
 			const docRef = doc(firestore, "ShoppingCart", cart.uid)
 			const docSnap = await getDoc(docRef)
-
-			// setFoods([...foods, addedFood.index])
-			// setQuants([...quants, quants])
 
 			var food_list = docSnap.data()['Food'];
 			var quant_list = docSnap.data()['Quantity'];
@@ -44,11 +40,11 @@ const AddModal = ({addedFood}) => {
 			food_list.push(String(addedFood.index))
 			quant_list.push(count)
 
-			console.log(food_list)
-			console.log(quant_list)
+			// setFoods(docSnap.data()['Food'])
+			// setQuants(docSnap.data()['Quantity'])
 
-			// setFoods(foods => [...foods, food_list])
-        	// setQuants(quants => [...quants, quants])
+			// setFoods(foods => [...foods, String(addedFood.index)])
+			// setQuants(quants => [...quants, count])
 
 			updateDoc(docRef, {
 				['Food']: food_list,
@@ -56,15 +52,12 @@ const AddModal = ({addedFood}) => {
 				['merchant_id']: addedFood.idMerchant
 			})
 
-			// console.log(foods)
-
+			handleCloseModal()
 
 		}catch(err){
 			console.error(err)
 		}
 	}
-
-	
 
   // 	const deleteCart = async (idx) => {
   //   	try {
@@ -84,44 +77,6 @@ const AddModal = ({addedFood}) => {
 	// 	console.error(err);
 	// 	}
 	// }
-
-	// const handleAddToCart = () => {
-	// 	//write here
-	// 	console.log('get cart')
-	// 	// getCart()
-	// 	setFoods([...foods, index])
-	// 	setQuants([...quants, count])
-	// 	handleCloseModal()
-	// }
-
-	// useEffect(() => {
-	// 	if (cart) {
-	// 		// phan nay add m_id (khoi tao )
-	// 		// const docRef =  setDoc(collection(firestore, "ShoppingCart", cart.uid), {
-	// 		// 	merchant_id: selectedFood.idMerchant
-	// 		addCart()
-	// 		};
-			//
-			// console.log('merchantID')
-			// const getCart = async () => {
-			// 	try {
-			// 	//get array
-			// 		const docSnap = await getDoc(docRef)
-			// 		setFoods(docSnap.data()['Food']);
-			// 		setQuants(docSnap.data()['Quantity']);
-			// 	}catch(err){
-			// 		console.error(err);
-			// 	}
-			// }
-
-			// getCart()
-
-			// updateDoc(docRef, {
-			// 	['Food']: foods,
-			// 	['Quantity']: quants,
-			// })
-	// }, [foods, quants, cart])
-
 
   return (
     <div className="fixed bg-black bg-opacity-25 top-0 left-0 w-full h-screen flex justify-center items-center z-50">

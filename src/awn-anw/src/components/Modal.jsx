@@ -8,6 +8,7 @@ import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
 import { useStateValue } from '../context/StateProvider'
+import { Link, useNavigate } from "react-router-dom";
 
 const Modal = () => {
   const cart = useAuth();
@@ -15,10 +16,6 @@ const Modal = () => {
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [merchantName, setMerchantName] = useState();
-  
-  // var foodlist = [];
-  // var pricelist = [];
-  // var quantity_list = [];
 
   const fetchCart = async (uid) => {
     try {
@@ -61,6 +58,12 @@ const Modal = () => {
     })
 	}
 
+  const navigate = useNavigate();
+  const placeOrder = () => {
+    handleCloseModal()
+    navigate("/OrderDetail");
+  }
+
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
       <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
@@ -101,7 +104,7 @@ const Modal = () => {
               <button
                 className="w-20 px-4 py-2 mr-2 border border-primary rounded-full bg-primary sticky
 									text-textHeadingColor font-semibold hover:opacity-80"
-              >
+              onClick={placeOrder}>
                 BUY
               </button>
             </div>
