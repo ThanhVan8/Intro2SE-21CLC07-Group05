@@ -32,20 +32,20 @@ const Container = () => {
 
   return (
     <>
-      <div className='ml-4 mt-16'>
+      <div className='ml-4 mt-16 mb-4'>
           {/* Text */}
-          <p className='pl-10 py-5 font-semibold text-2xl'>Food for you</p>       
+          <p className='pl-10 py-5 font-bold font-serif text-3xl capitalize'>Food for you</p>       
           {/* devided into 3 cols */}
           <div className="grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4">
-            <div className="grid col-span-2 grid-cols-2 gap-4 justify-item-start px-5 ">
+            <div className="grid col-span-2 grid-cols-2 gap-8 justify-item-start px-5">
             {categoryList && categoryList.map((data) =>{
               return(
                 <Link key={data.id} to = {`/ShopList/${data.id}`} className='w-full h-fit p-5'>
                   <img  src={salad} 
                         alt="salad"
-                        className='w-80 h-60 object-cover' 
+                        className='w-72 h-52 object-cover' 
                   />
-                  <p className='text-textColor text-base py-2 '>{data.Name}</p>
+                  <p className='text-textColor my-4 font-mono text-2xl w-72 text-center'>{data.Name}</p>
                 </Link>
                 )
             })} 
@@ -55,7 +55,7 @@ const Container = () => {
               <img
                 src={mainpic}
                 alt="mainpic"
-                className="h-full object-contain sticky pl-5"
+                className="h-2/3 object-contain sticky pl-12"
               />
             </div>
           </div>

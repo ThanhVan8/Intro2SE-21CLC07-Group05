@@ -81,7 +81,7 @@ const Modal = () => {
                 alt="Store"
                 className="h-20 w-20 rounded-full object-cover"
               />
-              <p className="py-2 font-semibold">{merchantName}</p>
+              <p className="py-2 font-semibold font-serif capitalize text-xl">{merchantName}</p>
               <hr className="w-full border:none border-black border-opacity-30" />
             </div>
 
@@ -103,16 +103,17 @@ const Modal = () => {
             <div className="absolute w-fit flex justify-end bottom-4 right-2 bg-white ">
               <button
                 className="w-20 px-4 py-2 mr-2 border border-primary rounded-full bg-primary sticky
-									text-textHeadingColor font-semibold hover:opacity-80"
-              onClick={placeOrder}>
-                BUY
+									text-textHeadingColor font-semibold hover:opacity-80 font-mono uppercase"
+                  onClick={placeOrder}
+              >
+                buy
               </button>
             </div>
           </>
         ) : (
           <div className="flex flex-col items-center">
             <FaShoppingBasket className="text-9xl text-disabled" />
-            <p className="text-disabled font-medium">Your cart is empty</p>
+            <p className="text-disabled font-medium font-mono">Your cart is empty</p>
           </div>
         )}
       </div>

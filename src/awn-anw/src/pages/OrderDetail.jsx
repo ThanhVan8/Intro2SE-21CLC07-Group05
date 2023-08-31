@@ -97,35 +97,35 @@ const OrderDetail = () => {
   return (
     <>
 			<Header />
-			<div className='w-full mt-16 p-6 md:pr-0 py-5'>
+			<div className='w-full mt-16 p-6 md:pr-0 py-5 min-h-screen'>
 				<div className="grid grid-cols-3 md:grid-cols-4 w-full gap-4">
 
 					{/* Content */}
-					<div className="col-span-3 flex flex-col gap-7 items-center">
+					<div className="col-span-3 flex flex-col gap-7 items-center ">
 
 						{/* User info */}
-						<div className='flex gap-8 bg-white border w-full p-3 h-fit shadow-sm'>
+						<div className='flex gap-8 bg-white border w-5/6 py-4 p-4 h-fit shadow-sm font-mono'>
 							{/* avatar */}
-							<div className='flex flex-col justify-center'>
+							<div className='flex flex-col justify-center gap-2'>
 								<FaUserCircle className='text-4xl text-textColor'/>
-								<p>Name</p>
+								<p className='capitalize text-center font-semibold font-serif'>Name</p>
 							</div>
 							{/* info */}
-							<div className='flex flex-col gap-4 w-full'>
+							<div className='flex flex-col gap-4 w-full px-2'>
 								<label className='space-y-2'>
-									<p className='text-textColor font-semibold'>Address</p>
+									<p className='text-textColor font-semibold text-base'>Address</p>
 									<input type="text" defaultValue="abc" className="border-b-2 border-black w-full outline-none text-gray-500" readOnly />
 								</label>
 								<label className='space-y-2'>
-									<p className='text-textColor font-semibold'>Phone number</p>
+									<p className='text-textColor font-semibold text-base'>Phone number</p>
 									<input type="text" defaultValue="0123456789" className="border-b-2 border-black w-full outline-none text-gray-500" readOnly />
 								</label>
 							</div>
 						</div>
 
 						{/* Order summary */}
-						<div className='flex flex-col gap-3 bg-white border w-full p-3 h-fit shadow-sm'>
-							<p className='text-textColor font-bold'>Order Summary</p>
+						<div className='flex flex-col gap-3 bg-white border w-5/6 p-3 h-fit shadow-sm font-mono'>
+							<p className='text-textColor font-semibold text-xl font-serif '>Order Summary</p>
 							{foodlist ? 
 							<>
 								{foodlist.map((food, index) => {
@@ -133,11 +133,11 @@ const OrderDetail = () => {
 										<OrderSumCard name={food} description={deslist[index]} quantity={quantity_list[index]} price={pricelist[index]} />
 									)
 								})} 
-								<div className='flex justify-between mt-2'>
+								<div className='flex justify-between mt-2 text-base'>
 									<p className='text-textColor'>Shipping fee</p>
 									<p className='text-textColor'>20000 VND</p>
 								</div>
-								<div className='flex justify-between'>
+								<div className='flex justify-between text-base'>
 									<p className='text-textColor'>Total</p>
 									<p className='text-textColor font-semibold'>100000 VND</p>
 								</div>
@@ -149,10 +149,10 @@ const OrderDetail = () => {
 							</div>}
 						</div>
 						{/* Button */}
-						<button className="w-fit px-4 py-2.5 bg-primary text-white font-medium rounded-3xl hover:opacity-75"
+						<button className="w-fit px-4 py-2.5 bg-primary text-white font-medium rounded-3xl hover:opacity-75 font-mono text-base capitalize"
 						onClick={e => handlePlaceOrder(e)}>
-              Place order
-            </button>
+							Place order
+						</button>
 					</div>
 					
 					{/* Picture */}

@@ -23,21 +23,21 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => 
           <img
             src={cake}
             alt="Food"
-            className="h-32 w-32 object-cover rounded-full my-2 mx-4 "
+            className="h-28 w-28 object-cover rounded-full my-4 mx-4 "
           />
         </div>
         <div className="grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4">
-          <div className="text-xl font-semibold text-textColor ">
+          <div className="text-xl font-semibold text-textColor font-mono capitalize ">
           {foodName}
           </div>
-          <div className="text-base text-textColor opacity-50">{foodDescription}</div>
+          <div className="text-base text-textColor opacity-50 font-mono">{foodDescription}</div>
         </div>
         <div className="relative">
           <button
             className="rounded-3xl border bg-primary border-primary w-16 h-8 my-2 text-textHeadingColor text-base
-                              absolute bottom-2 right-4 hover:opacity-80"
+                              absolute bottom-2 right-4 hover:opacity-80 font-mono uppercase"
             onClick={showAddModal}>
-            ADD
+            add
           </button>
         </div>
         {addFoodShow &&

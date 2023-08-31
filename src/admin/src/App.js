@@ -6,7 +6,7 @@ import HomeTest from './pages/HomeTest'
 import Home from './pages/Home'
 import Merchant from './pages/Merchant'
 import Customer from './pages/Customer'
-
+import Category from './pages/Category'
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
@@ -18,6 +18,8 @@ const App = () => {
         {/* <Route path="/Home" element={<Home />} /> */}
         <Route path="/Merchant" element={<Merchant />} />
         <Route path="/Customer" element={<Customer />} />
+        <Route path="/Category" element={<Category />} />
+
 
 
 
