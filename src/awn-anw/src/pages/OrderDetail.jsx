@@ -9,20 +9,31 @@ import { doc, getDoc, addDoc, collection } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 
 const OrderDetail = () => {
+  const [details, setDetails] = useState([
+    { name: "Cheese cake", description: "Sweet", quantity: 3, price: 10000 },
+    { name: "Chicken", description: "Sweet", quantity: 2, price: 20000 },
+    { name: "Chicken", description: "Sweet", quantity: 2, price: 20000 },
+  ]);
+  const [order, setOrder] = useState([{}]);
+
+  const [shoppingCart, setShoppingCart] = useState({});
+
   const buyer = useAuth();
 	const [user, setUser] = useState({})
   const [foods, setFoods] = useState([]);
-  const [indices, setIndices] = useState([]);
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [description, setDescription] = useState([]);
   const [images, setImages] = useState([]);
   const [total, setTotal] = useState(0);
   const [merchant, setMerchant] = useState();
+  
+  // const pricelist = [];
+  // var quantity_list = [];
 
   const handlePlaceOrder = async () => {
     const docRef = await addDoc(collection(firestore, "Order"), {
-      Food: indices,
+      Food: foods,
       M_ID: merchant,
       O_ID: buyer.uid,
       Quantity: quantities,
@@ -42,7 +53,6 @@ const OrderDetail = () => {
       const docSnap = await getDoc(OrderRef);
 
       const food_list = docSnap.data()["Food"];
-      setIndices(food_list)
       setQuantities(docSnap.data()['Quantity'])
       const merchant_id = docSnap.data().merchant_id;
       setMerchant(merchant_id)
@@ -56,10 +66,10 @@ const OrderDetail = () => {
         const price = docSnap.data().Price[food_list[i]];
 
         pricelist.push(price);
-
+        
         setFoods((foods) => [
           ...foods, 
-          // docSnap.data().FoodList[food_list[i]]
+          docSnap.data().FoodList[food_list[i]]
         ]);
         setPrices((prices) => [
           ...prices, 
@@ -82,6 +92,8 @@ const OrderDetail = () => {
       }
       sum += 20000
       setTotal(sum)
+
+      
     } catch (err) {
       console.error(err);
     }
@@ -93,6 +105,9 @@ const OrderDetail = () => {
     }
   }, [buyer]);
 
+  // useEffect(() => {
+  // 	handlePlaceOrder()
+  // })
   return (
     <>
       <Header />
