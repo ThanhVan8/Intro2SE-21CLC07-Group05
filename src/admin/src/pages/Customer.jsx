@@ -42,10 +42,10 @@ const Customer = () => {
             {buyerList && buyerList.map((buyer, index) => {
                 return (
                     <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                    <div className='text-base'>{index}</div>
-                    <div className='text-base'>{buyer.Name}</div>
-                    <div className='text-base'>{buyer.email}</div>
-            </div> 
+                        <div className='text-base font-mono'>{index}</div>
+                        <div className='text-base font-mono'>{buyer.Name}</div>
+                        <div className='text-base font-mono'>{buyer.email}</div>
+                    </div> 
                 )
             })}
         </div>

@@ -6,7 +6,7 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className='w-full bg-primary py-3 pr-8 pl-2 bottom-0 mt-8'>
+    <footer className='w-full bg-primary py-3 pr-8 pl-2 bottom-0 mt-8 font-serif'>
         <div className='hidden md:flex w-full h-full'>
             <Link to = {"/"} className = 'flex items-center'>
                 <img src={logo} className = 'w-14 object-cover' alt="Logo" />
@@ -14,7 +14,7 @@ const Footer = () => {
 
             {/* about us */}
             <ul className='flex items-center mr-auto pl-4'>
-                <li className='text-xl text-textHeadingColor hover:text-textHover cursor-pointer'>About us</li>
+                <li className='text-xl font-semibold text-textHeadingColor hover:text-textHover cursor-pointer'>About us</li>
             </ul>
 
             {/* social media */}
