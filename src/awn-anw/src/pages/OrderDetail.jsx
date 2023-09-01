@@ -18,22 +18,6 @@ const OrderDetail = () => {
 
 	const[shoppingCart, setShoppingCart] = useState({});
 	const buyer = useAuth();
-	// const fetchCart = async(uid) => {
-	// 	try{
-	// 		const CartRef = doc(firestore, "ShoppingCart", uid);
-	// 		const docSnap = await getDoc(CartRef);
-	// 		// console.log(docSnap.data());
-	// 		setShoppingCart(docSnap.data());
-	// 	} catch(err) {
-	// 		console.error(err);
-	// 	}
-	// };
-	
-  	// useEffect(() => {
-	// 	if (buyer) {
-	// 		fetchCart(buyer.uid);
-	// 	}
-	// }, [buyer]);
 	const foodlist = []
 	const deslist = []
 	const pricelist = []
@@ -71,10 +55,10 @@ const OrderDetail = () => {
 			}
 			console.log(sum)
 			const docRef = await addDoc(collection(firestore, "Order"), {
-				Food: foodlist,
+				Food: String(foodlist),
 				M_ID: merchant_id,
 				O_ID: buyer.uid,
-				Quantity: quantity_list,
+				Quantity: Number(quantity_list),
 				Status: "Preparing",
 				Total: sum
 			  });

@@ -76,8 +76,12 @@ const AddModal = ({addedFood}) => {
 			if(m_id != addedFood.idMerchant){
 				var food_list = []
 				var quant_list = []
+				console.log('new cart')
+				
 				food_list.push(String(addedFood.index))
 				quant_list.push(count)
+				// console.log(food_list)
+				// console.log(quant_list)
 				updateDoc(docRef, {
 					['Food']: food_list,
 					['Quantity']: quant_list,
