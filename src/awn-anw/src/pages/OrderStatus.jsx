@@ -44,8 +44,6 @@ const OrderStatus = () => {
 				shopNameList.push(shopData.Name)
 				addressList.push(shopData.Address)
 			}
-			console.log(shopNameList)
-			console.log(addressList)
 
 		}catch(err){
 			console.error(err);
