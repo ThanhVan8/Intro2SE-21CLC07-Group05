@@ -22,6 +22,7 @@ const OrderStatus = () => {
 	var statusList = []
 	var totalList = []
 	var shopNameList = []
+	var addressList = []
 
 	const getOrderDetail = async(uid) => {
 		try{
@@ -34,17 +35,17 @@ const OrderStatus = () => {
 				statusList.push(orderData.Status)
 				totalList.push(orderData.Total)
 			})
-			console.log(shopList)
-			console.log(statusList)
-			console.log(totalList)
+
 
 			for (let i = 0; i < shopList.length; i++) {
 				const shopRef = doc(firestore, "Merchant", shopList[i]);
 				const docSnap = await getDoc(shopRef);
 				const shopData = docSnap.data();
 				shopNameList.push(shopData.Name)
+				addressList.push(shopData.Address)
 			}
 			console.log(shopNameList)
+			console.log(addressList)
 
 		}catch(err){
 			console.error(err);
