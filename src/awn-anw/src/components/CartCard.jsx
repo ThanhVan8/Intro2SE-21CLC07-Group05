@@ -55,9 +55,6 @@ const CartCard = ({name, quantity, price, description, image, idFood}) => {
         }
     }
 
-
-
-
     useEffect(() => {
         if(cart)
             updateQuant(cart.uid)
