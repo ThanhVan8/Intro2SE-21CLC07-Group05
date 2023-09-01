@@ -21,11 +21,16 @@ const Customer = () => {
         try{
             const BuyerRef = collection(firestore, "User")
             const docSnap = await getDocs(BuyerRef);
+            let buyerlist = []
             docSnap.forEach((doc) => {
                 const buyer = doc.data() 
-                console.log(buyer);
-                setBuyerList(buyer);
+                buyerlist.push(buyer)
+                // setBuyerList(buyer)
+                // console.log(buyer);
+                // setBuyerList(buyer);
             })
+            setBuyerList(buyerlist)
+            // console.log(buyerList);
         }catch(err){
             console.error(err);
         }
@@ -42,10 +47,10 @@ const Customer = () => {
             {buyerList && buyerList.map((buyer, index) => {
                 return (
                     <div className='w-full h-fit bg-gray grid grid-cols-3 justify-items-start py-2 px-4 gap-4'>
-                        <div className='text-base font-mono'>{index}</div>
-                        <div className='text-base font-mono'>{buyer.Name}</div>
-                        <div className='text-base font-mono'>{buyer.email}</div>
-                    </div> 
+                    <div className='text-base'>{index}</div>
+                    <div className='text-base'>{buyerList[index].Name}</div>
+                    <div className='text-base'>{buyerList[index].email}</div>
+            </div> 
                 )
             })}
         </div>

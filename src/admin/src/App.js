@@ -6,8 +6,9 @@ import HomeTest from './pages/HomeTest'
 import Home from './pages/Home'
 import Merchant from './pages/Merchant'
 import Customer from './pages/Customer'
-import Category from './pages/Category'
+
 import ProtectedRoute from './routers/ProtectedRoute'
+import Category from './pages/Category'
 
 const App = () => {
   return (
@@ -19,10 +20,6 @@ const App = () => {
         <Route path="/Merchant" element={<Merchant />} />
         <Route path="/Customer" element={<Customer />} />
         <Route path="/Category" element={<Category />} />
-
-
-
-
       </Routes>
     </div>
   )

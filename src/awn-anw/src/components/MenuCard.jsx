@@ -27,10 +27,11 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, foodImg, idMerch
           />
         </div>
         <div className="grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4">
-          <div className="text-xl font-semibold text-textColor capitalize ">
+          <p className="text-xl font-semibold text-textColor capitalize ">
           {foodName}
-          </div>
-          <div className="text-base text-textColor opacity-50">{foodDescription}</div>
+          </p>
+          <p className="text-textColor opacity-50">{foodDescription}</p>
+          <p className="text-base text-textColor">{foodPrice} VND</p>
         </div>
         <div className="relative">
           <button
