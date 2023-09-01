@@ -15,6 +15,7 @@ const OrderStatus = () => {
 		{name:"Lotteria", id:"12345", status: "Preparing", total: 20000},
 		{name:"Lotteria", id:"12345", status: "Preparing", total: 20000}])
 
+	// const [details2, setDetails2] = useState([{}])
 
 	const [order, setOrder] = useState([{}])
 	const buyer = useAuth();

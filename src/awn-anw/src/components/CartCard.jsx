@@ -24,8 +24,11 @@ const CartCard = ({name, quantity, price, description, image, idFood}) => {
     const updateQuant = async(uid) => {
         try {
             const CartRef = doc(firestore, "ShoppingCart", uid);
+            const docSnap = await getDoc(CartRef);
+            var quantity_list = docSnap.data()['Quantity']
+            quantity_list[idFood] = count
             await updateDoc(CartRef, {
-                [`Quantity[${idFood}]`]: count
+                Quantity: quantity_list
             })
         } catch (err) {
             console.error(err)
