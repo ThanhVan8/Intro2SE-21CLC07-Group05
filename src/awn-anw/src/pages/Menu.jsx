@@ -20,11 +20,10 @@ const Menu = () => {
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
       const MerchantRef = doc(firestore, "Merchant", uid)
+      setMenuData(docSnap.data())
+
       const docSnap2 = await getDoc(MerchantRef);
       setNameMerchant(docSnap2.data().Name)
-      // console.log(nameMerchant)
-      // console.log(docSnap.data());
-      setMenuData(docSnap.data())
     }catch(err){
       console.error(err);
     }
@@ -35,8 +34,6 @@ const Menu = () => {
       fetchMenu(id);
     }
   },[id])
-
-  // const [{ addFoodShow }, dispatch] = useStateValue()
 
   return (
     <>
@@ -52,6 +49,7 @@ const Menu = () => {
                 foodName={data} 
                 foodDescription={menuData.Description[index]}
                 foodPrice={menuData.Price[index]}
+                foodImg={menuData.Image[index]}
                 idMerchant={id}/>
               )
             })}

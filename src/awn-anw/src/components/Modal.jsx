@@ -1,7 +1,6 @@
-import storepic from "../assets/store.jpg";
+import shop from "../assets/shop.png";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
-import { getAuth } from "firebase/auth";
 import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
@@ -15,6 +14,8 @@ const Modal = () => {
   const [foods, setFoods] = useState([]);
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [images, setImages] = useState([]);
   const [merchantName, setMerchantName] = useState();
 
   const fetchCart = async (uid) => {
@@ -22,8 +23,9 @@ const Modal = () => {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
 
-      const food_list = docSnap.data()["Food"];
-      setQuantities(docSnap.data()['Quantity'])
+      const food_list = docSnap.data().Food
+      setQuantities(docSnap.data().Quantity)
+
 			const merchant_id = docSnap.data().merchant_id;
       const merchantRef = doc(firestore, "Merchant", merchant_id);
       const docSnapMerchant = await getDoc(merchantRef);
@@ -32,12 +34,23 @@ const Modal = () => {
       for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
 				const docSnap = await getDoc(menuRef);
-				const food = docSnap.data().FoodList[food_list[i]];
-				const price = docSnap.data().Price[food_list[i]];
-        setFoods(foods => [...foods, food])
-        setPrices(prices => [...prices, price])
+        setFoods((foods) => [
+          ...foods, 
+          docSnap.data().FoodList[food_list[i]]
+        ]);
+        setPrices((prices) => [
+          ...prices, 
+          docSnap.data().Price[food_list[i]]
+        ]);
+        setDescription((description) => [
+          ...description,
+          docSnap.data().Description[food_list[i]],
+        ]);
+        setImages((images) => [
+          ...images, 
+          docSnap.data().Image[food_list[i]]
+        ]);
 			}
-
     } catch (err) {
       console.error(err);
     }
@@ -77,7 +90,7 @@ const Modal = () => {
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
               <img
-                src={storepic}
+                src={shop}
                 alt="Store"
                 className="h-20 w-20 rounded-full object-cover"
               />
@@ -91,8 +104,10 @@ const Modal = () => {
                 return (
                   <CartCard
                     name={food}
-                    quantity={Number(quantities[index])}
+                    quantity={quantities[index]}
                     price={prices[index]}
+                    description={description[index]}
+                    image={images[index]}
                     idFood={index}
                   />
                 );

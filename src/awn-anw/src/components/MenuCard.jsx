@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import cake from "../assets/cake.jpg";
+import logo from "../assets/logo.png";
 import { useStateValue } from '../context/StateProvider'
 import AddModal from "./AddModal";
 
-const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => {
-  const [currentFood, setCurrentFood] = useState({index, foodName, foodDescription, foodPrice, idMerchant})
+const MenuCard = ({index, foodName, foodDescription, foodPrice, foodImg, idMerchant}) => {
+  const [currentFood, setCurrentFood] = useState({index, foodName, foodDescription, foodPrice, foodImg, idMerchant})
   const [{ addFoodShow, selectedFood }, dispatch] = useStateValue()
   const showAddModal = () => {
     dispatch({
@@ -21,7 +21,7 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, idMerchant}) => 
       <div className="grid grid-cols-4 w-full h-full gap-2">
         <div>
           <img
-            src={cake}
+            src={foodImg ? foodImg : logo}
             alt="Food"
             className="h-28 w-28 object-cover rounded-full my-4 mx-4 "
           />
