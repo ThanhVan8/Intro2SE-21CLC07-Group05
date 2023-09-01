@@ -152,7 +152,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
         </div>
 
         {/* Field */}
-        <form className="flex flex-col items-center" >
+        <div className="flex flex-col items-center" >
           <InputField
             label="Name"
             type="text"
@@ -213,7 +213,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
             {/* type='submit'> */}
             Save
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

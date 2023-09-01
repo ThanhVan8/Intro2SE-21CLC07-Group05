@@ -153,7 +153,7 @@ const OrderDetail = () => {
               <p className="text-textColor font-semibold text-xl font-serif ">
                 Order Summary
               </p>
-              {foods ? (
+              {indices.length !==0 ? (
                 <>
                   {foods.map((food, index) => {
                     return (
@@ -185,12 +185,13 @@ const OrderDetail = () => {
               )}
             </div>
             {/* Button */}
+            {indices.length !==0 &&
             <button
               className="w-fit px-4 py-2.5 bg-primary text-white font-medium rounded-3xl hover:opacity-75 font-mono text-base capitalize"
-              onClick={(e) => handlePlaceOrder(e)}
-            >
+              onClick={(e) => handlePlaceOrder(e)}>
               Place order
             </button>
+            }
           </div>
 
           {/* Picture */}
