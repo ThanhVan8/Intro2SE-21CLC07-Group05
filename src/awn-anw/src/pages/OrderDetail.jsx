@@ -5,8 +5,9 @@ import payment from "../assets/payment.png";
 import { FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import OrderSumCard from "../components/OrderSumCard";
 import useAuth from "../custom_hooks/useAuth";
-import { doc, getDoc, addDoc, collection } from "firebase/firestore";
+import { doc, getDoc, addDoc, collection, updateDoc } from "firebase/firestore";
 import { firestore } from "../config/firebase";
+import { Link, useNavigate } from "react-router-dom";
 
 const OrderDetail = () => {
   const buyer = useAuth();
@@ -20,6 +21,8 @@ const OrderDetail = () => {
   const [total, setTotal] = useState(0);
   const [merchant, setMerchant] = useState();
 
+  const navigate = useNavigate();
+
   const handlePlaceOrder = async () => {
     const docRef = await addDoc(collection(firestore, "Order"), {
       Food: indices,
@@ -29,6 +32,15 @@ const OrderDetail = () => {
       Status: "Preparing",
       Total: total,
     });
+
+    const CartRef = doc(firestore, "ShoppingCart", buyer.uid);
+    await updateDoc(CartRef, {
+      Food: [],
+      Quantity: [],
+      merchant_id: '',
+    });
+
+    navigate("/OrderStatus");
   }
 
   const getOrderDetail = async (uid) => {
