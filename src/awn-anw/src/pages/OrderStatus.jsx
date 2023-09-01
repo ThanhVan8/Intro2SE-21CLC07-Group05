@@ -1,15 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import bill from '../assets/bill.png'
 import OrderStatusCard from '../components/OrderStatusCard'
-import { useState } from 'react';
+import useAuth from '../custom_hooks/useAuth'
+import { firestore } from '../config/firebase'
+import { doc, getDoc, addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+
+
 
 const OrderStatus = () => {
 	const [details, setDetails] = useState([
 		{name:"Lotteria", id:"12345", status: "Preparing", total: 10000},
 		{name:"Lotteria", id:"12345", status: "Preparing", total: 20000},
 		{name:"Lotteria", id:"12345", status: "Preparing", total: 20000}])
+
+
+	const [order, setOrder] = useState([{}])
+	const buyer = useAuth();
+	var shopList = []
+	var statusList = []
+	var totalList = []
+	var shopNameList = []
+	var addressList = []
+
+	const getOrderDetail = async(uid) => {
+		try{
+			const orderRef = collection(firestore, "Order");
+			const q = query(orderRef, where("O_ID", "==", uid));
+			const docSnap = await getDocs(q);
+			docSnap.forEach((doc) => {
+				const orderData = doc.data();
+				shopList.push(orderData.M_ID)
+				statusList.push(orderData.Status)
+				totalList.push(orderData.Total)
+			})
+
+
+			for (let i = 0; i < shopList.length; i++) {
+				const shopRef = doc(firestore, "Merchant", shopList[i]);
+				const docSnap = await getDoc(shopRef);
+				const shopData = docSnap.data();
+				shopNameList.push(shopData.Name)
+				addressList.push(shopData.Address)
+			}
+			console.log(shopNameList)
+			console.log(addressList)
+
+		}catch(err){
+			console.error(err);
+		}
+	}
+
+	useEffect(() => {
+		if(buyer){
+			getOrderDetail(buyer.uid);
+		}
+	}, [buyer]);
   return (
     <>
 			<Header />
