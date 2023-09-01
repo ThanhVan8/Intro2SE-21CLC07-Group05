@@ -8,6 +8,7 @@ import Merchant from './pages/Merchant'
 import Customer from './pages/Customer'
 
 import ProtectedRoute from './routers/ProtectedRoute'
+import Category from './pages/Category'
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
         {/* <Route path="/Home" element={<Home />} /> */}
         <Route path="/Merchant" element={<Merchant />} />
         <Route path="/Customer" element={<Customer />} />
-        {/* <Route path="/Customer" element={<Customer />} /> */}
+        <Route path="/Category" element={<Category />} />
       </Routes>
     </div>
   )
