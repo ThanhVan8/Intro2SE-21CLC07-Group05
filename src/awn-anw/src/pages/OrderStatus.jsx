@@ -58,10 +58,10 @@ const OrderStatus = () => {
   return (
     <>
 			<Header />
-			<div className='w-full mt-16 p-6 md:pr-0 py-5'>
+			<div className='w-full mt-24 px-12 md:pr-0 py-5 min-h-screen'>
 				<div className="grid grid-cols-3 md:grid-cols-4 w-full gap-4">
 					{/* Content */}
-					<div className="col-span-3 flex flex-col gap-7 items-center">
+					<div className="col-span-3 flex flex-col gap-7 items-start">
 						{details.map((detail) => {
 							return (
 								<OrderStatusCard name={detail.name} id={detail.id} status={detail.status} total={detail.total} />

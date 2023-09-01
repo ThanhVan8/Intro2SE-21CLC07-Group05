@@ -145,7 +145,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
       <div className="bg-white drop-shadow-md p-5 w-full md:w-650 flex flex-col gap-4 rounded-lg">
         {/* Titile */}
         <div className="flex justify-between w-full">
-          <p className="font-semibold">{action==='add' ? <>Add new</>:<>Update</>} food/drink</p>
+          <p className="font-semibold text-xl">{action==='add' ? <>Add new</>:<>Update</>} food/drink</p>
           <button onClick={handleCloseModal}>
             <FaTimes className="text-xl" />
           </button>

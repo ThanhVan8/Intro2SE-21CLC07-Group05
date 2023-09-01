@@ -1,7 +1,6 @@
-import storepic from "../assets/store.jpg";
+import shop from "../assets/shop.png";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
-import { getAuth } from "firebase/auth";
 import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
@@ -15,6 +14,8 @@ const Modal = () => {
   const [foods, setFoods] = useState([]);
   const [prices, setPrices] = useState([]);
   const [quantities, setQuantities] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [images, setImages] = useState([]);
   const [merchantName, setMerchantName] = useState();
 
   const fetchCart = async (uid) => {
@@ -22,8 +23,9 @@ const Modal = () => {
       const CartRef = doc(firestore, "ShoppingCart", uid);
       const docSnap = await getDoc(CartRef);
 
-      const food_list = docSnap.data()["Food"];
-      setQuantities(docSnap.data()['Quantity'])
+      const food_list = docSnap.data().Food
+      setQuantities(docSnap.data().Quantity)
+
 			const merchant_id = docSnap.data().merchant_id;
       const merchantRef = doc(firestore, "Merchant", merchant_id);
       const docSnapMerchant = await getDoc(merchantRef);
@@ -32,12 +34,23 @@ const Modal = () => {
       for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
 				const docSnap = await getDoc(menuRef);
-				const food = docSnap.data().FoodList[food_list[i]];
-				const price = docSnap.data().Price[food_list[i]];
-        setFoods(foods => [...foods, food])
-        setPrices(prices => [...prices, price])
+        setFoods((foods) => [
+          ...foods, 
+          docSnap.data().FoodList[food_list[i]]
+        ]);
+        setPrices((prices) => [
+          ...prices, 
+          docSnap.data().Price[food_list[i]]
+        ]);
+        setDescription((description) => [
+          ...description,
+          docSnap.data().Description[food_list[i]],
+        ]);
+        setImages((images) => [
+          ...images, 
+          docSnap.data().Image[food_list[i]]
+        ]);
 			}
-
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +78,7 @@ const Modal = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 bg-white flex justify-center items-center">
+    <div className="fixed inset-0 bg-opacity-50 bg-black flex justify-center items-center">
       <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
         {/* close */}
         <button onClick={handleCloseModal}>
@@ -77,11 +90,11 @@ const Modal = () => {
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
               <img
-                src={storepic}
+                src={shop}
                 alt="Store"
                 className="h-20 w-20 rounded-full object-cover"
               />
-              <p className="py-2 font-semibold">{merchantName}</p>
+              <p className="py-2 font-semibold font-serif capitalize text-xl">{merchantName}</p>
               <hr className="w-full border:none border-black border-opacity-30" />
             </div>
 
@@ -91,8 +104,10 @@ const Modal = () => {
                 return (
                   <CartCard
                     name={food}
-                    quantity={Number(quantities[index])}
+                    quantity={quantities[index]}
                     price={prices[index]}
+                    description={description[index]}
+                    image={images[index]}
                     idFood={index}
                   />
                 );
@@ -103,16 +118,17 @@ const Modal = () => {
             <div className="absolute w-fit flex justify-end bottom-4 right-2 bg-white ">
               <button
                 className="w-20 px-4 py-2 mr-2 border border-primary rounded-full bg-primary sticky
-									text-textHeadingColor font-semibold hover:opacity-80"
-              onClick={placeOrder}>
-                BUY
+									text-textHeadingColor font-semibold hover:opacity-80 font-mono uppercase"
+                  onClick={placeOrder}
+              >
+                buy
               </button>
             </div>
           </>
         ) : (
           <div className="flex flex-col items-center">
             <FaShoppingBasket className="text-9xl text-disabled" />
-            <p className="text-disabled font-medium">Your cart is empty</p>
+            <p className="text-disabled font-medium font-mono">Your cart is empty</p>
           </div>
         )}
       </div>

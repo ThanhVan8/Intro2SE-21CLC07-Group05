@@ -52,7 +52,7 @@ const Header = () => {
   
 
   return (
-    <header className="fixed z-50 w-full bg-primary p-1 px-3">
+    <header className="fixed z-50 w-full bg-primary p-1 px-4">
       <div className="flex w-full h-full gap-3">
         {/*Logo*/}
         <Link to={"/"} className="flex items-center">
@@ -76,7 +76,7 @@ const Header = () => {
         </form>
 
         {/*icons*/}
-        <div className="flex items-center ml-auto gap-5">
+        <div className="flex items-center ml-auto gap-5 px-2">
           {/*Cart*/}
           <button onClick={handleCart}>
             <div className="relative">

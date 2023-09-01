@@ -54,7 +54,7 @@ const DeleteMess = ({idItem}) => {
 
         {/* Titile */}
         <div className='flex gap-4 items-center'>
-          <div className="bg-red p-1 w-fit h-fit">
+          <div className="bg-red p-1 w-fit h-fit rounded-full">
             <FaTrashAlt className="text-lg text-white" />
           </div>
           <p>Delete this food/drink?</p>

@@ -62,8 +62,8 @@ const Signup = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 w-full h-screen pt-16">
         <div className="flex flex-col justify-center px-5">
           <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl" onSubmit={signup}>
-            <h2 className="text-2xl text-center font-semibold py-1">Sign up</h2>
-            <div className="flex flex-col py-2 w-full">
+            <h2 className="text-2xl text-center font-semibold font-serif py-1 capitalize">Sign up</h2>
+            <div className="flex flex-col py-2 w-full text-base">
               <label htmlFor="email">Name</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -73,7 +73,7 @@ const Signup = () => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className="flex flex-col py-2 w-full">
+            <div className="flex flex-col py-2 w-full text-base">
               <label htmlFor="email">Phone number</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -83,7 +83,7 @@ const Signup = () => {
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
-            <div className="flex flex-col py-2 w-full">
+            <div className="flex flex-col py-2 w-full text-base">
               <label htmlFor="email">Address</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -93,7 +93,7 @@ const Signup = () => {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </div>
-            <div className="flex flex-col py-2 w-full">
+            <div className="flex flex-col py-2 w-full text-base">
               <label htmlFor="email">Email</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -103,7 +103,7 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="flex flex-col py-2 w-full">
+            <div className="flex flex-col py-2 w-full text-base">
               <label htmlFor="password">Password</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -114,12 +114,12 @@ const Signup = () => {
               />
             </div>
             <button 
-                className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75"
+                className="px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75 text-base capitalize"
                 type="submit"
             >
               Sign up
             </button>
-            <p>
+            <p className="text-base">
               Already have an account?{" "}
               <Link
                 className="text-primary underline hover:opacity-75"
@@ -139,7 +139,6 @@ const Signup = () => {
           />
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };

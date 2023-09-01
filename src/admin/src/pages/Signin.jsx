@@ -41,8 +41,8 @@ const Signin = () => {
 
         <div className="flex flex-col justify-center px-5">
           <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl" onSubmit={signIn}>
-            <h2 className="text-2xl text-center font-semibold py-1">Sign in</h2>
-            <div className="flex flex-col py-2 w-full">
+            <h2 className="text-2xl text-center font-serif font-semibold py-1">Sign in</h2>
+            <div className="flex flex-col py-2 w-full text-base font-mono">
               <label htmlFor="email">Email</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -52,7 +52,7 @@ const Signin = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="flex flex-col py-2 w-full">
+            <div className="flex flex-col py-2 w-full text-base font-mono">
               <label htmlFor="password">Password</label>
               <input
                 className="border border-[#D9D9D9] p-2 rounded-[10px]"
@@ -62,7 +62,7 @@ const Signin = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75"
+            <button className=" px-7 py-2.5 my-5 bg-primary text-white text-base font-mono rounded-3xl hover:opacity-75"
             type="submit">
               Sign in
             </button>

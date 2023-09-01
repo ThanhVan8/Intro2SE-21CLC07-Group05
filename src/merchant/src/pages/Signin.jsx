@@ -44,9 +44,9 @@ const Signin = () => {
       <Header0 />
       <div className="grid grid-cols-1 md:grid-cols-2 h-screen w-full pt-16">
 
-        <div className="flex flex-col justify-center px-5">
+        <div className="flex flex-col justify-center px-5 font-mono text-base">
           <form className="w-4/5 mx-auto px-10 py-5 flex flex-col items-center rounded-3xl shadow-xl"onSubmit={signIn}>
-            <h2 className="text-2xl text-center font-semibold py-1">Sign in</h2>
+            <h2 className="text-2xl text-center font-semibold py-1 font-serif capitalize">Sign in</h2>
             <InputField 
               label="Email" 
               type="email" 
@@ -59,13 +59,13 @@ const Signin = () => {
               required={true} 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} />
-            <button className="w-28 px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75">
+            <button className="px-7 py-2.5 my-5 bg-primary text-white rounded-3xl hover:opacity-75">
               Sign in
             </button>
             <p>
               Don't have an account?{" "}
               <Link
-                className="text-primary underline hover:opacity-75"
+                className="text-primary underline hover:opacity-75 capitalize"
                 to="/Signup"
             	>
                 Sign up

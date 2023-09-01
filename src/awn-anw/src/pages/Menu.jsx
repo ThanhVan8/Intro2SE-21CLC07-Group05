@@ -20,11 +20,10 @@ const Menu = () => {
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
       const docSnap = await getDoc(MenuRef);
       const MerchantRef = doc(firestore, "Merchant", uid)
+      setMenuData(docSnap.data())
+
       const docSnap2 = await getDoc(MerchantRef);
       setNameMerchant(docSnap2.data().Name)
-      // console.log(nameMerchant)
-      // console.log(docSnap.data());
-      setMenuData(docSnap.data())
     }catch(err){
       console.error(err);
     }
@@ -36,12 +35,10 @@ const Menu = () => {
     }
   },[id])
 
-  // const [{ addFoodShow }, dispatch] = useStateValue()
-
   return (
     <>
       <Header />
-      <div className='ml-4 mt-20 mb-8'>
+      <div className='ml-4 mt-40 mb-12 min-h-screen'>
         <div className='grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4'>
           <div className="grid col-span-2 gap-4 px-5">
           {/* <div className="flex flex-col justify-center items-center mb-8 sticky "> */}
@@ -52,6 +49,7 @@ const Menu = () => {
                 foodName={data} 
                 foodDescription={menuData.Description[index]}
                 foodPrice={menuData.Price[index]}
+                foodImg={menuData.Image[index]}
                 idMerchant={id}/>
               )
             })}
@@ -61,9 +59,9 @@ const Menu = () => {
                 <img
                     src={menupic}
                     alt="menupic"
-                    className="h-full object-contain sticky pl-5"
+                    className="h-full object-contain sticky pl-5 opacity-90"
                   />
-                <p className='text-xl font-bold text-center pl-24'>{nameMerchant}</p>
+                <p className='text-3xl font-serif font-semibold text-center pl-24 py-2'>{nameMerchant}</p>
               </div>
             </div>
         </div>

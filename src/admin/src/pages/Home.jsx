@@ -17,7 +17,7 @@ const Home = () => {
           <Header />
             <div className="grid grid-cols-3 w-full py-8 mt-16">
                 <div className='grid col-span-2 text-textColor text-left h-2/3 py-28 px-12 mx-10 gap-y-2 '>
-                    <p className='h-fit text-2xl font-semibold text-center py-40 '>
+                    <p className='h-fit text-3xl font-serif font-semibold text-center py-40 '>
                         Awn Anw Admin
                     </p> 
                 </div>

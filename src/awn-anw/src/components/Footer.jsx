@@ -15,7 +15,7 @@ const Footer = () => {
 
             {/* about us */}
             <ul className='flex items-center mr-auto pl-4'>
-                <li className='text-xl text-textHeadingColor hover:text-textHover cursor-pointer'>About us</li>
+                <li className='text-xl font-semibold text-textHeadingColor hover:text-textHover cursor-pointer font-serif'>About us</li>
             </ul>
 
             {/* social media */}
