@@ -10,7 +10,7 @@ const Header = () => {
         <Link to = {"/"}>
             <img src={logo} className = 'w-12 object-cover mr-8' alt="Logo" />
         </Link>
-        <ul className='flex items-center w-2/3 justify-between ml-40 px-48'>
+        <ul className='flex items-center justify-between ml-40 px-48 gap-12'>
           <Link to = {"/Menu"}>
             <li className='text-lg text-textHeadingColor hover:text-textHover cursor-pointer'>Menu</li>
           </Link>
