@@ -5,6 +5,8 @@ import { getAuth } from 'firebase/auth'
 import { firestore } from '../config/firebase'
 import useAuth from '../custom_hooks/useAuth'
 import { collection, getDoc, getDocs, query, where, doc, or, updateDoc } from 'firebase/firestore'
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const OrderCard = ({ detail, buyerInfo, foodNames, idOrder }) => {
   const [order, setOrder] = useState(detail);
@@ -17,6 +19,9 @@ const OrderCard = ({ detail, buyerInfo, foodNames, idOrder }) => {
         Status: statusName
     })
     setOrder({ ...order, Status: statusName });
+    toast.success('Update successfully!', {
+      autoClose: 1000, // Thời gian tự đóng toast (milisecond)
+    });
   };
   return (
     <div className="w-full h-fit grid grid-rows-5 justify-items-start px-4 gap-2 bg-gray text-base">

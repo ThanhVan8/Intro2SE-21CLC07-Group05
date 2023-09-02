@@ -16,6 +16,8 @@ import Footer from "../components/Footer";
 import Dropdown from "../components/Dropdown";
 import { FaCircleMinus } from "react-icons/fa6";
 import useAuth from "../custom_hooks/useAuth";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Category = () => {
   const [categories, setCategories] = useState([]); // Categories of merchant
@@ -30,6 +32,9 @@ const Category = () => {
         updateDoc(cateRef, {
             Categories: merchantCate,
         })
+				toast.success('Delete successfully! Need to refresh page.', {
+					autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+				});
     }catch(err){
       console.error(err);
     }

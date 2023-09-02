@@ -12,6 +12,8 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dropdown = ({selectedValue}) => {
   const [selectedCategory, setSelectedCategory] = useState(selectedValue);
@@ -38,7 +40,7 @@ const Dropdown = ({selectedValue}) => {
           console.error(err);
       }
   }
-	
+
   useEffect(() => {
       FetchCategory();
   }, []);
@@ -58,6 +60,10 @@ const Dropdown = ({selectedValue}) => {
       await updateDoc(merchantRef, {
         Categories: arrayUnion(ID),
       });
+
+			toast.success('Add successfully! Need to refresh page.', {
+				autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+			});
     } catch (err) {
       console.error(err);
     }

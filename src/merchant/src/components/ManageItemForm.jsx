@@ -7,6 +7,8 @@ import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc  } from "
 import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
 import { deleteObject, getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL, idItem}) => {
   const [name, setName] = useState(itemName)
@@ -66,6 +68,9 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
       updateFood()
     }
     handleCloseModal()
+    toast.success('Save successfully! Need to refresh page.', {
+      autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+    });
   }
 
   // const deleteImage = (e) => {
