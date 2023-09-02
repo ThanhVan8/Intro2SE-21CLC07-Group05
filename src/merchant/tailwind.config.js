@@ -57,7 +57,8 @@ module.exports = {
         red: "#D46058",
         card: "#F5F5F5",
         yellow: "#ECC04D",
-        inactive: "#F5F5F5",
+        inactive: "#6E6C6C",
+        // inactive2: "#6E6C6C",
         gray: "#D9D9D9",
       },
       textSize: {

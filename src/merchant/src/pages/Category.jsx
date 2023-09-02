@@ -19,29 +19,24 @@ import useAuth from "../custom_hooks/useAuth";
 
 const Category = () => {
   const [categories, setCategories] = useState([]); // Categories of merchant
-  // const[merchantCate, setMerchantCate] = useState([])
 
   const handleRemove = (index) => {
     console.log(index);
   };
+
   const merchant = useAuth();
-  const merchantCategories = [];
   const FetchMerchantCate = async (uid) => {
     try {
-      const cate = "";
       const MerchantCateRef = doc(firestore, "Merchant", uid);
       const docSnap = await getDoc(MerchantCateRef);
       const merchantCate = docSnap.data()["Categories"];
-			// console.log(merchantCate)
 
       for (let i = 0; i < merchantCate.length; i++) {
         const CategoryRef = doc(firestore, "Category", merchantCate[i]);
         const docSnap = await getDoc(CategoryRef);
         const cate = docSnap.data().Name;
-        merchantCategories.push(cate);
+				setCategories(categories => [...categories, cate])
       }
-      // console.log(merchantCategories);
-      setCategories(merchantCategories);
     } catch (err) {
       console.error(err);
     }
@@ -86,21 +81,19 @@ const Category = () => {
           <p className="font-semibold text-lg first-letter">
             Choose categories for your products to easily access to customers
           </p>
-          <Dropdown isDisable={false} />
+          <Dropdown />
         </div>
 
         <div className="grid gap-4">
           {categories.map((cat, index) => {
             return (
               <div key={index} className="flex gap-4">
-                {/* <Dropdown selectedValue={cat} isDisable={true} />
-                <button onClick={() => handleRemove(index)}>
-                  <FaCircleMinus className="text-red text-xl" />
-                </button> */}
-								<div className="border w-64 ">
-									<p>{cat}</p>
+								<div className="border w-64 rounded-md p-2.5 border-gray hover:border-inactive text-gray hover:text-inactive">
+									{cat}
 								</div>
-
+								<button onClick={() => handleRemove(index)}>
+                  <FaCircleMinus className="text-red text-xl" />
+                </button>
               </div>
             );
           })}
