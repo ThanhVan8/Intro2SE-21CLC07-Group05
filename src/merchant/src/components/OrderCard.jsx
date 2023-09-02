@@ -1,12 +1,23 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { getAuth } from 'firebase/auth'
+import { firestore } from '../config/firebase'
+import useAuth from '../custom_hooks/useAuth'
+import { collection, getDoc, getDocs, updateDoc, where, query } from 'firebase/firestore'
 
 const OrderCard = ({detail, buyerInfo}) => {
 	const [order, setOrder] = useState(detail)
 	const [buyer, setBuyer] = useState(buyerInfo)
 	const [status, setStatus] = useState(detail.Status)
+    
+    // const merchant = useAuth();
+    // const orderr = useAuth();
 	const handleClickStatus = (statusName) => {
 		setOrder({...order, Status: statusName})
+        
 	}
+    // console.log(order.id)
   return (
     <div className='w-full h-fit grid grid-rows-5 justify-items-start px-4 gap-2 bg-gray text-base'>
         <div className ='w-full flex justify-between items-center gap-4 py-2 text-lg'>
