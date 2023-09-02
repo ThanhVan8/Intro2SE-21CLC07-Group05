@@ -25,6 +25,7 @@ const Dropdown = ({isDisable, selectedValue}) => {
     setSelectedCategory(e.target.value);
     // add to database
   };
+  console.log('abc')
 
 
   const FetchCategory = async() => {
