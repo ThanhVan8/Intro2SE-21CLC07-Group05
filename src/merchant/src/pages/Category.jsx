@@ -77,22 +77,6 @@ const Category = () => {
   // },[]);
 
   // Category cua ca he thong
-  // const FetchCategory = async() => {
-  //     try{
-  //         const categoriesRef = collection(firestore, "Category")
-  //         const cateData = new Set();
-  //         const querySnapshot = await getDocs(categoriesRef)
-  //         querySnapshot.forEach((doc) => {
-  //             const cate = doc.data();
-  //             console.log(cate.Name);
-  //         })
-  //     }catch(err){
-  //         console.error(err);
-  //     }
-  // }
-  // useEffect(() => {
-  //     FetchCategory();
-  // }, []);
 
   return (
     <>

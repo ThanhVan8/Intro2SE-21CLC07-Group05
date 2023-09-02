@@ -12,10 +12,13 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
+import Category from "../pages/Category";
 
-const Dropdown = ({ isDisable, selectedValue, categories }) => {
-	console.log(categories)
+
+const Dropdown = ({isDisable, selectedValue}) => {
+	// console.log(categories)
   const [selectedCategory, setSelectedCategory] = useState(selectedValue);
+  const [category, setCategories] = useState([]);
 
   const merchant = useAuth();
 
@@ -23,6 +26,31 @@ const Dropdown = ({ isDisable, selectedValue, categories }) => {
     setSelectedCategory(e.target.value);
     // add to database
   };
+
+
+  const FetchCategory = async() => {
+      try{
+          const categoriesRef = collection(firestore, "Category")
+          // const cateData = new Set();
+          var cateData = [];
+          const querySnapshot = await getDocs(categoriesRef)
+          querySnapshot.forEach((doc) => {
+              const cate = doc.data();
+              cateData.push(cate.Name);
+              // console.log(cate.Name);
+          })
+          console.log(cateData);
+          setCategories(cateData);
+      }catch(err){
+          console.error(err);
+      }
+  }
+  useEffect(() => {
+      FetchCategory();
+  }, []);
+
+
+
 
   const AddCategory = async (cate) => {
     try {
@@ -44,6 +72,7 @@ const Dropdown = ({ isDisable, selectedValue, categories }) => {
     }
   };
 
+  
   useEffect(() => {
     if (merchant) {
       AddCategory("cate");
