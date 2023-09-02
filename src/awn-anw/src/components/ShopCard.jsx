@@ -5,7 +5,7 @@ const ShopCard = ({image, name}) => {
   return (
     <div className='flex flex-col items-center w-full h-fit'>
         <img src={store} alt='store' className='w-72 h-52 object-cover rounded-lg'/>
-        <p className='text-xl my-2 font-semibold'>{name}</p>
+        <p className='text-xl my-2'>{name}</p>
     </div>
   )
 }

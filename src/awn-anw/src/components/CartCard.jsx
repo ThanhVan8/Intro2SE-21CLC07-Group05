@@ -16,7 +16,7 @@ const CartCard = ({name, quantity, price, description, image, idFood}) => {
     function handleMinClick() {
         if(count >= 1)
             setCount(count - 1);
-        if(count == 0)
+        if(count === 0)
             deleteFood(cart.uid);
     }
 
@@ -54,9 +54,6 @@ const CartCard = ({name, quantity, price, description, image, idFood}) => {
             console.error(err)
         }
     }
-
-
-
 
     useEffect(() => {
         if(cart)
