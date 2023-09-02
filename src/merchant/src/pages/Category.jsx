@@ -19,12 +19,22 @@ import useAuth from "../custom_hooks/useAuth";
 
 const Category = () => {
   const [categories, setCategories] = useState([]); // Categories of merchant
+  const merchant = useAuth();
 
-  const handleRemove = (index) => {
-    console.log(index);
+  const handleRemove = async(index) => {
+    try{
+        const cateRef = doc(firestore, "Merchant", merchant.uid)
+        const docSnap = await getDoc(cateRef)
+        const merchantCate = docSnap.data()['Categories'];
+        merchantCate.splice(index,1);
+        updateDoc(cateRef, {
+            Categories: merchantCate,
+        })
+    }catch(err){
+      console.error(err);
+    }
   };
 
-  const merchant = useAuth();
   const FetchMerchantCate = async (uid) => {
     try {
       const MerchantCateRef = doc(firestore, "Merchant", uid);
@@ -47,31 +57,6 @@ const Category = () => {
       FetchMerchantCate(merchant.uid);
     }
   }, [merchant]);
-
-  // const DeleteCategory = async(index) => {
-  // 	try{
-  // 		const merchantRef = doc(firestore, "Merchant", merchant.uid)
-  // 		let ID = ''
-  // 		const q = query(collection(firestore, "Category"),where ('Name',"==", cate));
-  // 		const querySnapshot = await getDocs(q)
-  // 		querySnapshot.forEach((doc) => {
-  // 			ID = doc.id;
-  // 		});
-  // 		await updateDoc(merchantRef, {
-  // 			Categories: arrayUnion(ID),
-  // 		});
-  // 	}catch(err){
-  // 		console.error(err);
-  // 	}
-  // }
-
-  // useEffect(() => {
-  // 	if(merchant){
-  // 		AddCategory("cate");
-  // 	}
-  // },[]);
-
-  // Category cua ca he thong
 
   return (
     <>

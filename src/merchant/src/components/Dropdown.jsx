@@ -13,9 +13,7 @@ import {
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
-
-const Dropdown = ({isDisable, selectedValue}) => {
-	// console.log(categories)
+const Dropdown = ({selectedValue}) => {
   const [selectedCategory, setSelectedCategory] = useState(selectedValue);
   const [category, setCategories] = useState([]);
 
@@ -23,10 +21,8 @@ const Dropdown = ({isDisable, selectedValue}) => {
 
   const handleSelect = (e) => {
     setSelectedCategory(e.target.value);
-    // add to database
+		AddCategory(e.target.value)
   };
-  console.log('abc')
-
 
   const FetchCategory = async() => {
       try{
@@ -37,12 +33,12 @@ const Dropdown = ({isDisable, selectedValue}) => {
               const cate = doc.data();
               cateData.push(cate.Name);
           })
-          console.log(cateData);
           setCategories(cateData);
       }catch(err){
           console.error(err);
       }
   }
+	
   useEffect(() => {
       FetchCategory();
   }, []);
@@ -66,13 +62,6 @@ const Dropdown = ({isDisable, selectedValue}) => {
       console.error(err);
     }
   };
-
-  
-  useEffect(() => {
-    if (merchant) {
-      AddCategory("cate");
-    }
-  }, []);
 
   return (
     <select
