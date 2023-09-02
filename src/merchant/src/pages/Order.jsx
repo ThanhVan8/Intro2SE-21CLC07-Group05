@@ -10,6 +10,7 @@ import OrderCard from '../components/OrderCard';
 const Order = () => {
 
     const [OrderDetail, setOrder] = useState([])
+    const [idOrders, setIdOrders] = useState([])
     const [BuyerDetail, setBuyer] = useState([])
     const [Food, setFood] = useState([])
     const merchant = useAuth();
@@ -27,6 +28,7 @@ const Order = () => {
           querySnapshot.forEach((doc) => {
             const OrderData = doc.data();
             order.push(OrderData);
+            setIdOrders(idOrders => [...idOrders, doc.id])
             u_id.push(OrderData.O_ID);
             food.push(OrderData.Food);
             // console.log(doc.id)
@@ -71,7 +73,7 @@ const Order = () => {
             {/* an order */}
             {OrderDetail && OrderDetail.map((detailedInfo, index) => {
               return (
-                <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]}/>
+                <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]} foodNames={Food[index]} idOrder={idOrders[index]}/>
               )
             })}
         </div>

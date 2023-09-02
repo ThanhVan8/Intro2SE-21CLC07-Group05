@@ -16,6 +16,11 @@ const reducer = (state, action) => {
                 ...state,
                 showDeleteItem: action.showDeleteItem,
             }
+        case 'SET_SELECTED_ITEM':
+            return {
+                ...state,
+                selectedItem: action.selectedItem,
+            }
         default:
             return state;
     }

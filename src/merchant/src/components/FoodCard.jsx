@@ -6,7 +6,7 @@ import DeleteMess from './DeleteMess'
 
 const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 	const [available, setAvailable] = useState(true)
-	const [{ showUpdateItem, showDeleteItem }, dispatch] = useStateValue()
+	const [{ showUpdateItem, showDeleteItem, selectedItem }, dispatch] = useStateValue()
 
 	const handleClickAvail = (e) => {
 		setAvailable(!available)
@@ -16,6 +16,10 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 		dispatch({
 			type: 'SET_SHOW_UPDATE_ITEM',
 			showUpdateItem: !showUpdateItem,
+		})
+		dispatch({
+			type: 'SET_SELECTED_ITEM',
+			selectedItem: {index, foodName, foodDescription, foodPrice, foodImage},
 		})
 	}
 
@@ -30,7 +34,7 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
     <div className='bg-card flex gap-3 p-3 w-full'>
         {/* Image */}
         <div className='flex-none flex items-center'>
-            <img src={foodImage} alt='food' className='w-16 h-16'/>
+            <img src={foodImage} alt='food' className='w-16 h-16 object-cover'/>
         </div>
 
         {/* Content */}
@@ -51,16 +55,17 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 					{/* Update and Delete */}
 					<div className='flex gap-2'>
 						<button className='bg-yellow font-medium text-white px-2 py-1 rounded-lg' onClick={updateFood}>Update</button>
-						<button className='bg-red font-medium text-white px-2 py-1 rounded-lg' onClick={deleteMess}>Delete</button>
+						{/* <button className='bg-red font-medium text-white px-2 py-1 rounded-lg' onClick={deleteMess}>Delete</button> */}
 					</div>
 					{showUpdateItem && 
 					<ManageItemForm 
 								action='update' 
-								itemName={foodName} 
-								itemPrice={foodPrice} 
-								itemDescription={foodDescription}
-								idItem={index} />}
-					{showDeleteItem && <DeleteMess />}
+								itemName={selectedItem.foodName} 
+								itemPrice={selectedItem.foodPrice} 
+								itemDescription={selectedItem.foodDescription}
+								itemImageURL={selectedItem.foodImage}
+								idItem={selectedItem.index} />}
+					{/* {showDeleteItem && <DeleteMess />} */}
 				</div>
     </div>
   )

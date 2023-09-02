@@ -8,8 +8,6 @@ import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
 import { deleteObject, getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
 
-
-
 const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL, idItem}) => {
   const [name, setName] = useState(itemName)
   const [price, setPrice] = useState(itemPrice)
@@ -67,7 +65,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     else if (action === "update") {
       updateFood()
     }
-    handleCloseModal()  
+    handleCloseModal()
   }
 
   // const deleteImage = (e) => {
@@ -84,8 +82,9 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
       Description: arrayUnion(description),
       FoodList: arrayUnion(name),
       Price: arrayUnion(price),
-      Image: arrayUnion(imageURL)
-    })}
+      Image: arrayUnion(imageURL ? imageURL : null)
+    })
+  }
 
   const updateFood = async () => {
       
@@ -103,7 +102,6 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     price_list.splice(idItem, 1)
     image_list.splice(idItem, 1)
 
-      
     //update new value into array
     des_list.splice(idItem,0, description)
     food_list.splice(idItem, 0, name)
@@ -189,7 +187,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
               </label>
             ) : (
               <div className="w-full h-full relative">
-                <img src={imageURL} alt="upload" className="object-cover" />
+                <img src={imageURL} alt="upload" className="object-cover w-200 h-200" />
                 <div className="bg-red flex absolute top-2 right-2 p-1 rounded-full">
                   <button onClick={deleteImage}>
                     <FaTrashAlt className="text-lg text-white" />
