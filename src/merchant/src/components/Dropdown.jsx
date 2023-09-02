@@ -12,10 +12,8 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
-import Category from "../pages/Category";
 
-
-const Dropdown = ({isDisable, selectedValue}) => {
+const Dropdown = ({selectedValue}) => {
 	// console.log(categories)
   const [selectedCategory, setSelectedCategory] = useState(selectedValue);
   const [category, setCategories] = useState([]);
@@ -25,8 +23,8 @@ const Dropdown = ({isDisable, selectedValue}) => {
   const handleSelect = (e) => {
     setSelectedCategory(e.target.value);
     // add to database
+		AddCategory(e.target.value)
   };
-
 
   const FetchCategory = async() => {
       try{
@@ -37,7 +35,6 @@ const Dropdown = ({isDisable, selectedValue}) => {
           querySnapshot.forEach((doc) => {
               const cate = doc.data();
               cateData.push(cate.Name);
-              // console.log(cate.Name);
           })
           console.log(cateData);
           setCategories(cateData);
@@ -45,12 +42,10 @@ const Dropdown = ({isDisable, selectedValue}) => {
           console.error(err);
       }
   }
+	
   useEffect(() => {
       FetchCategory();
   }, []);
-
-
-
 
   const AddCategory = async (cate) => {
     try {
@@ -72,29 +67,18 @@ const Dropdown = ({isDisable, selectedValue}) => {
     }
   };
 
-  
-  useEffect(() => {
-    if (merchant) {
-      AddCategory("cate");
-    }
-  }, []);
-
   return (
     <select
       value={selectedCategory}
-      disabled={isDisable}
-      autoFocus={!isDisable}
-      className={
-        isDisable
-          ? "w-64 p-2.5 text-gray-500 bg-gray-100 border rounded-md shadow-sm outline-none appearance-none"
-          : "w-64 p-2.5 text-textColor bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-primary hover:border-primary"
-      }
+      autoFocus={true}
+      className={"w-64 p-2.5 text-textColor bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-primary hover:border-primary"}
       onChange={handleSelect}
     >
-      <option>Rice</option>
-      <option>Milk tea</option>
-      <option>Noodle</option>
-      <option>Chicken</option>
+			{category.map(cate => {
+				return (
+					<option>{cate}</option>
+				)
+			})}
     </select>
   );
 };

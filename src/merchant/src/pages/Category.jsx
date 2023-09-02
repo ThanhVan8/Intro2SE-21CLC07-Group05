@@ -81,7 +81,7 @@ const Category = () => {
           <p className="font-semibold text-lg first-letter">
             Choose categories for your products to easily access to customers
           </p>
-          <Dropdown isDisable={false} />
+          <Dropdown />
         </div>
 
         <div className="grid gap-4">
