@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { getAuth } from 'firebase/auth'
+import { firestore } from '../config/firebase'
+import useAuth from '../custom_hooks/useAuth'
+import { collection, getDoc, getDocs, query, where, doc, or, updateDoc } from 'firebase/firestore'
 
 const OrderCard = ({ detail, buyerInfo, foodNames, idOrder }) => {
   const [order, setOrder] = useState(detail);
+  const [idOrders, setIdOrders] = useState(idOrder)
   const [status, setStatus] = useState(detail.Status);
+//   console.log(idOrders)
   const handleClickStatus = (statusName) => {
+    const OrderRef = doc(firestore, "Order", idOrders)
+    updateDoc(OrderRef, {
+        Status: statusName
+    })
     setOrder({ ...order, Status: statusName });
   };
   return (

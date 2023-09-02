@@ -31,6 +31,7 @@ const Order = () => {
             setIdOrders(idOrders => [...idOrders, doc.id])
             u_id.push(OrderData.O_ID);
             food.push(OrderData.Food);
+            // console.log(doc.id)
           })
           setOrder(order); // So luong cua tung mon an
 
@@ -44,7 +45,7 @@ const Order = () => {
             foodList.push(food_list)
             
           }
-          // console.log(foodList);
+          console.log(foodList);
           setFood(foodList); // Ten cua tung mon an
 
           for (let i = 0; i < u_id.length; i++){
