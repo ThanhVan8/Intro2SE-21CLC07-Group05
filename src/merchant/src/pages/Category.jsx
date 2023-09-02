@@ -53,22 +53,22 @@ const Category = () => {
     }
   }, [merchant]);
 
-  // const DeleteCategory = async(index) => {
-  // 	try{
-  // 		const merchantRef = doc(firestore, "Merchant", merchant.uid)
-  // 		let ID = ''
-  // 		const q = query(collection(firestore, "Category"),where ('Name',"==", cate));
-  // 		const querySnapshot = await getDocs(q)
-  // 		querySnapshot.forEach((doc) => {
-  // 			ID = doc.id;
-  // 		});
-  // 		await updateDoc(merchantRef, {
-  // 			Categories: arrayUnion(ID),
-  // 		});
-  // 	}catch(err){
-  // 		console.error(err);
-  // 	}
-  // }
+  const DeleteCategory = async(index) => {
+  	try{
+  		const merchantRef = doc(firestore, "Merchant", merchant.uid)
+  		let ID = ''
+  		const q = query(collection(firestore, "Category"),where ('Name',"==", cate));
+  		const querySnapshot = await getDocs(q)
+  		querySnapshot.forEach((doc) => {
+  			ID = doc.id;
+  		});
+  		await updateDoc(merchantRef, {
+  			Categories: arrayRemove(ID),
+  		});
+  	}catch(err){
+  		console.error(err);
+  	}
+  }
 
   // useEffect(() => {
   // 	if(merchant){
