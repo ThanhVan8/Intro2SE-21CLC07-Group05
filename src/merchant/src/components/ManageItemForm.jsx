@@ -30,9 +30,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
           setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         }, 
         (error) => {
-          // dispatch1(alertDanger(`Error : ${error}`));
           setTimeout(() => {
-            // dispatch1(alertNULL());
           }, 3000);
         }, 
         () => {
@@ -41,9 +39,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
             setImageURL(imageURL)
             setisLoading(false)
             setProgress(null)
-            // dispatch1(alertDanger(`Error : ${error}`));
             setTimeout(() => {
-            // dispatch1(alertNULL());
            }, 3000);
         });
       }
@@ -56,10 +52,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     deleteObject(deleteRef).then(() => {
       setImageURL(null)
       setProgress(null)
-      // setisLoading(false)
-      // dispatch1(alertDanger(`Error : ${error}`));
       setTimeout(() => {
-      // dispatch1(alertNULL());
       }, 3000);
     });
   }
