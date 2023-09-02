@@ -13,7 +13,8 @@ import {
 import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
-const Dropdown = ({selectedValue}) => {
+
+const Dropdown = ({isDisable, selectedValue}) => {
 	// console.log(categories)
   const [selectedCategory, setSelectedCategory] = useState(selectedValue);
   const [category, setCategories] = useState([]);
@@ -23,13 +24,12 @@ const Dropdown = ({selectedValue}) => {
   const handleSelect = (e) => {
     setSelectedCategory(e.target.value);
     // add to database
-		AddCategory(e.target.value)
   };
+
 
   const FetchCategory = async() => {
       try{
           const categoriesRef = collection(firestore, "Category")
-          // const cateData = new Set();
           var cateData = [];
           const querySnapshot = await getDocs(categoriesRef)
           querySnapshot.forEach((doc) => {
@@ -42,7 +42,6 @@ const Dropdown = ({selectedValue}) => {
           console.error(err);
       }
   }
-	
   useEffect(() => {
       FetchCategory();
   }, []);
@@ -67,18 +66,29 @@ const Dropdown = ({selectedValue}) => {
     }
   };
 
+  
+  useEffect(() => {
+    if (merchant) {
+      AddCategory("cate");
+    }
+  }, []);
+
   return (
     <select
       value={selectedCategory}
-      autoFocus={true}
-      className={"w-64 p-2.5 text-textColor bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-primary hover:border-primary"}
+      disabled={isDisable}
+      autoFocus={!isDisable}
+      className={
+        isDisable
+          ? "w-64 p-2.5 text-gray-500 bg-gray-100 border rounded-md shadow-sm outline-none appearance-none"
+          : "w-64 p-2.5 text-textColor bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-primary hover:border-primary"
+      }
       onChange={handleSelect}
     >
-			{category.map(cate => {
-				return (
-					<option>{cate}</option>
-				)
-			})}
+      <option>Rice</option>
+      <option>Milk tea</option>
+      <option>Noodle</option>
+      <option>Chicken</option>
     </select>
   );
 };

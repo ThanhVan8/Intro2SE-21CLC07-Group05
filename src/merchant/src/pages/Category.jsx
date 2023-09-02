@@ -19,24 +19,29 @@ import useAuth from "../custom_hooks/useAuth";
 
 const Category = () => {
   const [categories, setCategories] = useState([]); // Categories of merchant
+  // const[merchantCate, setMerchantCate] = useState([])
 
   const handleRemove = (index) => {
     console.log(index);
   };
-
   const merchant = useAuth();
+  const merchantCategories = [];
   const FetchMerchantCate = async (uid) => {
     try {
+      const cate = "";
       const MerchantCateRef = doc(firestore, "Merchant", uid);
       const docSnap = await getDoc(MerchantCateRef);
       const merchantCate = docSnap.data()["Categories"];
+			// console.log(merchantCate)
 
       for (let i = 0; i < merchantCate.length; i++) {
         const CategoryRef = doc(firestore, "Category", merchantCate[i]);
         const docSnap = await getDoc(CategoryRef);
         const cate = docSnap.data().Name;
-				setCategories(categories => [...categories, cate])
+        merchantCategories.push(cate);
       }
+      // console.log(merchantCategories);
+      setCategories(merchantCategories);
     } catch (err) {
       console.error(err);
     }
@@ -48,22 +53,22 @@ const Category = () => {
     }
   }, [merchant]);
 
-  const DeleteCategory = async(index) => {
-  	try{
-  		const merchantRef = doc(firestore, "Merchant", merchant.uid)
-  		let ID = ''
-  		const q = query(collection(firestore, "Category"),where ('Name',"==", cate));
-  		const querySnapshot = await getDocs(q)
-  		querySnapshot.forEach((doc) => {
-  			ID = doc.id;
-  		});
-  		await updateDoc(merchantRef, {
-  			Categories: arrayRemove(ID),
-  		});
-  	}catch(err){
-  		console.error(err);
-  	}
-  }
+  // const DeleteCategory = async(index) => {
+  // 	try{
+  // 		const merchantRef = doc(firestore, "Merchant", merchant.uid)
+  // 		let ID = ''
+  // 		const q = query(collection(firestore, "Category"),where ('Name',"==", cate));
+  // 		const querySnapshot = await getDocs(q)
+  // 		querySnapshot.forEach((doc) => {
+  // 			ID = doc.id;
+  // 		});
+  // 		await updateDoc(merchantRef, {
+  // 			Categories: arrayUnion(ID),
+  // 		});
+  // 	}catch(err){
+  // 		console.error(err);
+  // 	}
+  // }
 
   // useEffect(() => {
   // 	if(merchant){
@@ -81,19 +86,21 @@ const Category = () => {
           <p className="font-semibold text-lg first-letter">
             Choose categories for your products to easily access to customers
           </p>
-          <Dropdown />
+          <Dropdown isDisable={false} />
         </div>
 
         <div className="grid gap-4">
           {categories.map((cat, index) => {
             return (
               <div key={index} className="flex gap-4">
-								<div className="border w-64 rounded-md p-2.5 border-gray hover:border-inactive text-gray hover:text-inactive">
-									{cat}
-								</div>
-								<button onClick={() => handleRemove(index)}>
+                {/* <Dropdown selectedValue={cat} isDisable={true} />
+                <button onClick={() => handleRemove(index)}>
                   <FaCircleMinus className="text-red text-xl" />
-                </button>
+                </button> */}
+								<div className="border w-64 ">
+									<p>{cat}</p>
+								</div>
+
               </div>
             );
           })}
