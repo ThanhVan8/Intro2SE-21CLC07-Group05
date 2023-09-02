@@ -14,7 +14,6 @@ import { firestore } from "../config/firebase";
 import useAuth from "../custom_hooks/useAuth";
 
 const Dropdown = ({selectedValue}) => {
-	// console.log(categories)
   const [selectedCategory, setSelectedCategory] = useState(selectedValue);
   const [category, setCategories] = useState([]);
 
@@ -22,21 +21,18 @@ const Dropdown = ({selectedValue}) => {
 
   const handleSelect = (e) => {
     setSelectedCategory(e.target.value);
-    // add to database
 		AddCategory(e.target.value)
   };
 
   const FetchCategory = async() => {
       try{
           const categoriesRef = collection(firestore, "Category")
-          // const cateData = new Set();
           var cateData = [];
           const querySnapshot = await getDocs(categoriesRef)
           querySnapshot.forEach((doc) => {
               const cate = doc.data();
               cateData.push(cate.Name);
           })
-          console.log(cateData);
           setCategories(cateData);
       }catch(err){
           console.error(err);
