@@ -7,6 +7,7 @@ import Menu from './pages/Menu'
 import OrderDetail from './pages/OrderDetail'
 import OrderStatus from './pages/OrderStatus';
 import ShopList from './pages/ShopList';
+import InfoAcc from './pages/InfoAcc';
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/OrderDetail' element = {<ProtectedRoute><OrderDetail /></ProtectedRoute>}/>     
         <Route path='/OrderStatus' element = {<ProtectedRoute><OrderStatus /></ProtectedRoute>}/>
         <Route path='/ShopList/:id' element = {<ProtectedRoute><ShopList /></ProtectedRoute>}/>
+        <Route path='/InfoAcc' element = {<ProtectedRoute><InfoAcc /></ProtectedRoute>}/>
       </Routes>
     </div>
   )

@@ -78,7 +78,7 @@ const Category = () => {
           {categories.map((cat, index) => {
             return (
               <div key={index} className="flex gap-4">
-								<div className="border w-64 rounded-md p-2.5 border-gray hover:border-inactive text-gray hover:text-inactive">
+								<div className="border w-64 rounded-md p-2.5 border-gray hover:border-inactive2 text-gray hover:text-inactive2">
 									{cat}
 								</div>
 								<button onClick={() => handleRemove(index)}>

@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Order from './pages/Order'
 import Category from './pages/Category'
 import Menu from './pages/Menu'
+import InfoAcc from './pages/InfoAcc'
 import ProtectedRoute from './routers/ProtectedRoute'
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/Category" element={<ProtectedRoute><Category /></ProtectedRoute>} />
         <Route path="/Menu" element={<ProtectedRoute><Menu /></ProtectedRoute>} />
         <Route path="/Order" element={<ProtectedRoute><Order /></ProtectedRoute>} />
+        <Route path="/InfoAcc" element={<ProtectedRoute><InfoAcc /></ProtectedRoute>} />
       </Routes>
     </div>
   )

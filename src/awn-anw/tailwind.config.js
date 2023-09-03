@@ -6,6 +6,7 @@ module.exports = {
       width: {
         150: "150px",
         190: "190px",
+        200: "200px",
         225: "225px",
         275: "275px",
         300: "300px",
@@ -21,6 +22,7 @@ module.exports = {
         100: "100px",
         120: "120px",
         150: "150px",
+        200: "200px",
         225: "225px",
         300: "300px",
         340: "340px",
@@ -65,6 +67,9 @@ module.exports = {
         textColor: "#000",
         textHover: "#d9d9d9",
         disabled: "#C5C5C5",
+        inactive: "#F5F5F5",
+        inactive2: "#6E6C6C",
+        gray: "#D9D9D9",
       },
       textSize: {
         40: "40px",

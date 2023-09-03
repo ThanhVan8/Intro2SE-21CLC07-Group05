@@ -3,4 +3,5 @@ export const initialState = {
     showUpdateItem: false,
     showDeleteItem: false,
     selectedItem: null,
+    showInfo: false,
 }
