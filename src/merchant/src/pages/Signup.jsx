@@ -34,7 +34,8 @@ const Signup = () => {
               Name: name,
               Phone: phone,
               Address: address,
-              email,
+              Email: email,
+              Categories: [],
               Image: null,
           });
 

@@ -49,7 +49,7 @@ const InfoAcc = () => {
       Name: buyerInfo.Name,
       Address: buyerInfo.Address,
       Phone: buyerInfo.Phone,
-      email: buyerInfo.email
+      Email: buyerInfo.Email
     })
     toast.success("Save successfully! Need to refresh page.", {
       autoClose: 3000,
@@ -97,7 +97,7 @@ const InfoAcc = () => {
             />
             <InfoField
               title="EMAIL"
-              info={buyerInfo.email}
+              info={buyerInfo.Email}
               readOnly="readOnly"
             />
           </div>

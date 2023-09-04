@@ -59,7 +59,7 @@ const Home = () => {
             
             <p className=' h-fit flex gap-4 text-base'>
               <FiMail className='text-2xl cursor-pointer'/>
-              {OneMerchant.email}
+              {OneMerchant.Email}
             </p>
           </div>
           <div className="hidden md:flex justify-end items-center">

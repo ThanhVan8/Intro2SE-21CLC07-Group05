@@ -18,7 +18,9 @@ const InfoAcc = () => {
 	const [isLoading, setisLoading] = useState(false)
 	const [progress, setProgress] = useState(null)
 	const [imageURL, setImageURL] = useState('')
-	const [imageFile, setImageFile] = useState('')
+	// const [imageFile, setImageFile] = useState('')
+	// const [imageUrl, setimageUrl] = useState('')
+
 
   const merchant = useAuth();
 	const fetchMerchantInfo = async(uid) => {
@@ -39,56 +41,11 @@ const InfoAcc = () => {
 		}
 	}, [merchant])
 
-	const uploadImage = (e) => {
+	const uploadImage = async (e) => {
 		setisLoading(true)
-		// const imageFile = e.target.files[0]
-		// const storageRef = ref(storage, `MerchantImage/${Date.now()}_${imageFile.name}`);
-		// const uploadTask = uploadBytesResumable(storageRef, imageFile);
-		// uploadTask.on('state_changed', 
-		// 	(snapshot) => {
-		// 	  setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-		// 	}, 
-		// 	(error) => {
-		// 	  setTimeout(() => {
-		// 	  }, 3000);
-		// 	}, 
-		// 	() => {
-		// 	  getDownloadURL(uploadTask.snapshot.ref).then((imageURL) => {
-		// 		setImageURL(imageURL)
-		// 		setMerchantInfo({...merchantInfo, Image: imageURL})
-		// 		setisLoading(false)
-		// 		setProgress(null)
-		// 		setTimeout(() => {
-		// 	   }, 3000);
-		// 	});
-		//   }
-		// );
-		setImageFile(e.target.files[0])
-		setImageURL(URL.createObjectURL(e.target.files[0]))
-		setMerchantInfo({...merchantInfo, Image: URL.createObjectURL(e.target.files[0])})
-		// setMerchantInfo({...merchantInfo, Image: e.target.files[0]})
-	  } 
-	  const deleteImage = () => {
-		setisLoading(true);
-		// const deleteRef = ref(storage, imageURL);
-		// deleteObject(deleteRef).then(() => {
-		//   setImageURL(null)
-		//   setMerchantInfo({...merchantInfo, Image: null})
-		//   setProgress(null)
-		//   setTimeout(() => {
-		//   }, 3000);
-		// });
-		setImageURL(null)
-	  }
-	
-	const updateURL = (url) => {setImageURL(url)}
-	
-	const saveInfo = async() => {
-    // write here
-		const merchantRef = doc(firestore, "Merchant", merchant.uid)
+		const imageFile = e.target.files[0]
 		const storageRef = ref(storage, `MerchantImage/${Date.now()}_${imageFile.name}`);
 		const uploadTask = uploadBytesResumable(storageRef, imageFile);
-		// var uploadedImg = ''
 		uploadTask.on('state_changed', 
 			(snapshot) => {
 			  setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -98,11 +55,9 @@ const InfoAcc = () => {
 			  }, 3000);
 			}, 
 			() => {
-			  getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-				// setImageURL((imageURL) => {imageURL = url})
-				// uploadedImg = url
-				updateURL(url)
-				setMerchantInfo({...merchantInfo, Image: url})
+			  getDownloadURL(uploadTask.snapshot.ref).then((imageURL) => {
+				setImageURL(imageURL)
+				setMerchantInfo({...merchantInfo, Image: imageURL})
 				setisLoading(false)
 				setProgress(null)
 				setTimeout(() => {
@@ -110,14 +65,33 @@ const InfoAcc = () => {
 			});
 		  }
 		);
-		// console.log(imageURL)
+		const merchantRef = doc(firestore, "Merchant", merchant.uid)
+		await updateDoc(merchantRef, {
+			Image: merchantInfo.Image
+		})
+	  } 
+	  const deleteImage = () => {
+		setisLoading(true);
+		const deleteRef = ref(storage, imageURL);
+		deleteObject(deleteRef).then(() => {
+		  setImageURL(null)
+		  setMerchantInfo({...merchantInfo, Image: null})
+		  setProgress(null)
+		  setTimeout(() => {
+		  }, 3000);
+		});
+		setImageURL(null)
+	  }
+	const saveInfo = async() => {
+    // write here
+		const merchantRef = doc(firestore, "Merchant", merchant.uid)
 		await updateDoc(merchantRef, {
 			Name: merchantInfo.Name,
 			Address: merchantInfo.Address,
 			Categories: merchantInfo.Categories,
 			Phone: merchantInfo.Phone,
 			Email: merchantInfo.Email,
-			Image:  imageURL
+			Image: imageURL
 		})
 		// setInitialInfo(merchantInfo)
 

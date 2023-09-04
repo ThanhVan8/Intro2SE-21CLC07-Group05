@@ -39,7 +39,7 @@ const Category = () => {
   }, []);
 
   const deleteCategory = async () => {
-
+    
     toast.success('Delete successfully! Need to refresh page.', {
       autoClose: 3000,
     });

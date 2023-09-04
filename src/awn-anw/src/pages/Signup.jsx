@@ -36,7 +36,7 @@ const Signup = () => {
                 Name: name,
                 Phone: phone,
                 Address: address,
-                email
+                Email: email
             });
 
             await setDoc(doc(firestore, "ShoppingCart",user.uid), {
