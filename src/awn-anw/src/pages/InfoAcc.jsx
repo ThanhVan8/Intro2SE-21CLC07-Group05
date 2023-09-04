@@ -10,6 +10,7 @@ import {
   query,
   where,
   doc,
+  updateDoc
 } from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import { FaCloudUploadAlt, FaTrashAlt } from "react-icons/fa";
@@ -41,9 +42,15 @@ const InfoAcc = () => {
     }
   }, [buyer]);
 
-  const saveInfo = () => {
+  const saveInfo = async () => {
     // write here
-    
+    const buyerRef = doc(firestore, "User", buyer.uid)
+    await updateDoc(buyerRef, {
+      Name: buyerInfo.Name,
+      Address: buyerInfo.Address,
+      Phone: buyerInfo.Phone,
+      email: buyerInfo.email
+    })
     toast.success("Save successfully! Need to refresh page.", {
       autoClose: 3000,
     });
@@ -68,7 +75,7 @@ const InfoAcc = () => {
           {/* Info */}
           <div className="grid gap-8 pr-5">
             <InfoField
-              title="STORE NAME"
+              title="USER NAME"
               info={buyerInfo.Name}
               onChange={(e) => {
                 setBuyerInfo({ ...buyerInfo, Name: e.target.value });

@@ -60,7 +60,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   }
 
   const saveFood = () => {
-    console.log(action)
+    // console.log(action)
     if (action === "add") {
       addFood()
     }

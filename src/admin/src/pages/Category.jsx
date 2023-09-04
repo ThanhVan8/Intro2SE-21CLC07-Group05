@@ -21,6 +21,7 @@ import AddCategory from "../components/AddCategory";
 const Category = () => {
   const [categoryList, setCategoryList] = useState([]);
 
+
   const fetchCategory = async () => {
     try {
       const categoryRef = collection(firestore, "Category");
@@ -72,7 +73,7 @@ const Category = () => {
             return (
               <div key={index} className="w-full h-fit flex justify-between rounded-md items-center gap-4">
                 <div className="flex gap-1 items-center h-20 w-full">
-                  <img src={category.Imgae ? category.Imgae : logo} alt="logo" className="w-20 h-20 rounded-md object-cover" />
+                  <img src={category.Image ? category.Image : logo} alt="logo" className="w-20 h-20 rounded-md object-cover" />
                   <div className="text-base font-mono bg-gray w-full h-full px-4 flex items-center rounded-md">
                     <p>{category.Name}</p>
                   </div>
