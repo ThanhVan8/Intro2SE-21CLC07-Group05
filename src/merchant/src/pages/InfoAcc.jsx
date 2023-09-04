@@ -18,11 +18,9 @@ const InfoAcc = () => {
 	const [isLoading, setisLoading] = useState(false)
 	const [progress, setProgress] = useState(null)
 	const [imageURL, setImageURL] = useState('')
-	// const [imageFile, setImageFile] = useState('')
-	// const [imageUrl, setimageUrl] = useState('')
-
 
   const merchant = useAuth();
+
 	const fetchMerchantInfo = async(uid) => {
 		try{
 			const MerchantRef = doc(firestore, "Merchant", uid)
@@ -70,7 +68,7 @@ const InfoAcc = () => {
 			Image: merchantInfo.Image
 		})
 	  } 
-	  const deleteImage = () => {
+	  const deleteImage = async () => {
 		setisLoading(true);
 		const deleteRef = ref(storage, imageURL);
 		deleteObject(deleteRef).then(() => {
@@ -81,6 +79,10 @@ const InfoAcc = () => {
 		  }, 3000);
 		});
 		setImageURL(null)
+		const merchantRef = doc(firestore, "Merchant", merchant.uid)
+		await updateDoc(merchantRef, {
+			Image: null
+		})
 	  }
 	const saveInfo = async() => {
     // write here
