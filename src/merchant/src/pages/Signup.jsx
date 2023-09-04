@@ -34,8 +34,9 @@ const Signup = () => {
               Name: name,
               Phone: phone,
               Address: address,
-              email,
-              Image,
+              Email: email,
+              Categories: [],
+              Image: null,
           });
 
           await setDoc(doc(firestore, "Menu", user.uid), {
@@ -77,7 +78,7 @@ const Signup = () => {
               value={phone} 
               onChange={(e) => setPhone(e.target.value)} />
             <InputField 
-              label="Adress" 
+              label="Address" 
               type="text" 
               required={true} 
               value={address} 
