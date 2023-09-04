@@ -3,9 +3,18 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStateValue } from "../context/StateProvider";
 import { FaTimes, FaCloudUploadAlt, FaTrashAlt } from "react-icons/fa";
+import { firestore, storage } from "../config/firebase"
+import { deleteObject, getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
+import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc, setDoc, collection, addDoc  } from "firebase/firestore";
+
 
 const AddCategory = () => {
   const [{ showAddCategory }, dispatch] = useStateValue();
+  const [isLoading, setisLoading] = useState(false)
+  const [progress, setProgress] = useState(null)
+  const [name, setName] = useState("");
+  const [imageURL, setImageURL] = useState(null);
+
   const handleCloseModal = () => {
     dispatch({
       type: "SET_SHOW_ADD_CATEGORY",
@@ -13,19 +22,52 @@ const AddCategory = () => {
     });
   };
 
-  const [name, setName] = useState("");
-  const [imageURL, setImageURL] = useState();
+  const uploadImage = async (e) => {
+    setisLoading(true)
+    const imageFile = e.target.files[0]
+    const storageRef = ref(storage, `CategoryImage/${Date.now()}_${imageFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+    uploadTask.on('state_changed', 
+        (snapshot) => {
+          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        }, 
+        (error) => {
+          setTimeout(() => {
+          }, 3000);
+        }, 
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((imageURL) => {
+            // console.log('File available at', downloadURL);
+            setImageURL(imageURL)
+            setisLoading(false)
+            setProgress(null)
+            setTimeout(() => {
+           }, 3000);
+        });
+      }
+    );
+  } 
+  const deleteImage = async() => {
+    setisLoading(true);
+    const deleteRef = ref(storage, imageURL);
+    deleteObject(deleteRef).then(() => {
+      setImageURL(null)
+      setProgress(null)
+      setTimeout(() => {
+      }, 3000);
+    });
+  }
 
-  const uploadImage = (e) => {
-
-	};
-
-  const deleteImage = () => {
-
-	};
-
-  const saveCategory = () => {
-		
+  const saveCategory = async() => {
+    // const categoryRef = collection(firestore, "Merchant")	
+    await addDoc(collection(firestore, "Category"), {
+      Name: name,
+      Image: imageURL
+    })
+    handleCloseModal()
+    toast.success('Add successfully! Need to refresh page.', {
+      autoClose: 3000,
+    });
 	};
 
   return (

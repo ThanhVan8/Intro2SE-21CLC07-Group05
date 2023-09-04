@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { getAuth } from 'firebase/auth'
 import { firestore } from '../config/firebase'
 import useAuth from '../custom_hooks/useAuth'
-import { collection, getDoc, getDocs, query, where, doc, or } from 'firebase/firestore'
+import { collection, getDoc, getDocs, query, where, doc} from 'firebase/firestore'
 import OrderCard from '../components/OrderCard';
 
 const Order = () => {
@@ -69,14 +68,16 @@ const Order = () => {
     <>
         <Header/>
         {/* container */}
-        <div className='w-full min-h-screen mt-28 px-16 grid gap-4 font-mono text-base'>
-				    <p className="text-center font-serif text-3xl font-semibold pb-5">ORDERS</p>
-            {/* an order */}
-            {OrderDetail && OrderDetail.map((detailedInfo, index) => {
-              return (
-                <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]} foodNames={Food[index]} idOrder={idOrders[index]}/>
-              )
-            })}
+        <div className='w-full min-h-screen mt-28 px-16'>
+          <p className="text-center font-serif text-3xl font-semibold pb-5">ORDERS</p>
+          <div className='grid gap-4 font-mono text-base'>
+              {/* an order */}
+              {OrderDetail && OrderDetail.map((detailedInfo, index) => {
+                return (
+                  <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]} foodNames={Food[index]} idOrder={idOrders[index]}/>
+                )
+              })}
+          </div>
         </div>
         <Footer/>
     </>

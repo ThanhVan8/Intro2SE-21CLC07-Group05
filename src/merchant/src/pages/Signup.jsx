@@ -34,12 +34,16 @@ const Signup = () => {
               Name: name,
               Phone: phone,
               Address: address,
-              email
+              Email: email,
+              Categories: [],
+              Image: null,
           });
 
           await setDoc(doc(firestore, "Menu", user.uid), {
               FoodList: [],
-              Price: []
+              Price: [],
+              Description: [],
+              Image: []
           });
 
           toast.success('Sign up successfully!', {
@@ -72,9 +76,9 @@ const Signup = () => {
               type="tel" 
               required={true} 
               value={phone} 
-              onChange={(e) => setPhone(e.target.value)} />
+              onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))} />
             <InputField 
-              label="Adress" 
+              label="Address" 
               type="text" 
               required={true} 
               value={address} 

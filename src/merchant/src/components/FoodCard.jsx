@@ -31,7 +31,7 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 	}
 
   return (
-    <div className='bg-card flex gap-3 p-3 w-full'>
+    <div className='bg-card flex p-3 w-full'>
         {/* Image */}
         <div className='flex-none flex items-center'>
             <img src={foodImage} alt='food' className='w-16 h-16 object-cover'/>
@@ -39,7 +39,7 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 
         {/* Content */}
         <div className='flex flex-col w-full relative gap-2 justify-center px-4'>
-            <p className='font-semibold font-serif text-xl'>{foodName}</p>
+            <p className='font-semibold font-mono text-xl'>{foodName}</p>
             <p className='italic opacity-50'>{foodDescription}</p>
             <p className='mt-2 font-medium'>{foodPrice} VND</p>
         </div>

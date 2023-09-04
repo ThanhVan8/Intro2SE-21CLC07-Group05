@@ -21,7 +21,6 @@ const Home = () => {
         const MerchantRef = doc(firestore, "Merchant", uid)
         const docSnap = await getDoc(MerchantRef)
         const merchantData = docSnap.data();
-        console.log(merchantData)
         setOneMerchant(merchantData)
     }catch (err){
       console.error(err);
@@ -34,16 +33,13 @@ const Home = () => {
     }
   }, [merchant])
 
-
-
   return (
     <>
         <Header />
-
         {/* DISPLAY STORE INFORMATION */}
         <div className="grid grid-cols-2 w-full pt-16 min-h-screen font-mono text-base">
           <div key={OneMerchant.uid} className='grid text-textColor text-left h-2/3 justify-items-start py-28 px-12 my-24 mx-10 gap-y-2 '>
-            <p className=' h-fit text-3xl font-semibold mb-4 font-serif'>
+            <p className=' h-fit text-3xl font-semibold mb-4 font-mono'>
              {OneMerchant.Name}
             </p>
 
@@ -59,7 +55,7 @@ const Home = () => {
             
             <p className=' h-fit flex gap-4 text-base'>
               <FiMail className='text-2xl cursor-pointer'/>
-              {OneMerchant.email}
+              {OneMerchant.Email}
             </p>
           </div>
           <div className="hidden md:flex justify-end items-center">

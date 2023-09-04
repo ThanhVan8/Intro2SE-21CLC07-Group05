@@ -17,26 +17,28 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, foodImg, idMerch
     })
   }
   return (
-    <div className=" w-656 border border-black h-150 rounded-2xl">
-      <div className="grid grid-cols-4 w-full h-full gap-2">
-        <div>
+    <div className="w-full border border-black h-fit rounded-2xl my-2">
+      <div className="flex w-full h-full">
+        <div className="flex items-center m-2">
           <img
             src={foodImg ? foodImg : logo}
             alt="Food"
-            className="h-28 w-28 object-cover rounded-full my-4 mx-4 "
+            className="h-28 w-28 object-cover rounded-full"
           />
         </div>
-        <div className="grid col-span-2 grid-cols-1 gap-2 justify-items-start my-4 h-fit py-4">
+        <div className="flex flex-col gap-2 h-fit py-4">
           <p className="text-xl font-semibold text-textColor capitalize ">
           {foodName}
           </p>
           <p className="text-textColor opacity-50">{foodDescription}</p>
           <p className="text-base text-textColor">{foodPrice} VND</p>
         </div>
-        <div className="relative">
+        
+      </div>
+      <div className="relative">
           <button
             className="rounded-3xl border bg-primary border-primary w-16 h-8 my-2 text-textHeadingColor text-base
-                              absolute bottom-2 right-4 hover:opacity-80 uppercase"
+                              absolute bottom-1 right-4 hover:opacity-80 uppercase"
             onClick={showAddModal}>
             add
           </button>
@@ -44,7 +46,6 @@ const MenuCard = ({index, foodName, foodDescription, foodPrice, foodImg, idMerch
         {addFoodShow &&
           <AddModal addedFood={selectedFood} />
         }
-      </div>
     </div>
   );
 };

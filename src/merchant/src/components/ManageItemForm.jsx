@@ -25,7 +25,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   const uploadImage = (e) => {
     setisLoading(true)
     const imageFile = e.target.files[0]
-    const storageRef = ref(storage, `Images/${Date.now()}_${imageFile.name}`);
+    const storageRef = ref(storage, `MenuImages/${Date.now()}_${imageFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
     uploadTask.on('state_changed', 
         (snapshot) => {
@@ -60,7 +60,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
   }
 
   const saveFood = () => {
-    console.log(action)
+    // console.log(action)
     if (action === "add") {
       addFood()
     }

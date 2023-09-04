@@ -18,8 +18,8 @@ const Menu = () => {
   const fetchMenu = async(uid) => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
-      const docSnap = await getDoc(MenuRef);
       const MerchantRef = doc(firestore, "Merchant", uid)
+      const docSnap = await getDoc(MenuRef);
       setMenuData(docSnap.data())
 
       const docSnap2 = await getDoc(MerchantRef);
@@ -45,7 +45,7 @@ const Menu = () => {
           <p className='text-base'>{merchant.Phone}</p>
         </div>
         <div className='grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4 pt-5'>
-          <div className="grid col-span-2 gap-4 px-5">
+          <div className="col-span-2 px-5">
           {/* <div className="flex flex-col justify-center items-center mb-8 sticky "> */}
           {/* <div className="flex flex-col  items-center mb-8 gap-2 "> */}
             {menuData && menuData.FoodList.map((data, index) => {

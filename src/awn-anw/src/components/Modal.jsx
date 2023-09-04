@@ -1,13 +1,13 @@
 import shop from "../assets/shop.png";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
-import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc} from "firebase/firestore";
+import {doc,getDoc} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
 import { useStateValue } from '../context/StateProvider'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Modal = () => {
   const cart = useAuth();
@@ -16,7 +16,7 @@ const Modal = () => {
   const [quantities, setQuantities] = useState([]);
   const [description, setDescription] = useState([]);
   const [images, setImages] = useState([]);
-  const [merchantName, setMerchantName] = useState();
+  const [merchant, setMerchant] = useState({});
 
   const fetchCart = async (uid) => {
     try {
@@ -29,7 +29,7 @@ const Modal = () => {
 			const merchant_id = docSnap.data().merchant_id;
       const merchantRef = doc(firestore, "Merchant", merchant_id);
       const docSnapMerchant = await getDoc(merchantRef);
-      setMerchantName(docSnapMerchant.data().Name)
+      setMerchant(docSnapMerchant.data())
 
       for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
@@ -79,27 +79,27 @@ const Modal = () => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-black flex justify-center items-center">
-      <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
+      <div className="relative bg-white max-h-510 border-solid border rounded-lg border-primary py-4 px-2 w-full md:w-[500px]">
         {/* close */}
         <button onClick={handleCloseModal}>
           <FaTimes className="absolute h-5 w-5 text-primary top-4 right-2 pr" />
         </button>
 
-        {foods ? (
+        {foods.length !== 0 ? (
           <>
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
               <img
-                src={shop}
+                src={merchant.Image ? merchant.Image : shop}
                 alt="Store"
                 className="h-20 w-20 rounded-full object-cover"
               />
-              <p className="py-2 font-semibold font-serif capitalize text-xl">{merchantName}</p>
+              <p className="py-2 font-semibold font-serif capitalize text-xl">{merchant.Name}</p>
               <hr className="w-full border:none border-black border-opacity-30" />
             </div>
 
             {/* food */}
-            <div className="overflow-auto grid grid-cols-1 gap-4 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240 ">
+            <div className="overflow-auto grid grid-cols-1 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240">
               {foods.map((food, index) => {
                 return (
                   <CartCard

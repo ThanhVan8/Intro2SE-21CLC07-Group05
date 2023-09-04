@@ -36,7 +36,7 @@ const Signup = () => {
                 Name: name,
                 Phone: phone,
                 Address: address,
-                email
+                Email: email
             });
 
             await setDoc(doc(firestore, "ShoppingCart",user.uid), {
@@ -79,7 +79,7 @@ const Signup = () => {
                 type="tel"
                 required
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
               />
             </div>
             <div className="flex flex-col py-2 w-full text-base">
