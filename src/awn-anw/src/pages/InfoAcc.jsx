@@ -43,7 +43,7 @@ const InfoAcc = () => {
 
   const saveInfo = () => {
     // write here
-
+    
     toast.success("Save successfully! Need to refresh page.", {
       autoClose: 3000,
     });
