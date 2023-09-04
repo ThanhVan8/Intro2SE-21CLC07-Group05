@@ -68,14 +68,16 @@ const Order = () => {
     <>
         <Header/>
         {/* container */}
-        <div className='w-full min-h-screen mt-28 px-16 grid gap-4 font-mono text-base'>
-				    <p className="text-center font-serif text-3xl font-semibold pb-5">ORDERS</p>
-            {/* an order */}
-            {OrderDetail && OrderDetail.map((detailedInfo, index) => {
-              return (
-                <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]} foodNames={Food[index]} idOrder={idOrders[index]}/>
-              )
-            })}
+        <div className='w-full min-h-screen mt-28 px-16'>
+          <p className="text-center font-serif text-3xl font-semibold pb-5">ORDERS</p>
+          <div className='grid gap-4 font-mono text-base'>
+              {/* an order */}
+              {OrderDetail && OrderDetail.map((detailedInfo, index) => {
+                return (
+                  <OrderCard key={index} detail={detailedInfo} buyerInfo={BuyerDetail[index]} foodNames={Food[index]} idOrder={idOrders[index]}/>
+                )
+              })}
+          </div>
         </div>
         <Footer/>
     </>
