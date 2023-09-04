@@ -9,18 +9,14 @@ import { doc, getDoc, addDoc, collection, getDocs, query, where } from 'firebase
 
 const OrderStatus = () => {
 	const buyer = useAuth();
-	// var shopList = []
-	// var statusList = []
-	// var totalList = []
-	// var shopNameList = []
-	// var addressList = []
 	var tempList = []
 
-	const [shopList, setShopList] = useState([])
+	// const [shopList, setShopList] = useState([])
 	const [statusList, setStatusList] = useState([])
 	const [totalList, setTotalList] = useState([])
 	const [shopNameList, setShopNameList] = useState([])
 	const [addressList, setAddressList] = useState([])
+	const [imageList, setImageList] = useState([])
 
 	useEffect(() => {
 		if(buyer){
@@ -32,9 +28,7 @@ const OrderStatus = () => {
 					docSnap.forEach((doc) => {
 						const orderData = doc.data();
 						tempList.push(orderData.M_ID)
-						// statusList.push(orderData.Status)
-						// totalList.push(orderData.Total)
-						setShopList(shopList => [...shopList, orderData.M_ID])
+						// setShopList(shopList => [...shopList, orderData.M_ID])
 						setStatusList(statusList => [...statusList, orderData.Status])
 						setTotalList(totalList => [...totalList, orderData.Total])
 					})
@@ -43,14 +37,10 @@ const OrderStatus = () => {
 						const shopRef = doc(firestore, "Merchant", tempList[i]);
 						const docSnap = await getDoc(shopRef);
 						const shopData = docSnap.data();
-						// shopNameList.push(shopData.Name)
-						// addressList.push(shopData.Address)
 						setShopNameList(shopNameList => [...shopNameList, shopData.Name])
 						setAddressList(addressList => [...addressList, shopData.Address])
+						setImageList(imageList => [...imageList, shopData.Image])
 					}
-					console.log(shopNameList)
-					console.log(addressList)
-		
 				}catch(err){
 					console.error(err);
 				}
@@ -68,7 +58,12 @@ const OrderStatus = () => {
 					<div className="col-span-3 flex flex-col gap-7 items-start">
 						{shopNameList.map((detail, index) => {
 							return (
-								<OrderStatusCard name={detail} address={addressList[index]} status={statusList[index]} total={totalList[index]} />
+								<OrderStatusCard 
+									name={detail} 
+									address={addressList[index]} 
+									status={statusList[index]} 
+									total={totalList[index]}
+									image={imageList[index]} />
 						)})}
 					</div>
 

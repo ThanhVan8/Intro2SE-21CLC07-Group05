@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { getAuth } from 'firebase/auth'
 import { firestore } from '../config/firebase'
 import useAuth from '../custom_hooks/useAuth'
-import { collection, getDoc, getDocs, query, where, doc, or } from 'firebase/firestore'
+import { collection, getDoc, getDocs, query, where, doc} from 'firebase/firestore'
 import OrderCard from '../components/OrderCard';
 
 const Order = () => {
