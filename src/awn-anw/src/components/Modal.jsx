@@ -1,13 +1,13 @@
 import shop from "../assets/shop.png";
 
 import { FaTimes, FaShoppingBasket } from "react-icons/fa";
-import {addDoc,setDoc,collection,getDocs,query,where,doc,getDoc} from "firebase/firestore";
+import {doc,getDoc} from "firebase/firestore";
 import { firestore } from "../config/firebase";
 import React, { useState, useEffect } from "react";
 import useAuth from "../custom_hooks/useAuth";
 import CartCard from "./CartCard";
 import { useStateValue } from '../context/StateProvider'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Modal = () => {
   const cart = useAuth();
@@ -85,7 +85,7 @@ const Modal = () => {
           <FaTimes className="absolute h-5 w-5 text-primary top-4 right-2 pr" />
         </button>
 
-        {foods ? (
+        {foods.length !== 0 ? (
           <>
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
