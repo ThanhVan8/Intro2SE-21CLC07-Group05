@@ -79,10 +79,6 @@ const InfoAcc = () => {
         });
       }
     );
-    const merchantRef = doc(firestore, "Merchant", merchant.uid);
-    await updateDoc(merchantRef, {
-      Image: merchantInfo.Image,
-    });
   };
   const deleteImage = async () => {
     setisLoading(true);
@@ -94,10 +90,6 @@ const InfoAcc = () => {
       setTimeout(() => {}, 3000);
     });
     setImageURL(null);
-    const merchantRef = doc(firestore, "Merchant", merchant.uid);
-    await updateDoc(merchantRef, {
-      Image: null,
-    });
   };
   const saveInfo = async () => {
     // write here
@@ -108,7 +100,7 @@ const InfoAcc = () => {
       Categories: merchantInfo.Categories,
       Phone: merchantInfo.Phone,
       Email: merchantInfo.Email,
-      // Image: imageURL
+      Image: imageURL
     });
 
     toast.success("Save successfully! Need to refresh page.", {
