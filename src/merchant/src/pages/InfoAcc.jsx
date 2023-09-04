@@ -95,7 +95,6 @@ const InfoAcc = () => {
 			Email: merchantInfo.Email,
 			// Image: imageURL
 		})
-		// setInitialInfo(merchantInfo)
 
     toast.success('Save successfully! Need to refresh page.', {
       autoClose: 3000,

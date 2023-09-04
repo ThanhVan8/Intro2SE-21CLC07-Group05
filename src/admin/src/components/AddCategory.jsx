@@ -22,7 +22,7 @@ const AddCategory = () => {
     });
   };
 
-  const uploadImage = (e) => {
+  const uploadImage = async (e) => {
     setisLoading(true)
     const imageFile = e.target.files[0]
     const storageRef = ref(storage, `CategoryImage/${Date.now()}_${imageFile.name}`);
@@ -47,7 +47,7 @@ const AddCategory = () => {
       }
     );
   } 
-  const deleteImage = () => {
+  const deleteImage = async() => {
     setisLoading(true);
     const deleteRef = ref(storage, imageURL);
     deleteObject(deleteRef).then(() => {
