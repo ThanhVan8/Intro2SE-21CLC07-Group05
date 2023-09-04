@@ -63,10 +63,7 @@ const InfoAcc = () => {
 			});
 		  }
 		);
-		const merchantRef = doc(firestore, "Merchant", merchant.uid)
-		await updateDoc(merchantRef, {
-			Image: merchantInfo.Image
-		})
+
 	  } 
 	  const deleteImage = async () => {
 		setisLoading(true);
@@ -93,7 +90,7 @@ const InfoAcc = () => {
 			Categories: merchantInfo.Categories,
 			Phone: merchantInfo.Phone,
 			Email: merchantInfo.Email,
-			// Image: imageURL
+			Image: imageURL
 		})
 
     toast.success('Save successfully! Need to refresh page.', {
