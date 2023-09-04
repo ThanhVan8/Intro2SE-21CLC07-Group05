@@ -1,16 +1,17 @@
 import React from 'react';
 import logo from "../../src/assets/logo.png";
 import {Link} from "react-router-dom"
+import { FaStore } from "react-icons/fa";
 
 const Header = () => {
   return (
-    // chỉnh cho chữ của heading nằm bên trái --> nhìn ổn hơn
-  <header className='fixed z-50 w-full bg-primary py-1 pr-8 pl-2 font-serif font-semibold'>
-    <div className='flex w-full h-fit gap-8'>
+  <>
+  <header className='fixed z-50 w-full bg-primary py-1 px-4 font-serif font-semibold'>
+    <div className='flex w-full h-fit items-center pr-2'>
         <Link to = {"/"}>
-            <img src={logo} className = 'w-12 object-cover mr-8' alt="Logo" />
+            <img src={logo} className = 'w-12 object-cover relative left-0' alt="Logo" />
         </Link>
-        <ul className='flex items-center justify-between ml-40 px-48 gap-12'>
+        <ul className='w-full flex items-center justify-center px-48 gap-32'>
           <Link to = {"/Menu"}>
             <li className='text-lg text-textHeadingColor hover:text-textHover cursor-pointer'>Menu</li>
           </Link>
@@ -21,10 +22,15 @@ const Header = () => {
             <li className='text-lg text-textHeadingColor hover:text-textHover cursor-pointer'>Categories</li>
           </Link>
         </ul>
+        <Link to = {"/InfoAcc"}>
+          <div className='flex flex-none rounded-full w-8 h-8 items-center justify-center bg-white'>
+            <FaStore className='text-2xl text-primary'/>
+          </div>
+        </Link>
     </div>
-    
   </header>
-  ) 
+  </>
+  )
 }
 
 export default Header

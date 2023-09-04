@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 
 const Header = () => {
     return(
-    <header className='fixed z-50 bg-primary py-1 pr-8 pl-2 w-full mb-16 top-0'>
+    <header className='fixed z-50 bg-primary py-1 pr-8 pl-2 w-full top-0'>
         <div className='flex w-full'>
             <Link to = {"/"}>
                 <img src={logo} className = 'w-12 object-cover items-center mx-2' alt="Logo" />
