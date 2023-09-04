@@ -35,7 +35,7 @@ const Signup = () => {
               Phone: phone,
               Address: address,
               email,
-              Image: null,
+              Image,
           });
 
           await setDoc(doc(firestore, "Menu", user.uid), {

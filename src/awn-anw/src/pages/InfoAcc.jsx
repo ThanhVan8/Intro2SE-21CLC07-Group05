@@ -42,11 +42,14 @@ const InfoAcc = () => {
     }
   }, [merchant]);
 
-  const uploadImage = (e) => {};
-  const deleteImage = () => {};
+
+  // const uploadImage = (e) => {
+    
+  // };
+  // const deleteImage = () => {};
   const saveInfo = () => {
     // write here
-
+    
     toast.success("Save successfully! Need to refresh page.", {
       autoClose: 3000,
     });

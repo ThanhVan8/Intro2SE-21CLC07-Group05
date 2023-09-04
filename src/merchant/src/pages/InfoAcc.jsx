@@ -3,8 +3,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import InfoField from '../components/InfoField';
 import useAuth from "../custom_hooks/useAuth";
-import { collection, getDoc, getDocs, query, where, doc } from 'firebase/firestore'
-import { firestore } from '../config/firebase'
+import { collection, getDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore'
+import { deleteObject, getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
+import { firestore, storage } from '../config/firebase'
 import {FaCloudUploadAlt, FaTrashAlt} from "react-icons/fa"
 import food from '../assets/food.png'
 import { toast } from "react-toastify";
@@ -14,6 +15,9 @@ const InfoAcc = () => {
 	// const [merchantInfo, setMerchantInfo] = useState({Name: 'Lang Vong', Address: '123 abc', Phone: '12345', email: 'abc@mail.com'})
 	const [merchantInfo, setMerchantInfo] = useState({})
 	const [flagChange, setFlagChange] = useState(false)
+	const [isLoading, setisLoading] = useState(false)
+	const [progress, setProgress] = useState(null)
+	const [imageURL, setImageURL] = useState()
 
   const merchant = useAuth();
 	// var initialInfo = {Name: 'Lang Vong', Address: '123 abc', Phone: '12345', email: 'abc@mail.com'}
@@ -24,6 +28,7 @@ const InfoAcc = () => {
 			const docSnap = await getDoc(MerchantRef)
 			const merchantData = docSnap.data();
 			setMerchantInfo(merchantData)
+			setImageURL(merchantData.Image)
 			var initialInfo = merchantData
 		}catch (err){
 			console.error(err);
@@ -36,18 +41,57 @@ const InfoAcc = () => {
 	}, [merchant])
 
 	const uploadImage = (e) => {
-		
-	}
-	const deleteImage = () => {
-		
-	}
-	const saveInfo = () => {
+		setisLoading(true)
+		const imageFile = e.target.files[0]
+		const storageRef = ref(storage, `MerchantImage/${Date.now()}_${imageFile.name}`);
+		const uploadTask = uploadBytesResumable(storageRef, imageFile);
+		uploadTask.on('state_changed', 
+			(snapshot) => {
+			  setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+			}, 
+			(error) => {
+			  setTimeout(() => {
+			  }, 3000);
+			}, 
+			() => {
+			  getDownloadURL(uploadTask.snapshot.ref).then((imageURL) => {
+				// console.log('File available at', downloadURL);
+				setImageURL(imageURL)
+				setisLoading(false)
+				setProgress(null)
+				setTimeout(() => {
+			   }, 3000);
+			});
+		  }
+		);
+		// console.log(imageURL)
+	  } 
+	  const deleteImage = () => {
+		setisLoading(true);
+		const deleteRef = ref(storage, imageURL);
+		deleteObject(deleteRef).then(() => {
+		  setImageURL(null)
+		  setProgress(null)
+		  setTimeout(() => {
+		  }, 3000);
+		});
+	  }
+	const saveInfo = async() => {
     // write here
-		
+		const merchantRef = doc(firestore, "Merchant", merchant.uid)	
+		await updateDoc(merchantRef, {
+			Name: merchantInfo.Name,
+			Address: merchantInfo.Address,
+			Categories: merchantInfo.Categories,
+			Phone: merchantInfo.Phone,
+			email: merchantInfo.email,
+			Image: imageURL
+		})
 
     toast.success('Save successfully! Need to refresh page.', {
       autoClose: 3000,
     });
+	// console.log(imageURL)
   }
 
 	useEffect(() => {
@@ -94,7 +138,7 @@ const InfoAcc = () => {
           {/* Upload Image */}
 					<div className='flex flex-col pl-5 items-end justify-center'>
 						<div className="border rounded-lg w-fit h-fit p-2">
-							{!merchantInfo.Image ? (
+							{!imageURL ? (
 								<label>
 									<div className="flex flex-col bg-inactive items-center justify-center cursor-pointer w-200 h-200">
 										<FaCloudUploadAlt className="text-5xl" />
@@ -111,7 +155,7 @@ const InfoAcc = () => {
 								</label>
 							) : (
 								<div className="w-full h-full relative">
-									<img src={merchantInfo.Image} alt="upload" className="object-cover w-200 h-200" />
+									<img src={imageURL} alt="upload" className="object-cover w-200 h-200" />
 									<div className="bg-red flex absolute top-2 right-2 p-1 rounded-full">
 										<button onClick={deleteImage}>
 											<FaTrashAlt className="text-lg text-white" />
