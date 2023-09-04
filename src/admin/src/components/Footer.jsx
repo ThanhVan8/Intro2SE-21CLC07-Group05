@@ -7,7 +7,7 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-        <footer className='sticky w-full bg-primary py-3 pr-8 bottom-0 px-4 grid grid-cols-2'>
+        <footer className='w-full bg-primary py-3 pr-8 bottom-0 px-4 grid grid-cols-2'>
             <Link to = {"/"} className = 'flex items-center'>
                 <img src={logo} className = 'w-14 object-cover' alt="Logo" />
             </Link>
