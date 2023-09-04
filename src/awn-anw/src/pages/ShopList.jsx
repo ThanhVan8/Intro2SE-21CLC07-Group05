@@ -35,12 +35,13 @@ const ShopList = () => {
       const MerchantRef = collection(firestore, "Merchant");
       const q = query(MerchantRef, where("Categories", "array-contains", id));
       const querySnapshot = await getDocs(q);
-      let merchantList = [];
+      // let merchantList = [];
       querySnapshot.forEach((doc) => {
-				const OrderData = { ...doc.data(), id: doc.id };
-				merchantList.push(OrderData);
+				const MerchantData = { ...doc.data(), id: doc.id };
+				// merchantList.push(OrderData);
+        setMerchant((prev) => [...prev, MerchantData]);
       });
-      setMerchant(merchantList);
+      // setMerchant(merchantList);
     } catch (err) {
       console.error(err);
     }
@@ -67,7 +68,7 @@ const ShopList = () => {
                   to={`/Menu/${data.id}`}
                   className="w-fit h-fit"
                 >
-                  <ShopCard image={data.img} name={data.Name} />
+                  <ShopCard image={data.Image} name={data.Name} />
                 </Link>
               );
             })}

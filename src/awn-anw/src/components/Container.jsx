@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import mainpic from "../assets/mainpic.png";
-import salad from "../assets/salad.jpg"
+import logo from "../assets/logo.png"
 import { firestore } from "../config/firebase"
 import { collection, getDocs  } from 'firebase/firestore'
 
@@ -26,7 +26,7 @@ const Container = () => {
   }, [CategoryCollectionRef])
 
   return (
-      <div className='ml-4 mt-16 mb-4 pl-5'>
+      <div className='ml-4 my-16 pl-5'>
           {/* Text */}
           <p className='py-5 font-bold font-serif text-3xl capitalize'>Food for you</p>       
           {/* divide into 3 cols */}
@@ -35,7 +35,7 @@ const Container = () => {
             {categoryList && categoryList.map((data) =>{
               return(
                 <Link key={data.id} to = {`/ShopList/${data.id}`} className='w-full h-fit'>
-                  <img  src={salad} 
+                  <img  src={data.Image ? data.Image : logo} 
                         alt="salad"
                         className='w-full h-52 object-cover rounded-lg'
                   />

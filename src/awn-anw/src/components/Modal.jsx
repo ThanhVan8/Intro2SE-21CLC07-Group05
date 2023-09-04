@@ -16,7 +16,7 @@ const Modal = () => {
   const [quantities, setQuantities] = useState([]);
   const [description, setDescription] = useState([]);
   const [images, setImages] = useState([]);
-  const [merchantName, setMerchantName] = useState();
+  const [merchant, setMerchant] = useState({});
 
   const fetchCart = async (uid) => {
     try {
@@ -29,7 +29,7 @@ const Modal = () => {
 			const merchant_id = docSnap.data().merchant_id;
       const merchantRef = doc(firestore, "Merchant", merchant_id);
       const docSnapMerchant = await getDoc(merchantRef);
-      setMerchantName(docSnapMerchant.data().Name)
+      setMerchant(docSnapMerchant.data())
 
       for (let i = 0; i < food_list.length; i++) {
 				const menuRef = doc(firestore, "Menu", merchant_id);
@@ -90,11 +90,11 @@ const Modal = () => {
             {/* Store */}
             <div className="flex flex-col justify-center items-center px-2 h-1/3">
               <img
-                src={shop}
+                src={merchant.Image ? merchant.Image : shop}
                 alt="Store"
                 className="h-20 w-20 rounded-full object-cover"
               />
-              <p className="py-2 font-semibold font-serif capitalize text-xl">{merchantName}</p>
+              <p className="py-2 font-semibold font-serif capitalize text-xl">{merchant.Name}</p>
               <hr className="w-full border:none border-black border-opacity-30" />
             </div>
 

@@ -45,7 +45,7 @@ const Menu = () => {
           <p className='text-base'>{merchant.Phone}</p>
         </div>
         <div className='grid grid-cols-2 md:grid-cols-3 w-full h-fit gap-4 pt-5'>
-          <div className="grid col-span-2 gap-4 px-5">
+          <div className="col-span-2 px-5">
           {/* <div className="flex flex-col justify-center items-center mb-8 sticky "> */}
           {/* <div className="flex flex-col  items-center mb-8 gap-2 "> */}
             {menuData && menuData.FoodList.map((data, index) => {
