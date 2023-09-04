@@ -4,12 +4,13 @@ import { getStorage } from "firebase/storage";
 import {getAuth} from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBAFPutqcvbFfk2haKHq7Fib_6CGsBqIiQ",
-  authDomain: "awn-anw-web-app.firebaseapp.com",
-  projectId: "awn-anw-web-app",
-  storageBucket: "awn-anw-web-app.appspot.com",
-  messagingSenderId: "1069197651048",
-  appId: "1:1069197651048:web:68f1677e3326f1f5ad9fdd"
+  apiKey: "AIzaSyB2PTCMXQ82guBSCSB3dVB_7Kcm9pSsF2c",
+  authDomain: "awn-anw-7ad59.firebaseapp.com",
+  databaseURL: "https://awn-anw-7ad59-default-rtdb.firebaseio.com",
+  projectId: "awn-anw-7ad59",
+  storageBucket: "awn-anw-7ad59.appspot.com",
+  messagingSenderId: "140582882046",
+  appId: "1:140582882046:web:82cc312df065ada031b3af"
 };
 
 // Initialize Firebase
