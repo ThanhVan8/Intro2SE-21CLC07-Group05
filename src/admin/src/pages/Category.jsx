@@ -71,9 +71,11 @@ const Category = () => {
         {categoryList &&
           categoryList.map((category, index) => {
             return (
-              <div key={index} className="w-full h-fit flex justify-between rounded-md items-center gap-4">
-                <div className="flex gap-1 items-center h-20 w-full">
-                  <img src={category.Image ? category.Image : logo} alt="logo" className="w-20 h-20 rounded-md object-cover" />
+              <div key={index} className="w-full h-20 flex justify-between rounded-md items-center gap-4">
+                <div className="flex gap-1 items-center h-full w-full">
+                  <div className="flex-none">
+                    <img src={category.Image ? category.Image : logo} alt="logo" className="w-20 h-20 rounded-md object-cover" />
+                  </div>
                   <div className="text-base font-mono bg-gray w-full h-full px-4 flex items-center rounded-md">
                     <p>{category.Name}</p>
                   </div>

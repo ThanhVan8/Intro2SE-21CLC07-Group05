@@ -42,7 +42,7 @@ const InfoAcc = () => {
     }
   }, [buyer]);
 
-  const saveInfo = () => {
+  const saveInfo = async () => {
     // write here
     const buyerRef = doc(firestore, "User", buyer.uid)
     await updateDoc(buyerRef, {
