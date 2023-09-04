@@ -44,6 +44,7 @@ const Category = () => {
   }, []);
 
   const deleteCategory = async (id) => {
+    await deleteDoc(doc(firestore, "Category", id));
     toast.success('Delete successfully! Need to refresh page.', {
       autoClose: 3000,
     });

@@ -45,12 +45,15 @@ const Category = () => {
       const MerchantCateRef = doc(firestore, "Merchant", uid);
       const docSnap = await getDoc(MerchantCateRef);
       const merchantCate = docSnap.data()["Categories"];
+      console.log(merchantCate);
 
       for (let i = 0; i < merchantCate.length; i++) {
         const CategoryRef = doc(firestore, "Category", merchantCate[i]);
         const docSnap = await getDoc(CategoryRef);
-        const cate = docSnap.data().Name;
-				setCategories(categories => [...categories, cate])
+        // console.log(docSnap.data().Name);
+        // const cate = docSnap.data().Name;
+				setCategories(categories => [...categories, docSnap.data().Name])
+        // console.log(cate);
       }
     } catch (err) {
       console.error(err);
