@@ -85,7 +85,7 @@ const InfoAcc = () => {
 		const merchantRef = doc(firestore, "Merchant", merchant.uid)
 		const storageRef = ref(storage, `MerchantImage/${Date.now()}_${imageFile.name}`);
 		const uploadTask = uploadBytesResumable(storageRef, imageFile);
-		var uploadedImg = ''
+		// var uploadedImg = ''
 		uploadTask.on('state_changed', 
 			(snapshot) => {
 			  setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -97,7 +97,7 @@ const InfoAcc = () => {
 			() => {
 			  getDownloadURL(uploadTask.snapshot.ref).then((url) => {
 				setImageURL(url)
-				uploadedImg = url
+				// uploadedImg = url
 				setMerchantInfo({...merchantInfo, Image: url})
 				setisLoading(false)
 				setProgress(null)
@@ -106,14 +106,14 @@ const InfoAcc = () => {
 			});
 		  }
 		);
-		console.log(uploadedImg)
+		// console.log(uploadedImg)
 		await updateDoc(merchantRef, {
 			Name: merchantInfo.Name,
 			Address: merchantInfo.Address,
 			Categories: merchantInfo.Categories,
 			Phone: merchantInfo.Phone,
 			email: merchantInfo.email,
-			Image: uploadedImg
+			Image:  merchantInfo.Image
 		})
 		// setInitialInfo(merchantInfo)
 
