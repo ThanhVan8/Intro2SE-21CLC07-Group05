@@ -22,8 +22,6 @@ const AddCategory = () => {
     });
   };
 
-
-
   const uploadImage = (e) => {
     setisLoading(true)
     const imageFile = e.target.files[0]
