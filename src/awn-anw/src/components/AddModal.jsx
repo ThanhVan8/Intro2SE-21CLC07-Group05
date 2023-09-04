@@ -65,9 +65,6 @@ const AddModal = ({ addedFood }) => {
         food_list.push(String(addedFood.index));
         quant_list.push(count);
 
-        // setFoods(foods => [...foods, food_list])
-        // setQuants(quants => [...quants, quants])
-
         updateDoc(docRef, {
           Food: food_list,
           Quantity: quant_list,

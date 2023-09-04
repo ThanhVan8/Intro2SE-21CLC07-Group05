@@ -91,7 +91,9 @@ const Header = () => {
           <Link to={"/OrderStatus"}>
             <FaReceipt className="text-white text-2xl items-center" />
           </Link>
+          <Link to={"/InfoAcc"}>
           <FaUserCircle className="text-white text-2xl items-center" />
+          </Link>
         </div>
       </div>
     </header>

@@ -7,8 +7,8 @@ import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore, getDoc  } from "
 import food from "../assets/food.png"
 import useAuth from '../custom_hooks/useAuth'
 import { deleteObject, getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
-
-
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImageURL, idItem}) => {
   const [name, setName] = useState(itemName)
@@ -32,9 +32,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
           setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         }, 
         (error) => {
-          // dispatch1(alertDanger(`Error : ${error}`));
           setTimeout(() => {
-            // dispatch1(alertNULL());
           }, 3000);
         }, 
         () => {
@@ -43,9 +41,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
             setImageURL(imageURL)
             setisLoading(false)
             setProgress(null)
-            // dispatch1(alertDanger(`Error : ${error}`));
             setTimeout(() => {
-            // dispatch1(alertNULL());
            }, 3000);
         });
       }
@@ -58,10 +54,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     deleteObject(deleteRef).then(() => {
       setImageURL(null)
       setProgress(null)
-      // setisLoading(false)
-      // dispatch1(alertDanger(`Error : ${error}`));
       setTimeout(() => {
-      // dispatch1(alertNULL());
       }, 3000);
     });
   }
@@ -74,7 +67,10 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     else if (action === "update") {
       updateFood()
     }
-    handleCloseModal()  
+    handleCloseModal()
+    toast.success('Save successfully! Need to refresh page.', {
+      autoClose: 3000, // Thời gian tự đóng toast (milisecond)
+    });
   }
 
   // const deleteImage = (e) => {
@@ -91,8 +87,9 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
       Description: arrayUnion(description),
       FoodList: arrayUnion(name),
       Price: arrayUnion(price),
-      Image: arrayUnion(imageURL)
-    })}
+      Image: arrayUnion(imageURL ? imageURL : null)
+    })
+  }
 
   const updateFood = async () => {
       
@@ -110,7 +107,6 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
     price_list.splice(idItem, 1)
     image_list.splice(idItem, 1)
 
-      
     //update new value into array
     des_list.splice(idItem,0, description)
     food_list.splice(idItem, 0, name)
@@ -196,7 +192,7 @@ const ManageItemForm = ({action, itemName, itemPrice, itemDescription, itemImage
               </label>
             ) : (
               <div className="w-full h-full relative">
-                <img src={imageURL} alt="upload" className="object-cover" />
+                <img src={imageURL} alt="upload" className="object-cover w-200 h-200" />
                 <div className="bg-red flex absolute top-2 right-2 p-1 rounded-full">
                   <button onClick={deleteImage}>
                     <FaTrashAlt className="text-lg text-white" />

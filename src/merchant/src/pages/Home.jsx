@@ -7,7 +7,6 @@ import { FiPhone } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { firestore } from '../config/firebase'
 import { collection, getDoc, getDocs, query, where, doc } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
 import useAuth from '../custom_hooks/useAuth'
 
 const Home = () => {
