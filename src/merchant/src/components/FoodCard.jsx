@@ -31,7 +31,7 @@ const FoodCard = ({index, foodName, foodDescription, foodPrice, foodImage}) => {
 	}
 
   return (
-    <div className='bg-card flex gap-3 p-3 w-full'>
+    <div className='bg-card flex p-3 w-full'>
         {/* Image */}
         <div className='flex-none flex items-center'>
             <img src={foodImage} alt='food' className='w-16 h-16 object-cover'/>
