@@ -80,6 +80,9 @@ const InfoAcc = () => {
 		// });
 		setImageURL(null)
 	  }
+	
+	const updateURL = (url) => {setImageURL(url)}
+	
 	const saveInfo = async() => {
     // write here
 		const merchantRef = doc(firestore, "Merchant", merchant.uid)
@@ -96,8 +99,9 @@ const InfoAcc = () => {
 			}, 
 			() => {
 			  getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-				setImageURL(url)
+				// setImageURL((imageURL) => {imageURL = url})
 				// uploadedImg = url
+				updateURL(url)
 				setMerchantInfo({...merchantInfo, Image: url})
 				setisLoading(false)
 				setProgress(null)
@@ -106,14 +110,14 @@ const InfoAcc = () => {
 			});
 		  }
 		);
-		// console.log(uploadedImg)
+		// console.log(imageURL)
 		await updateDoc(merchantRef, {
 			Name: merchantInfo.Name,
 			Address: merchantInfo.Address,
 			Categories: merchantInfo.Categories,
 			Phone: merchantInfo.Phone,
-			email: merchantInfo.email,
-			Image:  merchantInfo.Image
+			Email: merchantInfo.Email,
+			Image:  imageURL
 		})
 		// setInitialInfo(merchantInfo)
 
@@ -159,7 +163,7 @@ const InfoAcc = () => {
 						/>
             <InfoField 
 							title="EMAIL" 
-							info={merchantInfo.email}
+							info={merchantInfo.Email}
 							readOnly='readOnly'
 						/>
           </div>

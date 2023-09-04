@@ -13,7 +13,7 @@ const AddCategory = () => {
   const [isLoading, setisLoading] = useState(false)
   const [progress, setProgress] = useState(null)
   const [name, setName] = useState("");
-  const [imageURL, setImageURL] = useState();
+  const [imageURL, setImageURL] = useState(null);
 
   const handleCloseModal = () => {
     dispatch({
@@ -64,6 +64,10 @@ const AddCategory = () => {
       Name: name,
       Image: imageURL
     })
+    handleCloseModal()
+    toast.success('Add successfully! Need to refresh page.', {
+      autoClose: 3000,
+    });
 	};
 
   return (
