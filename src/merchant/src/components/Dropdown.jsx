@@ -29,13 +29,14 @@ const Dropdown = ({selectedValue}) => {
   const FetchCategory = async() => {
       try{
           const categoriesRef = collection(firestore, "Category")
-          var cateData = [];
+          // var cateData = [];
           const querySnapshot = await getDocs(categoriesRef)
           querySnapshot.forEach((doc) => {
-              const cate = doc.data();
-              cateData.push(cate.Name);
+              // const cate = doc.data();
+              // cateData.push(cate.Name);
+              setCategories((prev) => [...prev, doc.data().Name])
           })
-          setCategories(cateData);
+          // setCategories(cateData);
       }catch(err){
           console.error(err);
       }
@@ -60,6 +61,7 @@ const Dropdown = ({selectedValue}) => {
       await updateDoc(merchantRef, {
         Categories: arrayUnion(ID),
       });
+      setCategories((prev) => [...prev, cate])
 
 			toast.success('Add successfully! Need to refresh page.', {
 				autoClose: 3000, // Thời gian tự đóng toast (milisecond)
