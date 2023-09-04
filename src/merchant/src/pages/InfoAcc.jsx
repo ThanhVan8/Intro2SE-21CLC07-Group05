@@ -91,9 +91,8 @@ const InfoAcc = () => {
 			Categories: merchantInfo.Categories,
 			Phone: merchantInfo.Phone,
 			Email: merchantInfo.Email,
-			Image: imageURL
+			// Image: imageURL
 		})
-		// setInitialInfo(merchantInfo)
 
     toast.success('Save successfully! Need to refresh page.', {
       autoClose: 3000,

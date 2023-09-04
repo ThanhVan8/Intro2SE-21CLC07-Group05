@@ -49,7 +49,7 @@ const Merchant = () => {
 							}>
                 <p className="col-span-1">{index+1}</p>
                 <p className="col-span-4">{merchant.Name}</p>
-                <p className="col-span-4">{merchant.email}</p>
+                <p className="col-span-4">{merchant.Email}</p>
               </div>
             );
           })}

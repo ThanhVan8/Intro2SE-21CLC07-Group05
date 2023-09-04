@@ -49,7 +49,7 @@ const Customer = () => {
 							}>
                 <p className="col-span-1">{index+1}</p>
                 <p className="col-span-4">{buyer.Name}</p>
-                <p className="col-span-4">{buyer.email}</p>
+                <p className="col-span-4">{buyer.Email}</p>
               </div>
             );
           })}
