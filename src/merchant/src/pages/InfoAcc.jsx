@@ -79,6 +79,7 @@ const InfoAcc = () => {
 	const saveInfo = async() => {
     // write here
 		const merchantRef = doc(firestore, "Merchant", merchant.uid)	
+		
 		await updateDoc(merchantRef, {
 			Name: merchantInfo.Name,
 			Address: merchantInfo.Address,
