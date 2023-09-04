@@ -79,7 +79,7 @@ const Modal = () => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-black flex justify-center items-center">
-      <div className="relative bg-white max-h-510 w-1/3 border-solid border rounded-lg border-primary py-4 px-2">
+      <div className="relative bg-white max-h-510 border-solid border rounded-lg border-primary py-4 px-2 w-full md:w-[500px]">
         {/* close */}
         <button onClick={handleCloseModal}>
           <FaTimes className="absolute h-5 w-5 text-primary top-4 right-2 pr" />
@@ -99,7 +99,7 @@ const Modal = () => {
             </div>
 
             {/* food */}
-            <div className="overflow-auto grid grid-cols-1 gap-4 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240 ">
+            <div className="overflow-auto grid grid-cols-1 grid-flow-row justify-center items-center px-2 mb-12 mt-4 max-h-240">
               {foods.map((food, index) => {
                 return (
                   <CartCard
