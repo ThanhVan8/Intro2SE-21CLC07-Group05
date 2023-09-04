@@ -18,8 +18,8 @@ const Menu = () => {
   const fetchMenu = async(uid) => {
     try{
       const MenuRef = doc(firestore, "Menu", uid) // cai cho nay, thuc hien vao nha hang, lay uid do thay vao cai chuoi dai trong cmt kia
-      const docSnap = await getDoc(MenuRef);
       const MerchantRef = doc(firestore, "Merchant", uid)
+      const docSnap = await getDoc(MenuRef);
       setMenuData(docSnap.data())
 
       const docSnap2 = await getDoc(MerchantRef);

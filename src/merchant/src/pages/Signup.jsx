@@ -34,12 +34,15 @@ const Signup = () => {
               Name: name,
               Phone: phone,
               Address: address,
-              email
+              email,
+              Image: null,
           });
 
           await setDoc(doc(firestore, "Menu", user.uid), {
               FoodList: [],
-              Price: []
+              Price: [],
+              Description: [],
+              Image: []
           });
 
           toast.success('Sign up successfully!', {
