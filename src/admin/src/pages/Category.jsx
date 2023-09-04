@@ -27,7 +27,12 @@ const Category = () => {
       const categoryRef = collection(firestore, "Category");
       const docSnap = await getDocs(categoryRef);
       docSnap.forEach((doc) => {
-        setCategoryList((categoryList) => [...categoryList, doc.data()]);
+        setCategoryList((categoryList) => [
+          ...categoryList, 
+          {
+            id: doc.id,
+            ...doc.data()
+        }]);
       });
     } catch (err) {
       console.error(err);
@@ -38,8 +43,7 @@ const Category = () => {
     fetchCategory();
   }, []);
 
-  const deleteCategory = async () => {
-    
+  const deleteCategory = async (id) => {
     toast.success('Delete successfully! Need to refresh page.', {
       autoClose: 3000,
     });
@@ -69,9 +73,9 @@ const Category = () => {
       {/* Category list */}
       <div className="flex flex-col w-full gap-1 pt-10">
         {categoryList &&
-          categoryList.map((category, index) => {
+          categoryList.map((category) => {
             return (
-              <div key={index} className="w-full h-20 flex justify-between rounded-md items-center gap-4">
+              <div key={category.id} className="w-full h-20 flex justify-between rounded-md items-center gap-4">
                 <div className="flex gap-1 items-center h-full w-full">
                   <div className="flex-none">
                     <img src={category.Image ? category.Image : logo} alt="logo" className="w-20 h-20 rounded-md object-cover" />
@@ -82,7 +86,7 @@ const Category = () => {
                 </div>
                 <button 
                   className="center-vertically bg-red h-8 w-8 rounded-full grid place-content-center hover:bg-opacity-80 justify-self-end"
-                  onClick={deleteCategory}
+                  onClick={() => deleteCategory(category.id)}
                 >
                   <FaTrashAlt className="text-textHeadingColor text-base" />
                 </button>
