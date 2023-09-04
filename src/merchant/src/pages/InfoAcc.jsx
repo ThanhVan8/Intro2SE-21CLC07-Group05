@@ -91,7 +91,6 @@ const InfoAcc = () => {
     toast.success('Save successfully! Need to refresh page.', {
       autoClose: 3000,
     });
-	// console.log(imageURL)
   }
 
 	useEffect(() => {
