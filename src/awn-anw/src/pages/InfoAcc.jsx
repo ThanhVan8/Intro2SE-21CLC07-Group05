@@ -71,7 +71,7 @@ const InfoAcc = () => {
         <p className="font-serif text-3xl text-center font-semibold pb-5">
           MY ACCOUNT
         </p>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1">
           {/* Info */}
           <div className="grid gap-8 pr-5">
             <InfoField
