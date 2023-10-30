@@ -115,7 +115,7 @@ const OrderDetail = () => {
             {/* User info */}
             <div className="flex gap-8 bg-white border w-5/6 py-4 p-4 h-fit shadow-sm font-mono">
               {/* avatar */}
-              <div className="flex flex-col justify-center gap-2">
+              <div className="flex flex-col items-center justify-center gap-2">
                 <FaUserCircle className="text-4xl text-textColor" />
                 <p className="capitalize text-center font-semibold font-serif">
                   {user.Name}
