@@ -1,4 +1,4 @@
-# AWN-ANW -- FOOD DELIVERY WEB-APP
+# AWN-ANW -- FOOD ORDERING WEB-APP
 
 This is a project of the course *Introduction to Software Engineering* in our school.
 
@@ -11,7 +11,7 @@ Our team includes:
 
 ## I. Project description
 
-**Awn Anw** is a food delivery web app which allows HCMUS-students to easily order their favorite food and get it delivered to them in minutes. We cooperate with merchants to serve you with a wide range of great food.
+**Awn Anw** is a food ordering web app which allows HCMUS-students to easily order their favorite food and get it delivered to them in minutes. We cooperate with merchants to serve you with a wide range of great food.
 
 Students are usually so tired after some lessons that they don't want to go to stores by themselves to buy food. Therefore, there is a need for an application helping them have meals delivered to school immediately; and Awn Anw can meet that demand.
 
